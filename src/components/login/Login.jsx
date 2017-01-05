@@ -21,7 +21,6 @@ const Login = React.createClass({
       body: JSON.stringify({user})
     })
     .then((res) => {
-      console.log(res);
       res.json().then( json => console.log(json))
     })
     .catch((err) => {console.log('fetch err', err);})

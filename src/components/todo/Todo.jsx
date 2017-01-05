@@ -30,6 +30,7 @@ const Todo = React.createClass({
       if (todo.task !== task) {
         return todo
       }
+      return false
     })
     this.setState({todos: updatedTodos})
   },
