@@ -1,9 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { browserHistory, Router, Route } from 'react-router'
-// just some styles for the boys
-import 'materialize-css/bin/materialize.css'
-import 'materialize-css/bin/materialize.js'
 
 import './index.css';
 import App from './App';
