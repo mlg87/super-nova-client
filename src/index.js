@@ -3,8 +3,8 @@ import ReactDOM from 'react-dom'
 import { Router, Route, IndexRoute, browserHistory } from 'react-router'
 
 // just some styles for the boys
-import 'materialize-css/bin/materialize.css'
-import 'materialize-css/bin/materialize.js'
+// import 'materialize-css/bin/materialize.css'
+// import 'materialize-css/bin/materialize.js'
 
 import './override.css';
 // main layout (includes nav and where other layouts go)

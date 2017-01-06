@@ -1,72 +1,111 @@
 import React, { Component } from 'react'
-// import ReactDOM from 'react-dom'
-import { SideNavLink } from './SideNavLink'
+// routing
+import { Link } from 'react-router'
+// components
+import Drawer from 'material-ui/Drawer'
+import MenuItem from 'material-ui/MenuItem'
+// appearance
+import Radium from 'radium'
 import { colors } from '../../colors'
+import Person from 'material-ui/svg-icons/social/person'
+import PersonAdd from 'material-ui/svg-icons/social/person-add'
 
 export class Nav extends Component {
-  constructor(props) {
-    super(props)
-
-    this.state = {
-      mason: 'awesome'
-    }
-  }
-
-  // TODO: render different links based on user login status
   renderNavLinks() {
+    const iconWrapperStyle = {
+      margin: 'auto',
+      height: '40px',
+      width: '40px',
+      backgroundColor: 'white',
+      borderRadius: '100%'
+    }
+    // icons are svgs
+    const iconStyle = {
+      marginLeft: '10px',
+      marginTop: '10px'
+    }
+
     let links = [
       {
         path: '/login',
-        icon: 'Login'
+        icon: () => {
+          return (
+            <div style={ iconWrapperStyle }>
+              <Person style={ iconStyle }/>
+            </div>
+          )
+        }
       },
       {
         path: '/register',
-        icon: 'Register'
+        icon: () => {
+          return (
+            <div style={ iconWrapperStyle }>
+              <PersonAdd style={ iconStyle }/>
+            </div>
+          )
+        }
       }
     ]
 
+    const activeStyle = {
+      backgroundColor: colors.sideNavActiveLink,
+      display: 'block'
+    }
+
+    const menuItemStyle = {
+      paddingTop: '10px',
+      paddingBottom: '10px',
+      backgroundColor: 'inherit'
+    }
+
     return links.map((link) => {
-      return <SideNavLink path={ link.path } text={ link.text } />
+      return (
+        <Link to={ link.path } key={ link.path } activeStyle={ activeStyle }>
+          <MenuItem style={ menuItemStyle }>
+            { link.icon() }
+          </MenuItem>
+        </Link>
+      )
     })
 
   }
 
   render() {
-    const logoStyle = {
-      marginLeft: '10px'
-    }
-
     const sideNavStyle = {
+      width: '80px',
       backgroundColor: colors.sideNavBackground,
-      width: '80px'
+
+      linkContainer: {
+        marginTop: '80px'
+      }
     }
 
     const subSideNavStyle = {
+      marginLeft: '80px',
       backgroundColor: colors.subSideNavBackground,
-      // offset bc of the other sidenav
-      left: '80px',
-      width: '360px'
+      width: '280px',
+      boxShadow: 'none'
     }
 
     return (
       <div>
-        <ul className='side-nav fixed' style={ sideNavStyle }>
-          { this.renderNavLinks() }
-        </ul>
-        <ul className='side-nav fixed' style={ subSideNavStyle }>
-          <li>test</li>
-        </ul>
+        {/*
+          // drawer is docked by default
+          // style will not work on Drawer, must use containerStyle
+        */}
+        <Drawer containerStyle={ sideNavStyle }>
+          <div style={ sideNavStyle.linkContainer }>
+            { this.renderNavLinks() }
+          </div>
+        </Drawer>
+        <Drawer containerStyle={ subSideNavStyle }>
+          <div>test</div>
+        </Drawer>
       </div>
     )
   }
 
 }
 
-// <nav>
-//   <div className='nav-wrapper'>
-//     <Link to='/' className='brand-logo' style={ logoStyle }>SuperNova</Link>
-//     <ul className='right hide-on-med-and-down'>
-//       { this.renderNavLinks() }
-//     </ul>
-//   </div>
-// </nav>
+Nav = Radium(Nav)
