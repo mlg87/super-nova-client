@@ -17,11 +17,11 @@ export class Nav extends Component {
     let links = [
       {
         path: '/login',
-        text: 'Login'
+        icon: 'Login'
       },
       {
         path: '/register',
-        text: 'Register'
+        icon: 'Register'
       }
     ]
 
