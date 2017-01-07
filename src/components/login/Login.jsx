@@ -1,10 +1,23 @@
-import React from 'react';
+import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import fetch from 'isomorphic-fetch';
+// components
+import { FullPageForm } from '../../layouts/FullPageForm'
+// appearance
+import Radium from 'radium'
 
-const Login = React.createClass({
+export class Login extends Component {
+  constructor(props) {
+    super(props)
 
-  handleSubmit: function(e) {
+    this.state = {
+      username: '',
+      password: ''
+    }
+  }
+
+  // TODO: change this out to work with FullPageForm
+  handleSubmit(e) {
     e.preventDefault()
     const user = {}
     user.username = ReactDOM.findDOMNode(this.refs.username).value
@@ -27,27 +40,43 @@ const Login = React.createClass({
 
     ReactDOM.findDOMNode(this.refs.username).value = ""
     ReactDOM.findDOMNode(this.refs.password).value = ""
-  },
-
-
-  render: function() {
-    return(
-      <div className='row valign-wrapper'>
-        <div className='col s4 center-block'>
-          <h3>Login</h3>
-          <div>
-            <form onSubmit={this.handleSubmit}>
-              <input ref='username' type='text' name='username' placeholder='username'></input>
-              <input ref='password' type='text' name='password' placeholder='password'></input>
-              <button type='submit'>Login</button>
-            </form>
-          </div>
-        </div>
-      </div>)
   }
-})
 
+  getInputs() {
+    return [
+      {
+        value: this.state.username,
+        type: 'text',
+        placeholder: 'username',
+        onChange: (e) => this.setState({username: e.target.value})
+      },
+      {
+        value: this.state.password,
+        type: 'password',
+        placeholder: 'password',
+        onChange: (e) => this.setState({password: e.target.value})
+      }
+    ]
+  }
 
+  render() {
+    const containerStyle = {
+      width: '50%',
+      marginTop: '20px',
+      marginLeft: 'auto',
+      marginRight: 'auto'
+    }
 
+    return(
+      <div style={ containerStyle }>
+        <FullPageForm
+          header='Login'
+          onSubmit={ this.onSubmit }
+          inputs={ this.getInputs() }
+        />
+      </div>
+    )
+  }
+}
 
-export default Login;
+Login = Radium(Login)

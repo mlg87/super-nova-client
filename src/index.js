@@ -8,7 +8,7 @@ import './override.css';
 import AppLayout from './layouts/AppLayout'
 import { InventoryLayout } from './layouts/InventoryLayout'
 import { LandingLayout } from './layouts/LandingLayout'
-import Login from './components/login/Login'
+import { Login } from './components/login/Login'
 import Register from './components/register/Register'
 
 
