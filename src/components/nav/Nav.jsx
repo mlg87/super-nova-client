@@ -9,9 +9,20 @@ import FlatButton from 'material-ui/FlatButton'
 import Radium from 'radium'
 import { colors } from '../../colors'
 // side nav button icons
+// icon: login
 import Person from 'material-ui/svg-icons/social/person'
+// icon: register
 import PersonAdd from 'material-ui/svg-icons/social/person-add'
+// icon: WESTWORLD
 import TrackChanges from 'material-ui/svg-icons/action/track-changes'
+// icon: inventory
+import Landscape from 'material-ui/svg-icons/image/landscape'
+// icon: customers
+import TagFaces from 'material-ui/svg-icons/image/tag-faces'
+// icon: reservations
+import EventNote from 'material-ui/svg-icons/notification/event-note'
+// icon: users
+import Group from 'material-ui/svg-icons/social/group'
 
 export class Nav extends Component {
   renderNavLinks() {
@@ -26,7 +37,19 @@ export class Nav extends Component {
       },
       {
         path: '/inventory',
-        icon: () => <TrackChanges />
+        icon: () => <Landscape />
+      },
+      {
+        path: '/customers',
+        icon: () => <TagFaces />
+      },
+      {
+        path: '/reservations',
+        icon: () => <EventNote />
+      },
+      {
+        path: '/users',
+        icon: () => <Group />
       }
     ]
 

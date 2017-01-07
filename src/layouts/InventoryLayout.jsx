@@ -26,7 +26,7 @@ export class InventoryLayout extends Component {
 
     return (
       <Toolbar style={ searchBarStyle }>
-        <ToolbarGroup>
+        <ToolbarGroup style={ {width: '100%'} }>
           <Search />
           <TextField hintText='Search' style={ searchInputStyle } underlineShow={ false } />
         </ToolbarGroup>
