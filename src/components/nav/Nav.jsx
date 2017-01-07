@@ -2,69 +2,49 @@ import React, { Component } from 'react'
 // routing
 import { Link } from 'react-router'
 // components
+import { SubSideNav } from './SubSideNav'
 import Drawer from 'material-ui/Drawer'
-import MenuItem from 'material-ui/MenuItem'
+import FlatButton from 'material-ui/FlatButton'
 // appearance
 import Radium from 'radium'
 import { colors } from '../../colors'
+// side nav button icons
 import Person from 'material-ui/svg-icons/social/person'
 import PersonAdd from 'material-ui/svg-icons/social/person-add'
+import TrackChanges from 'material-ui/svg-icons/action/track-changes'
 
 export class Nav extends Component {
   renderNavLinks() {
-    const iconWrapperStyle = {
-      margin: 'auto',
-      height: '40px',
-      width: '40px',
-      backgroundColor: 'white',
-      borderRadius: '100%'
-    }
-    // icons are svgs
-    const iconStyle = {
-      marginLeft: '10px',
-      marginTop: '10px'
-    }
-
     let links = [
       {
         path: '/login',
-        icon: () => {
-          return (
-            <div style={ iconWrapperStyle }>
-              <Person style={ iconStyle }/>
-            </div>
-          )
-        }
+        icon: () => <Person />
       },
       {
         path: '/register',
-        icon: () => {
-          return (
-            <div style={ iconWrapperStyle }>
-              <PersonAdd style={ iconStyle }/>
-            </div>
-          )
-        }
+        icon: () => <PersonAdd />
+      },
+      {
+        path: '/inventory',
+        icon: () => <TrackChanges />
       }
     ]
 
     const activeStyle = {
-      backgroundColor: colors.sideNavActiveLink,
+      backgroundColor: colors.sideNav.activeLink,
       display: 'block'
     }
 
-    const menuItemStyle = {
-      paddingTop: '10px',
-      paddingBottom: '10px',
-      backgroundColor: 'inherit'
+    const buttonStyle = {
+      minWidth: '100%',
+      height: '80px',
+      color: 'white'
     }
 
     return links.map((link) => {
       return (
         <Link to={ link.path } key={ link.path } activeStyle={ activeStyle }>
-          <MenuItem style={ menuItemStyle }>
-            { link.icon() }
-          </MenuItem>
+          <FlatButton icon={ link.icon() } style={ buttonStyle }/>
         </Link>
       )
     })
@@ -74,7 +54,7 @@ export class Nav extends Component {
   render() {
     const sideNavStyle = {
       width: '80px',
-      backgroundColor: colors.sideNavBackground,
+      backgroundColor: colors.sideNav.background,
 
       linkContainer: {
         marginTop: '80px'
@@ -83,7 +63,7 @@ export class Nav extends Component {
 
     const subSideNavStyle = {
       marginLeft: '80px',
-      backgroundColor: colors.subSideNavBackground,
+      backgroundColor: colors.subSideNav.background,
       width: '280px',
       boxShadow: 'none'
     }
@@ -99,8 +79,11 @@ export class Nav extends Component {
             { this.renderNavLinks() }
           </div>
         </Drawer>
+        {/*
+          // this will not display when inside the other Drawer
+        */}
         <Drawer containerStyle={ subSideNavStyle }>
-          <div>test</div>
+          <SubSideNav header='Test Header'/>
         </Drawer>
       </div>
     )

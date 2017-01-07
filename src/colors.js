@@ -1,6 +1,18 @@
 export const colors = {
-  sideNavBackground: '#919191',
-  sideNavActiveLink: '#454545',
-  subSideNavBackground: '#454545',
-  blueAccent: '#4990e2'
+  sideNav: {
+    background: '#919191',
+    activeLink: '#454545'
+  },
+  subSideNav: {
+    background: '#454545'
+  },
+  main: {
+    background: '#d8d8d8'
+  },
+  utils: {
+    border: {
+      gray: '#dedede'
+    }
+  },
+  blue: '#4990e2'
 }
