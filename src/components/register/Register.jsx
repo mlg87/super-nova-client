@@ -82,6 +82,13 @@ export class Register extends Component {
     })
   }
 
+  resetSnackBar() {
+    this.setState({
+      isOpen: false,
+      errMsg: ''
+    })
+  }
+
 
   render() {
     const containerStyle = {
@@ -112,6 +119,7 @@ export class Register extends Component {
           autoHideDuration={ 4000 }
           bodyStyle={ errSnackBarStyle }
           contentStyle={ errSnackBarContentStyle }
+          onRequestClose={ this.resetSnackBar.bind(this) }
         />
       </div>
     )
