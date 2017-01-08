@@ -31,6 +31,11 @@ export class FullPageForm extends Component {
     })
   }
 
+  submitForm() {
+    console.log('running submit form');
+    this.props.onSubmit()
+  }
+
   render() {
     const submitStyle = {
       marginTop: '20px',
@@ -39,13 +44,14 @@ export class FullPageForm extends Component {
     return (
       <div>
         <h1>{ this.props.header }</h1>
-        <form onSubmit={ this.props.onSubmit }>
+        <form>
           { this.renderInputs() }
           <div>
             <RaisedButton
               label='Submit'
               style={ submitStyle }
               fullWidth={ true }
+              onClick={ this.submitForm.bind(this) }
             />
           </div>
         </form>

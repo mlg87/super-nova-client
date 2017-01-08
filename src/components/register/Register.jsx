@@ -1,21 +1,62 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import fetch from 'isomorphic-fetch';
+import React, { Component } from 'react'
+import ReactDOM from 'react-dom'
+import fetch from 'isomorphic-fetch'
+// components
+import { FullPageForm } from '../../layouts/FullPageForm'
+import Snackbar from 'material-ui/Snackbar'
+// appearance
+import Radium from 'radium'
 
-const Register = React.createClass({
 
-  handleSubmit: function(e) {
-    e.preventDefault()
+export class Register extends Component {
+  constructor(props) {
+    super(props)
 
-    const user = {}
-    let password_confirm = ReactDOM.findDOMNode(this.refs.password_confirm).value
-    user.username = ReactDOM.findDOMNode(this.refs.username).value
-    user.password = ReactDOM.findDOMNode(this.refs.password).value
+    this.state = {
+      username: '',
+      password: '',
+      password_confirm: '',
+      isOpen: false,
+      errMsg: ''
+    }
+  }
 
-    if (user.password !== password_confirm) {
-      console.log('passwords don\'t match')
-      // we'll handle this better in the future playerz
-      return
+  getInputs() {
+    return [
+      {
+        value: this.state.username,
+        type: 'text',
+        placeholder: 'Username',
+        onChange: (e) => this.setState({username: e.target.value})
+      },
+      {
+        value: this.state.password,
+        type: 'password',
+        placeholder: 'Password',
+        onChange: (e) => this.setState({password: e.target.value})
+      },
+      {
+        value: this.state.password_confirm,
+        type: 'password',
+        placeholder: 'Confirm Password',
+        onChange: (e) => this.setState({password_confirm: e.target.value})
+      }
+    ]
+  }
+
+  handleSubmit() {
+    const user = {
+      username: this.state.username,
+      password: this.state.password,
+      password_confirm: this.state.password_confirm
+    }
+
+    if (user.password !== user.password_confirm) {
+      this.setState({
+        isOpen: true,
+        errMsg: 'Passwords do not match'
+      })
+      return false
     }
 
     let data = new FormData(JSON.stringify({user}));
@@ -34,31 +75,48 @@ const Register = React.createClass({
     })
     .catch((err) => {console.log('fetch err:', err);})
 
-    ReactDOM.findDOMNode(this.refs.username).value = ""
-    ReactDOM.findDOMNode(this.refs.password).value = ""
-    ReactDOM.findDOMNode(this.refs.password_confirm).value = ""
-  },
-
-
-  render: function() {
-    return(
-      <div className='row valign-wrapper'>
-        <div className='col s4 center-block'>
-          <h3>Register</h3>
-          <div>
-            <form onSubmit={this.handleSubmit}>
-              <input ref='username' type='text' name='username' placeholder='username'></input>
-              <input ref='password' type='text' name='password' placeholder='password'></input>
-              <input ref='password_confirm' type='text' name='password_confirm' placeholder='confirm password'></input>
-              <button type='submit'>Register</button>
-            </form>
-          </div>
-        </div>
-      </div>)
+    this.setState({
+      username: '',
+      password: '',
+      password_confirm: ''
+    })
   }
-})
 
 
+  render() {
+    const containerStyle = {
+      width: '50%',
+      marginTop: '20px',
+      marginLeft: 'auto',
+      marginRight: 'auto'
+    }
 
+    const errSnackBarStyle = {
+      backgroundColor: 'red'
+    }
 
-export default Register;
+    const errSnackBarContentStyle = {
+      color: 'white'
+    }
+
+    return (
+      <div style={ containerStyle }>
+        <FullPageForm
+          header='Register'
+          onSubmit={ this.handleSubmit.bind(this) }
+          inputs={ this.getInputs() }
+        />
+        <Snackbar
+          open={ this.state.isOpen }
+          message={ this.state.errMsg }
+          autoHideDuration={ 4000 }
+          bodyStyle={ errSnackBarStyle }
+          contentStyle={ errSnackBarContentStyle }
+        />
+      </div>
+    )
+  }
+}
+
+Register = Radium(Register
+)

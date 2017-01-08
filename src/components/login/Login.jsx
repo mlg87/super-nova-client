@@ -16,12 +16,13 @@ export class Login extends Component {
     }
   }
 
-  // TODO: change this out to work with FullPageForm
-  handleSubmit(e) {
-    e.preventDefault()
-    const user = {}
-    user.username = ReactDOM.findDOMNode(this.refs.username).value
-    user.password = ReactDOM.findDOMNode(this.refs.password).value
+  // no need to e.preventDefault b/c event is on button onClick
+  // not form onSubmit (button type)
+  handleSubmit() {
+    const user = {
+      username: this.state.username,
+      password: this.state.password
+    }
     let data = new FormData(JSON.stringify({user}));
     data.append('json', JSON.stringify({user}));
 
@@ -34,12 +35,18 @@ export class Login extends Component {
       body: JSON.stringify({user})
     })
     .then((res) => {
-      res.json().then( json => console.log(json))
+      // not catching an err
+      res.json().then( json => console.log('res', json))
     })
-    .catch((err) => {console.log('fetch err', err);})
+    .catch((err) => {
+      console.log('fetch err', err)
+      return false
+    })
 
-    ReactDOM.findDOMNode(this.refs.username).value = ""
-    ReactDOM.findDOMNode(this.refs.password).value = ""
+    this.setState({
+      username: '',
+      password: ''
+    })
   }
 
   getInputs() {
@@ -71,7 +78,7 @@ export class Login extends Component {
       <div style={ containerStyle }>
         <FullPageForm
           header='Login'
-          onSubmit={ this.onSubmit }
+          onSubmit={ this.handleSubmit.bind(this) }
           inputs={ this.getInputs() }
         />
       </div>
