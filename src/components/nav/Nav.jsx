@@ -67,7 +67,7 @@ export class Nav extends Component {
     return links.map((link) => {
       return (
         <Link to={ link.path } key={ link.path } activeStyle={ activeStyle }>
-          <FlatButton icon={ link.icon() } style={ buttonStyle }/>
+          <FlatButton icon={ link.icon() } style={ buttonStyle } hoverColor={ colors.blue }/>
         </Link>
       )
     })
