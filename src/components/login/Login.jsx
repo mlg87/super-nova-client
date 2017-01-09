@@ -1,14 +1,31 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
+import React, { Component } from 'react';
 import fetch from 'isomorphic-fetch';
+// components
+import { FullPageForm } from '../../layouts/FullPageForm'
+// appearance
+import Radium from 'radium'
 
-const Login = React.createClass({
+export class Login extends Component {
+  constructor(props) {
+    super(props)
 
-  handleSubmit: function(e) {
-    e.preventDefault()
-    const user = {}
-    user.username = ReactDOM.findDOMNode(this.refs.username).value
-    user.password = ReactDOM.findDOMNode(this.refs.password).value
+    this.state = {
+      username: '',
+      password: ''
+    }
+  }
+
+  componentWillMount() {
+    console.log('MOUNTING LOGIN (PROPS)', this.props);
+  }
+
+  // no need to e.preventDefault b/c event is on button onClick
+  // not form onSubmit (button type)
+  handleSubmit() {
+    const user = {
+      username: this.state.username,
+      password: this.state.password
+    }
     let data = new FormData(JSON.stringify({user}));
     data.append('json', JSON.stringify({user}));
 
@@ -21,33 +38,58 @@ const Login = React.createClass({
       body: JSON.stringify({user})
     })
     .then((res) => {
-      res.json().then( json => console.log(json))
+      // not catching an err
+      res.json().then( json => {
+        console.log('res', json)
+        localStorage.setItem('token', json.token);
+      })
     })
-    .catch((err) => {console.log('fetch err', err);})
+    .catch((err) => {
+      console.log('fetch err', err)
+      return false
+    })
 
-    ReactDOM.findDOMNode(this.refs.username).value = ""
-    ReactDOM.findDOMNode(this.refs.password).value = ""
-  },
-
-
-  render: function() {
-    return(
-      <div className='row valign-wrapper'>
-        <div className='col s4 center-block'>
-          <h3>Login</h3>
-          <div>
-            <form onSubmit={this.handleSubmit}>
-              <input ref='username' type='text' name='username' placeholder='username'></input>
-              <input ref='password' type='text' name='password' placeholder='password'></input>
-              <button type='submit'>Login</button>
-            </form>
-          </div>
-        </div>
-      </div>)
+    this.setState({
+      username: '',
+      password: ''
+    })
   }
-})
 
+  getInputs() {
+    return [
+      {
+        value: this.state.username,
+        type: 'text',
+        placeholder: 'Username',
+        onChange: (e) => this.setState({username: e.target.value})
+      },
+      {
+        value: this.state.password,
+        type: 'password',
+        placeholder: 'Password',
+        onChange: (e) => this.setState({password: e.target.value})
+      }
+    ]
+  }
 
+  render() {
+    const containerStyle = {
+      width: '50%',
+      marginTop: '20px',
+      marginLeft: 'auto',
+      marginRight: 'auto'
+    }
 
+    return(
+      <div style={ containerStyle }>
+        <FullPageForm
+          header='Login'
+          onSubmit={ this.handleSubmit.bind(this) }
+          inputs={ this.getInputs() }
+        />
+      </div>
+    )
+  }
+}
 
-export default Login;
+Login = Radium(Login)
