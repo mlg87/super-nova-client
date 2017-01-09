@@ -28,17 +28,9 @@ ReactDOM.render(
     <Route
       path='/'
       component={ AppLayout }
-      onEnter={() => {
-        console.log('sup girlie');
-      }}
     >
       <IndexRoute
         component={ LandingLayout }
-        isSubSideNavOpen={ false }
-      />
-      <Route
-        path='/login'
-        component={ Login }
         isSubSideNavOpen={ false }
       />
       <Route
@@ -99,3 +91,12 @@ ReactDOM.render(
   </Router>,
   document.getElementById('root')
 );
+
+// {/*
+//   // login needs to be outside of the main / route
+// */}
+// <Route
+//   path='/login'
+//   component={ Login }
+//   isSubSideNavOpen={ false }
+// />
