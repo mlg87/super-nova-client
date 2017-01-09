@@ -39,7 +39,10 @@ export class Login extends Component {
     })
     .then((res) => {
       // not catching an err
-      res.json().then( json => console.log('res', json))
+      res.json().then( json => {
+        console.log('res', json)
+        localStorage.setItem('token', json.token);
+      })
     })
     .catch((err) => {
       console.log('fetch err', err)
