@@ -10,6 +10,7 @@ import { InventoryLayout } from './layouts/InventoryLayout'
 import { LandingLayout } from './layouts/LandingLayout'
 import { Login } from './components/login/Login'
 import { Register } from './components/register/Register'
+import { CurrentUser } from './components/currentUser/CurrentUser'
 
 
 ReactDOM.render(
@@ -19,6 +20,7 @@ ReactDOM.render(
       <Route path='/login' component={ Login }/>
       <Route path='/register' component={ Register }/>
       <Route path='/inventory' component={ InventoryLayout }/>
+      <Route path='/current_user' component={ CurrentUser }/>
       <Route path='*' component={ Login }/>
     </Route>
   </Router>,
