@@ -5,20 +5,10 @@ import { Link } from 'react-router'
 import MenuItem from 'material-ui/MenuItem'
 // appearance
 import Radium from 'radium'
-import { colors } from '../../colors'
 
 export class SubSideNav extends Component {
   renderLinks() {
-    let links = [
-      {
-        path: '/test',
-        text: 'Test'
-      },
-      {
-        path: '/test2',
-        text: 'Test2'
-      }
-    ]
+    const links = this.props.links
 
     const activeStyle = {
       backgroundColor: 'black',
@@ -31,7 +21,7 @@ export class SubSideNav extends Component {
 
     return links.map((link) => {
       return (
-        <Link to={ link.path } activeStyle={ activeStyle }>
+        <Link to={ link.path } activeStyle={ activeStyle } key={ link.path }>
           <MenuItem style={ linkStyle }>
             { link.text }
           </MenuItem>

@@ -14,7 +14,7 @@ import Person from 'material-ui/svg-icons/social/person'
 // icon: register
 import PersonAdd from 'material-ui/svg-icons/social/person-add'
 // icon: WESTWORLD
-import TrackChanges from 'material-ui/svg-icons/action/track-changes'
+// import TrackChanges from 'material-ui/svg-icons/action/track-changes'
 // icon: inventory
 import Landscape from 'material-ui/svg-icons/image/landscape'
 // icon: customers
@@ -29,26 +29,32 @@ export class Nav extends Component {
     let links = [
       {
         path: '/login',
+        tooltip: 'Login',
         icon: () => <Person />
       },
       {
         path: '/register',
+        tooltip: 'Register',
         icon: () => <PersonAdd />
       },
       {
         path: '/inventory',
+        tooltip: 'Inventory',
         icon: () => <Landscape />
       },
       {
         path: '/customers',
+        tooltip: 'Customers',
         icon: () => <TagFaces />
       },
       {
         path: '/reservations',
+        tooltip: 'Reservations',
         icon: () => <EventNote />
       },
       {
         path: '/users',
+        tooltip: 'Users',
         icon: () => <Group />
       }
     ]
@@ -66,8 +72,16 @@ export class Nav extends Component {
 
     return links.map((link) => {
       return (
-        <Link to={ link.path } key={ link.path } activeStyle={ activeStyle }>
-          <FlatButton icon={ link.icon() } style={ buttonStyle } hoverColor={ colors.blue }/>
+        <Link
+          to={ link.path }
+          key={ link.path }
+          activeStyle={ activeStyle }
+        >
+          <FlatButton
+            icon={ link.icon() }
+            style={ buttonStyle }
+            hoverColor={ colors.blue }
+          />
         </Link>
       )
     })
@@ -75,6 +89,8 @@ export class Nav extends Component {
   }
 
   render() {
+    const routeProps = this.props.routeProps
+
     const sideNavStyle = {
       width: '80px',
       backgroundColor: colors.sideNav.background,
@@ -84,11 +100,25 @@ export class Nav extends Component {
       }
     }
 
+    // this needs to always be defined bc otherwise the
+    // subSideNav will not have the sliding effect (only
+    // works if it is already rendered on the dom)
     const subSideNavStyle = {
-      marginLeft: '80px',
+      marginLeft: (routeProps.isSubSideNavOpen ? '80px' : '0'),
       backgroundColor: colors.subSideNav.background,
       width: '280px',
-      boxShadow: 'none'
+      // boxShadow: 'none',
+      zIndex: '2'
+      // display: (this.props.isSubSideNavOpen ? 'block' : 'none')
+    }
+
+    // this needs to be defined but an empty string as
+    // to not throw errs
+    let subSideNavHeader = null
+    let subSideNavLinks = null
+    if (routeProps.subSideNavHeader && routeProps.subSideNavLinks) {
+      subSideNavHeader = routeProps.subSideNavHeader
+      subSideNavLinks = routeProps.subSideNavLinks
     }
 
     return (
@@ -103,10 +133,18 @@ export class Nav extends Component {
           </div>
         </Drawer>
         {/*
-          // this will not display when inside the other Drawer
+          // this will not display when a child of the other Drawer
         */}
-        <Drawer containerStyle={ subSideNavStyle }>
-          <SubSideNav header='Test Header'/>
+        <Drawer
+          containerStyle={ subSideNavStyle }
+          open={ routeProps.isSubSideNavOpen }
+        >
+        { routeProps.isSubSideNavOpen &&
+          <SubSideNav
+            header={ subSideNavHeader }
+            links={ subSideNavLinks }
+          />
+        }
         </Drawer>
       </div>
     )

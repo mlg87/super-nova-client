@@ -26,6 +26,7 @@ export class FullPageForm extends Component {
           floatingLabelShrinkStyle={ floatingLabelShrinkStyle }
           underlineFocusStyle={ underlineFocusStyle }
           fullWidth={ true }
+          key={ input.placeholder }
         />
       )
     })

@@ -1,6 +1,5 @@
-import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
-import fetch from 'isomorphic-fetch';
+import React, { Component } from 'react'
+import fetch from 'isomorphic-fetch'
 // components
 import RaisedButton from 'material-ui/RaisedButton'
 
@@ -29,6 +28,7 @@ export class CurrentUser extends Component {
         }
       })
       .then((res) => {
+        console.log('what is res', res);
         res.json().then( (json) => {
           this.setState({
             message: 'You have a valid token in local storage',
@@ -69,5 +69,6 @@ export class CurrentUser extends Component {
       </div>
     )
   }
+}
 
-};
+CurrentUser = Radium(CurrentUser)

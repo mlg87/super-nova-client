@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 // components
-import {Toolbar, ToolbarGroup, ToolbarSeparator, ToolbarTitle} from 'material-ui/Toolbar'
+import {Toolbar, ToolbarGroup} from 'material-ui/Toolbar'
 import TextField from 'material-ui/TextField'
 import Search from 'material-ui/svg-icons/action/search'
 // appearance
@@ -15,22 +15,23 @@ export class InventoryLayout extends Component {
       borderBottom: '1px solid ' + colors.utils.border.gray
     }
 
-    const searchIconWrapperStyle = {
-      height: '100%'
-    }
-
     const searchInputStyle = {
       marginLeft: '10px',
       width: '100%'
     }
 
     return (
-      <Toolbar style={ searchBarStyle }>
-        <ToolbarGroup style={ {width: '100%'} }>
-          <Search />
-          <TextField hintText='Search' style={ searchInputStyle } underlineShow={ false } />
-        </ToolbarGroup>
-      </Toolbar>
+      <div>
+        <Toolbar style={ searchBarStyle }>
+          <ToolbarGroup style={ {width: '100%'} }>
+            <Search />
+            <TextField hintText='Search' style={ searchInputStyle } underlineShow={ false } />
+          </ToolbarGroup>
+        </Toolbar>
+        <div>
+          { this.props.children }
+        </div>
+      </div>
     )
   }
 }

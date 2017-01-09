@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
 import fetch from 'isomorphic-fetch';
 // components
 import { FullPageForm } from '../../layouts/FullPageForm'
@@ -14,6 +13,10 @@ export class Login extends Component {
       username: '',
       password: ''
     }
+  }
+
+  componentWillMount() {
+    console.log('MOUNTING LOGIN (PROPS)', this.props);
   }
 
   // no need to e.preventDefault b/c event is on button onClick
@@ -57,13 +60,13 @@ export class Login extends Component {
       {
         value: this.state.username,
         type: 'text',
-        placeholder: 'username',
+        placeholder: 'Username',
         onChange: (e) => this.setState({username: e.target.value})
       },
       {
         value: this.state.password,
         type: 'password',
-        placeholder: 'password',
+        placeholder: 'Password',
         onChange: (e) => this.setState({password: e.target.value})
       }
     ]
