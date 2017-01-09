@@ -3,25 +3,21 @@ import React from 'react'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 // needed for touch devices
 import injectTapEventPlugin from 'react-tap-event-plugin'
-import { Nav } from '../components/nav/Nav'
+import { Shell } from '../Shell'
 
 // init the touch event handler
 injectTapEventPlugin()
 
 // ok for this to be stateless
+// the Shell component allows us to access the Route props
+// in the Nav component (allowing us to display the subSideNav
+// or not). this was the best solution i could come up with
+// short of changing the app over to redux :/ -mg
 const AppLayout = ({children}) => {
-  const containerStyle = {
-    // sum of sideNav and subSideNav widths
-    marginLeft: '360px'
-  }
-
   return (
     <MuiThemeProvider >
       <div>
-        <Nav />
-        <div className="container" style={ containerStyle }>
-          { children }
-        </div>
+        <Shell children={ children }/>
       </div>
     </MuiThemeProvider>
   )
