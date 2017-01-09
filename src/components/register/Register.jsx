@@ -71,7 +71,10 @@ export class Register extends Component {
       body: JSON.stringify({user})
     })
     .then((res) => {
-      res.json().then( json => console.log('fetch res:', json))
+      res.json().then( json => {
+        console.log('fetch res:', json);
+        localStorage.setItem('token', json.token);
+      })
     })
     .catch((err) => {console.log('fetch err:', err);})
 
