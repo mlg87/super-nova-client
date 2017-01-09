@@ -19,8 +19,6 @@ export class CurrentUser extends Component {
   }
 
   handleClick() {
-
-    console.log(this.setState);
     let token = localStorage.getItem('token')
 
     if (token) {
@@ -32,17 +30,16 @@ export class CurrentUser extends Component {
       })
       .then((res) => {
         res.json().then( (json) => {
-          let data = json.data
           this.setState({
             message: 'You have a valid token in local storage',
-            username: data.username,
-            userId: data.id
+            username: json.data.username,
+            userId: json.data.id
           })
         })
       })
       .catch((err) => {console.log('fetch err:', err);})
     } else {
-      this.setState({message: 'Log in first'})
+      this.setState({message: 'You must log in first'})
     }
   }
 
