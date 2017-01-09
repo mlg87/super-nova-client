@@ -12,6 +12,7 @@ export class CurrentUser extends Component {
     super(props)
 
     this.state = {
+      message: '',
       username: '',
       userId: '',
     }
@@ -21,22 +22,28 @@ export class CurrentUser extends Component {
 
     console.log(this.setState);
     let token = localStorage.getItem('token')
-    fetch('/auth/current_user', {
-      method: 'get',
-      headers: {
-        'Authorization': 'Bearer ' + token
-      }
-    })
-    .then((res) => {
-      res.json().then( (json) => {
-        let data = json.data
-        this.setState({
-          username: data.username,
-          userId: data.id
+
+    if (token) {
+      fetch('/auth/current_user', {
+        method: 'get',
+        headers: {
+          'Authorization': 'Bearer ' + token
+        }
+      })
+      .then((res) => {
+        res.json().then( (json) => {
+          let data = json.data
+          this.setState({
+            message: 'You have a valid token in local storage',
+            username: data.username,
+            userId: data.id
+          })
         })
       })
-    })
-    .catch((err) => {console.log('fetch err:', err);})
+      .catch((err) => {console.log('fetch err:', err);})
+    } else {
+      this.setState({message: 'Log in first'})
+    }
   }
 
   render() {
@@ -50,15 +57,18 @@ export class CurrentUser extends Component {
     let userInfo = null;
     if (this.state.username) {
       userInfo = <div>
-        <h3>Username: {this.state.username}</h3>
-        <h3>User Id: {this.state.userId}</h3>
-      </div>
+          <h3>username: {this.state.username}</h3>
+          <h3>User Id: {this.state.userId}</h3>
+        </div>
+    } else {
+
     }
 
     return (
       <div style={containerStyle}>
         <RaisedButton onClick={ this.handleClick.bind(this) }>Get Current User</RaisedButton>
-        { userInfo }
+        <div><h3>{ this.state.message }</h3></div>
+        <div>{ userInfo }</div>
       </div>
     )
   }
