@@ -143,7 +143,7 @@ export class Nav extends Component {
           <SubSideNav
             header={ subSideNavHeader }
             links={ subSideNavLinks }
-            />
+          />
         }
         </Drawer>
       </div>
