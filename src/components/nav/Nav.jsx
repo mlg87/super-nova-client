@@ -29,26 +29,32 @@ export class Nav extends Component {
     let links = [
       {
         path: '/login',
+        tooltip: 'Login',
         icon: () => <Person />
       },
       {
         path: '/register',
+        tooltip: 'Register',
         icon: () => <PersonAdd />
       },
       {
         path: '/inventory',
+        tooltip: 'Inventory',
         icon: () => <Landscape />
       },
       {
         path: '/customers',
+        tooltip: 'Customers',
         icon: () => <TagFaces />
       },
       {
         path: '/reservations',
+        tooltip: 'Reservations',
         icon: () => <EventNote />
       },
       {
         path: '/users',
+        tooltip: 'Users',
         icon: () => <Group />
       }
     ]
@@ -66,8 +72,16 @@ export class Nav extends Component {
 
     return links.map((link) => {
       return (
-        <Link to={ link.path } key={ link.path } activeStyle={ activeStyle }>
-          <FlatButton icon={ link.icon() } style={ buttonStyle } hoverColor={ colors.blue }/>
+        <Link
+          to={ link.path }
+          key={ link.path }
+          activeStyle={ activeStyle }
+        >
+          <FlatButton
+            icon={ link.icon() }
+            style={ buttonStyle }
+            hoverColor={ colors.blue }
+          />
         </Link>
       )
     })
