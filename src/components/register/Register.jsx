@@ -61,7 +61,6 @@ export class Register extends Component {
     let data = new FormData(JSON.stringify({user}));
     data.append('json', JSON.stringify({user}));
 
-    console.log(process.env.npm_config_proxy);
     fetch('/auth/register', {
       method: 'post',
       credentials: 'include', //pass cookies, for authentication
