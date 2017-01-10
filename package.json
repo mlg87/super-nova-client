@@ -3,7 +3,7 @@
   "version": "0.0.2",
   "private": true,
   "description": "The client side of super nova",
-  "proxy": "http://localhost:3001",
+  "proxy": "http://super-nova-server-dev.nvabmzt9vd.us-west-2.elasticbeanstalk.com/",
   "devDependencies": {
     "react-scripts": "0.8.4"
   },
