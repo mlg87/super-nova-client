@@ -40,8 +40,11 @@ export class Login extends Component {
     .then((res) => {
       // not catching an err
       res.json().then( json => {
-        console.log('res', json)
-        localStorage.setItem('token', json.token);
+        localStorage.setItem('token', json.token)
+        // HACK: router.go method comes from parent, we use
+        // it here to navigate the user to their desired path
+        // after a successful login
+        this.props.routeGo(this.props.desiredRoute)
       })
     })
     .catch((err) => {
@@ -74,8 +77,8 @@ export class Login extends Component {
 
   render() {
     const containerStyle = {
-      width: '50%',
-      marginTop: '20px',
+      width: '30%',
+      marginTop: '100px',
       marginLeft: 'auto',
       marginRight: 'auto'
     }
