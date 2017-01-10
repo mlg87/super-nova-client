@@ -111,7 +111,7 @@ export class Register extends Component {
     return (
       <div style={ containerStyle }>
         <FullPageForm
-          header='Register'
+          header='Register a New User'
           onSubmit={ this.handleSubmit.bind(this) }
           inputs={ this.getInputs() }
         />

@@ -9,12 +9,6 @@ import FlatButton from 'material-ui/FlatButton'
 import Radium from 'radium'
 import { colors } from '../../colors'
 // side nav button icons
-// icon: login
-import Person from 'material-ui/svg-icons/social/person'
-// icon: register
-import PersonAdd from 'material-ui/svg-icons/social/person-add'
-// icon: WESTWORLD
-// import TrackChanges from 'material-ui/svg-icons/action/track-changes'
 // icon: inventory
 import Landscape from 'material-ui/svg-icons/image/landscape'
 // icon: customers
@@ -27,16 +21,6 @@ import Group from 'material-ui/svg-icons/social/group'
 export class Nav extends Component {
   renderNavLinks() {
     let links = [
-      {
-        path: '/login',
-        tooltip: 'Login',
-        icon: () => <Person />
-      },
-      {
-        path: '/register',
-        tooltip: 'Register',
-        icon: () => <PersonAdd />
-      },
       {
         path: '/inventory',
         tooltip: 'Inventory',

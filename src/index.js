@@ -14,17 +14,13 @@ import { UnderConstruction } from './layouts/UnderConstruction'
 import { NotFound } from './layouts/NotFound'
 import { InventoryLayout } from './layouts/InventoryLayout'
 import { LandingLayout } from './layouts/LandingLayout'
-import { Login } from './components/login/Login'
+import { UsersLayout } from './layouts/UsersLayout'
 import { Register } from './components/register/Register'
 import { CurrentUser } from './components/currentUser/CurrentUser'
 
 
 ReactDOM.render(
   <Router history={ browserHistory }>
-    {/*
-      // check to see that a user is logged in when they
-      // enter the app. if not, redirect to the login view
-    */}
     <Route
       path='/'
       component={ AppLayout }
@@ -74,9 +70,16 @@ ReactDOM.render(
       />
       <Route
         path='/users'
-        component={ UnderConstruction }
-        isSubSideNavOpen={ false }
-      />
+        component={ UsersLayout }
+        isSubSideNavOpen={ true }
+        subSideNavHeader='Users'
+        subSideNavLinks={ subSideNavLinks.users }
+      >
+        <Route
+          path='/users/add'
+          component={ Register }
+        />
+      </Route>
       <Route
         path='/current_user'
         component={ CurrentUser }

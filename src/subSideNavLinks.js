@@ -16,5 +16,11 @@ export const subSideNavLinks = {
       path: '/inventory/settings',
       text: 'Settings'
     }
+  ],
+  users: [
+    {
+      path: '/users/add',
+      text: 'Add User'
+    }
   ]
 }

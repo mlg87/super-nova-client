@@ -4,15 +4,13 @@ import fetch from 'isomorphic-fetch'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 // needed for touch devices
 import injectTapEventPlugin from 'react-tap-event-plugin'
+// components
 import { Login } from '../components/login/Login'
 import { Shell } from '../Shell'
+import { FullPageLoading } from './FullPageLoading'
 
 // init the touch event handler
 injectTapEventPlugin()
-
-const isUserLoggedIn = () => {
-
-}
 
 // the Shell component allows us to access the Route props
 // in the Nav component (allowing us to display the subSideNav
@@ -23,11 +21,16 @@ export default class AppLayout extends Component {
     super(props)
 
     this.state = {
+      isLoading: true,
       isUserLoggedIn: false
     }
   }
 
   componentWillMount() {
+    console.log('the props', this.props);
+
+    // check to see if a user is logged in before they can
+    // access the app
     let token = localStorage.getItem('token')
     if (token) {
       fetch('/auth/current_user', {
@@ -38,24 +41,41 @@ export default class AppLayout extends Component {
       })
       .then((res) => {
         // user has a legit token, they may proceed
-        this.setState({isUserLoggedIn: true})
+        this.setState({
+          isLoading: false,
+          isUserLoggedIn: true
+        })
       })
       .catch((err) => {
         // they have a token, but its expired
-        this.setState({isUserLoggedIn: false})
+        this.setState({
+          isLoading: false,
+          isUserLoggedIn: false
+        })
       })
     } else {
       // no token, so they must log in
-      this.setState({isUserLoggedIn: false})
+      this.setState({
+        isLoading: false,
+        isUserLoggedIn: false
+      })
     }
   }
 
   render() {
+    const desiredRoute = this.props.children.props.route.path
+    const routeGo = this.props.router.go
+
     return (
       <MuiThemeProvider >
-        { this.state.isUserLoggedIn ?
-          <Shell children={ this.props.children }/> :
-          <Login />
+        { this.state.isLoading ?
+          <FullPageLoading /> :
+          <div>
+            { this.state.isUserLoggedIn ?
+              <Shell children={ this.props.children }/> :
+              <Login desiredRoute={ desiredRoute} routeGo={ routeGo} />
+            }
+          </div>
         }
       </MuiThemeProvider>
     )
