@@ -27,8 +27,6 @@ export default class AppLayout extends Component {
   }
 
   componentWillMount() {
-    console.log('the props', this.props);
-
     // check to see if a user is logged in before they can
     // access the app
     let token = localStorage.getItem('token')

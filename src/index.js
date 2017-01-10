@@ -93,13 +93,4 @@ ReactDOM.render(
     </Route>
   </Router>,
   document.getElementById('root')
-);
-
-// {/*
-//   // login needs to be outside of the main / route
-// */}
-// <Route
-//   path='/login'
-//   component={ Login }
-//   isSubSideNavOpen={ false }
-// />
+)
