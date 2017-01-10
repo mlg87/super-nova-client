@@ -9,10 +9,9 @@ import { Login } from '../components/login/Login'
 import { Shell } from '../Shell'
 import { FullPageLoading } from './FullPageLoading'
 
-// NOTE: if we want to support mobile, comment this back in
-// (material-ui needs it so it can work on mobile)
-// init the touch event handler
-// injectTapEventPlugin()
+// init the touch event handler (needed for material-ui, also prevents
+// console errs)
+injectTapEventPlugin()
 
 // the Shell component allows us to access the Route props
 // in the Nav component (allowing us to display the subSideNav
