@@ -2,7 +2,6 @@
   "name": "super-nova-client",
   "version": "0.0.2",
   "private": true,
-  "proxy": "http://localhost:3001",
   "description": "The client side of super nova",
   "devDependencies": {
     "react-scripts": "0.8.4"
