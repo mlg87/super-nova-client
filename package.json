@@ -2,14 +2,14 @@
   "name": "super-nova-client",
   "version": "0.0.2",
   "private": true,
-  "proxy": "http://super-nova-server-dev.nvabmzt9vd.us-west-2.elasticbeanstalk.com/",
+  "proxy": "http://localhost:3001",
   "description": "The client side of super nova",
   "devDependencies": {
     "react-scripts": "0.8.4"
   },
   "dependencies": {
     "express": "^4.14.0",
-    "http-proxy": "^1.16.2",
+    "express-http-proxy": "^0.10.1",
     "isomorphic-fetch": "^2.2.1",
     "material-ui": "^0.16.6",
     "path": "^0.12.7",

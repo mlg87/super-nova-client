@@ -32,7 +32,7 @@ export default class AppLayout extends Component {
     // access the app
     let token = localStorage.getItem('token')
     if (token) {
-      fetch('/auth/current_user', {
+      fetch('/api/auth/current_user', {
         method: 'get',
         headers: {
           'Authorization': 'Bearer ' + token
