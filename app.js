@@ -11,7 +11,6 @@ app.use(express.static('./build'))
 app.use('/api', proxy(process.env.BACKEND_ADDR || 'http://localhost:3001'))
 
 app.get('/*', function (req, res) {
-  console.log(req.headers);
   res.sendFile(path.join(__dirname, './build', 'index.html'))
 })
 
