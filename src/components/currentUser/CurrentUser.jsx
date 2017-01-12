@@ -21,7 +21,6 @@ export class CurrentUser extends Component {
     let token = localStorage.getItem('token')
 
     if (token) {
-      console.log(token);
       fetch('/api/auth/current_user', {
         method: 'get',
         headers: {
