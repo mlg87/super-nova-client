@@ -9,7 +9,8 @@ import { subSideNavLinks } from './subSideNavLinks'
 // just some styles for the boys
 import './override.css';
 // main layout (includes nav and where other layouts go)
-import AppLayout from './layouts/AppLayout'
+import { AppLayout } from './layouts/AppLayout'
+import { Reservations } from './layouts/Reservations'
 import { UnderConstruction } from './layouts/UnderConstruction'
 import { NotFound } from './layouts/NotFound'
 import { InventoryLayout } from './layouts/InventoryLayout'
@@ -65,7 +66,7 @@ ReactDOM.render(
       />
       <Route
         path='/reservations'
-        component={ UnderConstruction }
+        component={ Reservations }
         isSubSideNavOpen={ false }
       />
       <Route

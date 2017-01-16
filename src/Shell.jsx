@@ -7,7 +7,8 @@ export class Shell extends Component {
 
     const containerStyle = {
       // sum of sideNav and subSideNav widths
-      marginLeft: (routeProps.isSubSideNavOpen ? '360px' : '80px')
+      marginLeft: (routeProps.isSubSideNavOpen ? '360px' : '80px'),
+      height: '100vh'
     }
 
     return (

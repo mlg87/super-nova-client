@@ -17,7 +17,7 @@ injectTapEventPlugin()
 // in the Nav component (allowing us to display the subSideNav
 // or not). this was the best solution i could come up with
 // short of changing the app over to redux :/ -mg
-export default class AppLayout extends Component {
+export class AppLayout extends Component {
   constructor(props) {
     super(props)
 
@@ -72,7 +72,7 @@ export default class AppLayout extends Component {
           <div>
             { this.state.isUserLoggedIn ?
               <Shell children={ this.props.children }/> :
-              <Login desiredRoute={ desiredRoute} routeGo={ routeGo} />
+              <Login desiredRoute={ desiredRoute} routeGo={ routeGo } />
             }
           </div>
         }
