@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 // routing
 import { Link } from 'react-router'
 // components
-import { SubSideNav } from 'nav/SubSideNav'
+import { SubSideNav } from 'components/nav/SubSideNav'
 import Drawer from 'material-ui/Drawer'
 import FlatButton from 'material-ui/FlatButton'
 // appearance
