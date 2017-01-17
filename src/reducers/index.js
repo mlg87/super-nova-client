@@ -1,6 +1,8 @@
 import { combineReducers } from 'redux'
-import { test } from 'reducers/test'
+import { reservationStartDate, reservationEndDate } from 'reducers/reservations'
 
 export const reducers = combineReducers({
-  test
+  reservationStartDate,
+  reservationEndDate
+
 })
