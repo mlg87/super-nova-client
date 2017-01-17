@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import fetch from 'isomorphic-fetch'
 // components
-import { FullPageForm } from '../../layouts/FullPageForm'
+import { FullPageForm } from 'layouts/FullPageForm'
 import Snackbar from 'material-ui/Snackbar'
 // appearance
 import Radium from 'radium'
