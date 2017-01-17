@@ -1,5 +1,4 @@
 import React from 'react'
-import ReactDOM from 'react-dom'
 import { Router, Route, IndexRoute, browserHistory } from 'react-router'
 
 // the subSideNav links are in another file so this isnt
@@ -17,7 +16,7 @@ import { Register } from 'components/register/Register'
 import { CurrentUser } from 'components/currentUser/CurrentUser'
 
 
-ReactDOM.render(
+export const AppRouter = (
   <Router history={ browserHistory }>
     <Route
       path='/'
@@ -89,6 +88,5 @@ ReactDOM.render(
         isSubSideNavOpen={ false }
       />
     </Route>
-  </Router>,
-  document.getElementById('root')
+  </Router>
 )
