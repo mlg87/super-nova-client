@@ -17,11 +17,3 @@ render(
   </Provider>
   , document.getElementById('root')
 )
-
-store.subscribe(() => {
-  console.log(store.getState());
-})
-
-store.dispatch({type: 'SET_RESERVATION_START_DATE', date: new Date('2000-02-02')})
-store.dispatch({type: 'SET_RESERVATION_START_DATE', date: new Date('1984-02-28')})
-store.dispatch({type: 'SET_RESERVATION_END_DATE', date: new Date('1984-05-28')})
