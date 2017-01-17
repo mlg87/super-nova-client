@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Nav } from './components/nav/Nav'
+import { Nav } from 'components/nav/Nav'
 
 export class Shell extends Component {
   render() {

@@ -1,17 +1,22 @@
 import React from 'react'
-import { AppRouter } from 'bin/router'
-import { render } from 'react-dom'
-import { Provider } from 'react-redux'
-import { createStore } from 'redux'
-import { reducers } from 'reducers'
+import { Router, Route, IndexRoute, browserHistory } from 'react-router'
 
-// just some styles for the boys
-import 'override.css';
+// the subSideNav links are in another file so this isnt
+// super cluttered
+import { subSideNavLinks } from 'config/subSideNavLinks'
 
-const store = createStore(reducers)
+// main layout (includes nav and where other layouts go)
+import AppLayout from 'layouts/AppLayout'
+import { UnderConstruction } from 'layouts/UnderConstruction'
+import { NotFound } from 'layouts/NotFound'
+import { InventoryLayout } from 'layouts/InventoryLayout'
+import { LandingLayout } from 'layouts/LandingLayout'
+import { UsersLayout } from 'layouts/UsersLayout'
+import { Register } from 'components/register/Register'
+import { CurrentUser } from 'components/currentUser/CurrentUser'
 
-<<<<<<< HEAD
-ReactDOM.render(
+
+export const AppRouter = (
   <Router history={ browserHistory }>
     <Route
       path='/'
@@ -57,7 +62,7 @@ ReactDOM.render(
       />
       <Route
         path='/reservations'
-        component={ Reservations }
+        component={ UnderConstruction }
         isSubSideNavOpen={ false }
       />
       <Route
@@ -83,13 +88,5 @@ ReactDOM.render(
         isSubSideNavOpen={ false }
       />
     </Route>
-  </Router>,
-  document.getElementById('root')
-=======
-render(
-  <Provider store={store}>
-    {AppRouter}
-  </Provider>
-  , document.getElementById('root')
->>>>>>> 73d193b96d554fc5e08e782e35c6ce3cda867831
+  </Router>
 )

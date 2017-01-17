@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import fetch from 'isomorphic-fetch'
 // components
-import { FullPageForm } from '../../layouts/FullPageForm'
+import { FullPageForm } from 'layouts/FullPageForm'
 import Snackbar from 'material-ui/Snackbar'
 // appearance
 import Radium from 'radium'
@@ -61,7 +61,7 @@ export class Register extends Component {
     let data = new FormData(JSON.stringify({user}));
     data.append('json', JSON.stringify({user}));
 
-    fetch('/auth/register', {
+    fetch('/api/auth/register', {
       method: 'post',
       credentials: 'include', //pass cookies, for authentication
       headers: {
