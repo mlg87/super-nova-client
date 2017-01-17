@@ -6,7 +6,7 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import injectTapEventPlugin from 'react-tap-event-plugin'
 // components
 import { Login } from 'components/login/Login'
-import { Shell } from 'components/shellShell'
+import { Shell } from 'components/shell/Shell'
 import { FullPageLoading } from 'layouts/FullPageLoading'
 
 // init the touch event handler (needed for material-ui, also prevents
