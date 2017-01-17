@@ -5,7 +5,7 @@ import TextField from 'material-ui/TextField'
 import Search from 'material-ui/svg-icons/action/search'
 // appearance
 import Radium from 'radium'
-import { colors } from '../colors'
+import { colors } from 'config/colors'
 
 export class InventoryLayout extends Component {
   render() {

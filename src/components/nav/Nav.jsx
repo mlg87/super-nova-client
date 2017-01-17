@@ -2,12 +2,12 @@ import React, { Component } from 'react'
 // routing
 import { Link } from 'react-router'
 // components
-import { SubSideNav } from './SubSideNav'
+import { SubSideNav } from 'nav/SubSideNav'
 import Drawer from 'material-ui/Drawer'
 import FlatButton from 'material-ui/FlatButton'
 // appearance
 import Radium from 'radium'
-import { colors } from '../../colors'
+import { colors } from 'config/colors'
 // side nav button icons
 // icon: inventory
 import Landscape from 'material-ui/svg-icons/image/landscape'

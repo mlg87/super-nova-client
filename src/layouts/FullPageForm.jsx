@@ -4,7 +4,7 @@ import TextField from 'material-ui/TextField'
 import RaisedButton from 'material-ui/RaisedButton'
 // appearance
 import Radium from 'radium'
-import { colors } from '../colors'
+import { colors } from 'config/colors'
 
 export class FullPageForm extends Component {
   renderInputs() {

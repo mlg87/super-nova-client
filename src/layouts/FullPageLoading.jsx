@@ -1,6 +1,6 @@
 import React from 'react'
 import CircularProgress from 'material-ui/CircularProgress'
-import { colors } from '../colors'
+import { colors } from 'config/colors'
 
 export const FullPageLoading = () => {
   const flexContainer = {
