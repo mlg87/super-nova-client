@@ -1,10 +1,11 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
 import fetch from 'isomorphic-fetch'
 // components
 import { FullPageForm } from 'layouts/FullPageForm'
 import Snackbar from 'material-ui/Snackbar'
 // appearance
-import Radium from 'radium'
+// import Radium from 'radium'
 
 
 export class Register extends Component {
@@ -18,6 +19,8 @@ export class Register extends Component {
       isOpen: false,
       errMsg: ''
     }
+
+    console.log('what are props', props);
   }
 
   getInputs() {
@@ -43,6 +46,7 @@ export class Register extends Component {
     ]
   }
 
+  // todo, change submit to be dispatch to middleware
   handleSubmit() {
     const user = {
       username: this.state.username,
@@ -58,8 +62,8 @@ export class Register extends Component {
       return false
     }
 
-    let data = new FormData(JSON.stringify({user}));
-    data.append('json', JSON.stringify({user}));
+    // let data = new FormData(JSON.stringify({user}));
+    // data.append('json', JSON.stringify({user}));
 
     fetch('/api/auth/register', {
       method: 'post',
@@ -128,5 +132,28 @@ export class Register extends Component {
   }
 }
 
-Register = Radium(Register
-)
+// Register = Radium(Register)
+
+//
+//
+//
+// import { connect } from 'react-redux'
+// import { setVisibilityFilter } from '../actions'
+// import Link from '../components/Link'
+//
+// const mapStateToProps = (state, ownProps) => ({
+//   active: ownProps.filter === state.visibilityFilter
+// })
+//
+// const mapDispatchToProps = (dispatch, ownProps) => ({
+//   onClick: () => {
+//     dispatch(setVisibilityFilter(ownProps.filter))
+//   }
+// })
+//
+// const FilterLink = connect(
+//   mapStateToProps,
+//   mapDispatchToProps
+// )(Link)
+//
+// export default FilterLink

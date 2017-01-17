@@ -25,6 +25,8 @@ export default class AppLayout extends Component {
       isLoading: true,
       isUserLoggedIn: false
     }
+
+    console.log('app layout props', props);
   }
 
   componentWillMount() {
