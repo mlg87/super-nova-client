@@ -12,7 +12,7 @@ import { NotFound } from 'layouts/NotFound'
 import { InventoryLayout } from 'layouts/InventoryLayout'
 import { LandingLayout } from 'layouts/LandingLayout'
 import { UsersLayout } from 'layouts/UsersLayout'
-import { Register } from 'components/register/Register'
+import Register from 'components/register/Register'
 import { CurrentUser } from 'components/currentUser/CurrentUser'
 
 

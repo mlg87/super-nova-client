@@ -1,9 +1,14 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux'
 import fetch from 'isomorphic-fetch';
 // components
-import { FullPageForm } from 'layouts/FullPageForm'
+import { Form } from 'components/Form'
+import * as formActions from 'actions/forms'
 // appearance
 import Radium from 'radium'
+
+// make a smart form
+const SmartForm = connect(state => state, formActions)(Form)
 
 export class Login extends Component {
   constructor(props) {
@@ -85,7 +90,7 @@ export class Login extends Component {
 
     return(
       <div style={ containerStyle }>
-        <FullPageForm
+        <SmartForm
           header='Login'
           onSubmit={ this.handleSubmit.bind(this) }
           inputs={ this.getInputs() }

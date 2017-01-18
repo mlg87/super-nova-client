@@ -6,7 +6,16 @@ import RaisedButton from 'material-ui/RaisedButton'
 import Radium from 'radium'
 import { colors } from 'config/colors'
 
-export class FullPageForm extends Component {
+// TODO: add propTypes
+// propTypes: {
+//   children: PropTypes.node,
+//   values: PropTypes.object,
+//   update: PropTypes.func,
+//   reset: PropTypes.func,
+//   onSubmit: PropTypes.func
+// }
+
+export class Form extends Component {
   renderInputs() {
     const floatingLabelShrinkStyle = {
       color: colors.blue
@@ -61,4 +70,4 @@ export class FullPageForm extends Component {
   }
 }
 
-FullPageForm = Radium(FullPageForm)
+Form = Radium(Form)

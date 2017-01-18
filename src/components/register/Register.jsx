@@ -2,16 +2,19 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import fetch from 'isomorphic-fetch'
 // components
-import { FullPageForm } from 'layouts/FullPageForm'
+import { Form } from 'components/Form'
+import * as formActions from 'actions/forms'
 import Snackbar from 'material-ui/Snackbar'
 // appearance
 // import Radium from 'radium'
 
+const SmartForm = connect(state => state, formActions)(Form)
 
-export class Register extends Component {
+class Register extends Component {
   constructor(props) {
     super(props)
 
+    // TODO: left off here. need to move these from state to the refs
     this.state = {
       username: '',
       password: '',
@@ -20,7 +23,6 @@ export class Register extends Component {
       errMsg: ''
     }
 
-    console.log('what are props', props);
   }
 
   getInputs() {
@@ -65,6 +67,7 @@ export class Register extends Component {
     // let data = new FormData(JSON.stringify({user}));
     // data.append('json', JSON.stringify({user}));
 
+    console.log('sup user', user);
     fetch('/api/auth/register', {
       method: 'post',
       credentials: 'include', //pass cookies, for authentication
@@ -114,7 +117,7 @@ export class Register extends Component {
 
     return (
       <div style={ containerStyle }>
-        <FullPageForm
+        <SmartForm
           header='Register a New User'
           onSubmit={ this.handleSubmit.bind(this) }
           inputs={ this.getInputs() }
@@ -131,6 +134,28 @@ export class Register extends Component {
     )
   }
 }
+
+// NOTE: dont think we need to map the props here as this
+// comp has no props currently
+// const mapStateToProps = (state, ownProps) => {
+//   console.log('map state', state);
+//   console.log('map ownProps', ownProps);
+//   const username = ''
+//   const password = ''
+//   const password_confirm = ''
+//   const isOpen = false
+//   const errMsg = ''
+//
+//   return {
+//     username,
+//     password,
+//     password_confirm,
+//     isOpen,
+//     errMsg
+//   }
+// }
+
+export default connect()(Register)
 
 // Register = Radium(Register)
 
