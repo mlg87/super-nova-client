@@ -10,7 +10,9 @@ const port = process.env.PORT || 3000
 app.use(express.static('./build'))
 
 // use this proxy to send any fetch to our back-end server
-app.use('/api', proxy(process.env.BACKEND_ADDR || 'http://localhost:3001'))
+app.use('/api', proxy(process.env.BACKEND_ADDR || 'http://localhost:3001', {
+  forwardPath: (req) => `/api${req.url}`
+}))
 
 app.get('/*', function (req, res) {
   res.sendFile(path.join(__dirname, './build', 'index.html'))
