@@ -1,6 +1,6 @@
-export const userLoggedIn = (state = false, action) => {
+export const isLoading = (state = true, action) => {
   switch (action.type) {
-    case 'SET_USER_LOGGED_IN':
+    case 'SET_LOADING_STATE':
       return action.value
     default:
       return state
