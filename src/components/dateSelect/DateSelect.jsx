@@ -18,7 +18,14 @@ const mapDispatchToProps = (dispatch) => ({
   }
 })
 
+
 const DateSelect = (props) => {
+  const inputStyle = {
+    height: '25px',
+    width: '45%',
+    fontSize: '1rem',
+    textAlign: 'center'
+  }
   const { endDate, startDate, dateChange } = props
   const format = 'dddd, D MMMM YYYY';
   return (
@@ -26,16 +33,23 @@ const DateSelect = (props) => {
       <h1 style={{textAlign: 'center'}}>
         Choose dates to start a reservation
       </h1>
-      <div>
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'space-around'
+        }}
+      >
         <input
           type='text'
           readOnly
           value={ startDate && startDate.format(format).toString() }
+          style={inputStyle}
         />
         <input
           type='text'
           readOnly
           value={ endDate && endDate.format(format).toString() }
+          style={inputStyle}
         />
       </div>
       <DateRange
