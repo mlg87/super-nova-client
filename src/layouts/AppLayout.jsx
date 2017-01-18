@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component, PropTypes } from 'react'
 import fetch from 'isomorphic-fetch'
 // material-ui requires the importing of a theme
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
@@ -73,6 +73,14 @@ class AppLayout extends Component {
       </MuiThemeProvider>
     )
   }
+}
+
+AppLayout.propTypes = {
+  checkUserToken: PropTypes.func.isRequired,
+  isLoading: PropTypes.bool.isRequired,
+  userId: PropTypes.number,
+  router: PropTypes.object,
+  children: PropTypes.element.isRequired
 }
 
 export default AppLayout = connect(
