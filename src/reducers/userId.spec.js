@@ -12,11 +12,24 @@ describe('user logged in reducer', () => {
       type: 'SET_USER_ID',
     }
     expect(
-      userId(undefined, {...action, value: 1})
+      userId(undefined, {...action, id: 1})
     ).toEqual(1)
 
     expect(
-      userId(1,  {...action, value: 2})
+      userId(1,  {...action, id: 2})
+    ).toEqual(2)
+  })
+
+  it('should return current state if no valid id provided', () => {
+    const action = {
+      type: 'SET_USER_ID',
+    }
+    expect(
+      userId(1, action)
+    ).toEqual(1)
+
+    expect(
+      userId(2,  {...action, id: 'hi'})
     ).toEqual(2)
   })
 
@@ -29,7 +42,7 @@ describe('user logged in reducer', () => {
   it('should return current state on default', () => {
     const action = {
       type: 'OTHER_ACTION',
-      value: 1
+      id: 1
     }
     expect(
       userId(2, action)

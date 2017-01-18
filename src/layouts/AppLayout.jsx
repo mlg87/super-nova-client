@@ -9,6 +9,7 @@ import { Login } from 'components/login/Login'
 import { Shell } from 'components/shell/Shell'
 import { FullPageLoading } from 'layouts/FullPageLoading'
 import { connect } from 'react-redux'
+import { setUserId, unsetUserId, dataLoaded } from 'actions'
 
 // init the touch event handler (needed for material-ui, also prevents
 // console errs)
@@ -35,16 +36,16 @@ const mapDispatchToProps = (dispatch) => {
         })
         .then((res) => {
           res.json().then(({ data }) => {
-            dispatch({type: 'SET_USER_ID', value: data.id})
-            dispatch({type: 'SET_LOADING_STATE', value: false})
+            dispatch(setUserId(data.id))
+            dispatch(dataLoaded())
           })
         })
         .catch((err) => {
-          dispatch({type: 'UNSET_USER_ID', value: false})
-          dispatch({type: 'SET_LOADING_STATE', value: false})
+          dispatch(unsetUserId())
+          dispatch(dataLoaded())
         })
       } else {
-        dispatch({type: 'SET_LOADING_STATE', value: false})
+        dispatch(dataLoaded())
       }
     }
   }
