@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component, PropTypes } from 'react'
 import fetch from 'isomorphic-fetch'
 // material-ui requires the importing of a theme
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
@@ -8,28 +8,21 @@ import injectTapEventPlugin from 'react-tap-event-plugin'
 import { Login } from 'components/login/Login'
 import { Shell } from 'components/shell/Shell'
 import { FullPageLoading } from 'layouts/FullPageLoading'
+import { connect } from 'react-redux'
+import { setUserId, unsetUserId, dataLoaded } from 'actions'
 
 // init the touch event handler (needed for material-ui, also prevents
 // console errs)
 injectTapEventPlugin()
 
-// the Shell component allows us to access the Route props
-// in the Nav component (allowing us to display the subSideNav
-// or not). this was the best solution i could come up with
-// short of changing the app over to redux :/ -mg
-export default class AppLayout extends Component {
-  constructor(props) {
-    super(props)
 
-    this.state = {
-      isLoading: true,
-      isUserLoggedIn: false
-    }
-  }
+const mapStateToProps = state => ({
+  isLoading: state.isLoading,
+  userId: state.userId
+})
 
-  componentWillMount() {
-    // check to see if a user is logged in before they can
-    // access the app
+const mapDispatchToProps = dispatch => ({
+  checkUserToken: () => {
     let token = localStorage.getItem('token')
     if (token) {
       fetch('/api/auth/current_user', {
@@ -39,43 +32,58 @@ export default class AppLayout extends Component {
         }
       })
       .then((res) => {
-        // user has a legit token, they may proceed
-        this.setState({
-          isLoading: false,
-          isUserLoggedIn: true
+        res.json().then(({ data }) => {
+          dispatch(setUserId(data.id))
+          dispatch(dataLoaded())
         })
       })
-      .catch((err) => {
-        // they have a token, but its expired
-        this.setState({
-          isLoading: false,
-          isUserLoggedIn: false
-        })
+      .catch(err => {
+        dispatch(unsetUserId())
+        dispatch(dataLoaded())
       })
     } else {
-      // no token, so they must log in
-      this.setState({
-        isLoading: false,
-        isUserLoggedIn: false
-      })
+      dispatch(dataLoaded())
     }
+  }
+})
+
+// the Shell component allows us to access the Route props
+// in the Nav component (allowing us to display the subSideNav
+// or not). this was the best solution i could come up with
+// short of changing the app over to redux :/ -mg
+class AppLayout extends Component {
+  constructor(props) {
+    super(props)
+    // check to see if a user is logged in before they can
+    // access the app
+    props.checkUserToken()
   }
 
   render() {
-    const desiredRoute = this.props.children.props.route.path
-    const routeGo = this.props.router.go
+    const { props } = this
+    const desiredRoute = props.children.props.route.path
     return (
       <MuiThemeProvider >
-        { this.state.isLoading ?
+        { props.isLoading ?
           <FullPageLoading /> :
-          <div>
-            { this.state.isUserLoggedIn ?
-              <Shell children={ this.props.children }/> :
-              <Login desiredRoute={ desiredRoute } routeGo={ routeGo } />
-            }
-          </div>
+          props.userId ?
+          <Shell children={ props.children } /> :
+          <Login desiredRoute={ desiredRoute } routeGo={ props.router.go } />
         }
       </MuiThemeProvider>
     )
   }
 }
+
+AppLayout.propTypes = {
+  checkUserToken: PropTypes.func.isRequired,
+  isLoading: PropTypes.bool.isRequired,
+  userId: PropTypes.number,
+  router: PropTypes.object,
+  children: PropTypes.element.isRequired
+}
+
+export default AppLayout = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(AppLayout)
