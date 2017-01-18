@@ -2,6 +2,13 @@ import React, { Component } from 'react'
 import { DateRange } from 'react-date-range'
 import moment from 'moment'
 
+const mapStateToProps = (store) => {
+  return {
+    startDate: store.reservationStartDate || moment(),
+    endDate: store.reservationEndDate || moment()
+  }
+}
+
 export class DateSelect extends Component {
 
   render() {

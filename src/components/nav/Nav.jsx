@@ -32,7 +32,7 @@ export class Nav extends Component {
         icon: () => <TagFaces />
       },
       {
-        path: '/reservations',
+        path: '/reservations/select-date',
         tooltip: 'Reservations',
         icon: () => <EventNote />
       },
