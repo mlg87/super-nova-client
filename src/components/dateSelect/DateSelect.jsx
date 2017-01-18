@@ -1,18 +1,28 @@
 import React, { Component } from 'react'
 import { DateRange } from 'react-date-range'
 import moment from 'moment'
+import { connect } from 'react-redux'
 
-const mapStateToProps = (store) => {
+const mapStateToProps = (state) => {
   return {
-    startDate: store.reservationStartDate || moment(),
-    endDate: store.reservationEndDate || moment()
+    startDate: state.reservationStartDate || moment(),
+    endDate: state.reservationEndDate || moment()
   }
 }
 
-export class DateSelect extends Component {
+const mapDispatchToProps = (dispatch) => {
+  return {
+    dateChange: ({ startDate, endDate }) => {
+      dispatch({type: 'SET_RESERVATION_START_DATE', value: startDate})
+      dispatch({type: 'SET_RESERVATION_END_DATE', value: endDate})
+    }
+  }
+}
+
+class DateSelect extends Component {
 
   render() {
-    const { endDate, startDate } = this.props
+    const { endDate, startDate, dateChange } = this.props
     const format = 'dddd, D MMMM YYYY';
     return (
       <div>
@@ -32,13 +42,18 @@ export class DateSelect extends Component {
           />
         </div>
         <DateRange
-          startDate={() => moment()}
-          endDate={() => moment()}
-          onInit={ this.props.dateChange }
-          onChange={ this.props.dateChange }
+          startDate={startDate}
+          endDate={endDate}
+          onInit={ dateChange }
+          onChange={ dateChange }
           linkedCalendars={true}
         />
       </div>
     )
   }
 }
+
+export default DateSelect = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(DateSelect)
