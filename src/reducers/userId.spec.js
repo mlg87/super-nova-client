@@ -12,15 +12,15 @@ describe('user logged in reducer', () => {
       type: 'SET_USER_ID',
     }
     expect(
-      userId(undefined, {...action, id: 1})
+      userId(undefined, {...action, userId: 1})
     ).toEqual(1)
 
     expect(
-      userId(1,  {...action, id: 2})
+      userId(1,  {...action, userId: 2})
     ).toEqual(2)
   })
 
-  it('should throw error if no valid id provided', () => {
+  it('should throw error if no valid userId provided', () => {
     const action = {
       type: 'SET_USER_ID',
     }
@@ -29,7 +29,7 @@ describe('user logged in reducer', () => {
     }).toThrowError('invalid user ID')
 
     expect(() => {
-      userId(2,  {...action, id: 'hi'})
+      userId(2,  {...action, userId: 'hi'})
     }).toThrowError('invalid user ID')
   })
 
@@ -42,7 +42,7 @@ describe('user logged in reducer', () => {
   it('should return current state on default', () => {
     const action = {
       type: 'OTHER_ACTION',
-      id: 1
+      userId: 1
     }
     expect(
       userId(2, action)
