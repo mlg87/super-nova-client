@@ -16,40 +16,36 @@ import { setUserId, unsetUserId, dataLoaded } from 'actions'
 injectTapEventPlugin()
 
 
-const mapStateToProps = (state) => {
-  return {
-    isLoading: state.isLoading,
-    userId: state.userId
-  }
-}
+const mapStateToProps = state => ({
+  isLoading: state.isLoading,
+  userId: state.userId
+})
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    checkUserToken: () => {
-      let token = localStorage.getItem('token')
-      if (token) {
-        fetch('/api/auth/current_user', {
-          method: 'get',
-          headers: {
-            'Authorization': 'Bearer ' + token
-          }
-        })
-        .then((res) => {
-          res.json().then(({ data }) => {
-            dispatch(setUserId(data.id))
-            dispatch(dataLoaded())
-          })
-        })
-        .catch((err) => {
-          dispatch(unsetUserId())
+const mapDispatchToProps = dispatch => ({
+  checkUserToken: () => {
+    let token = localStorage.getItem('token')
+    if (token) {
+      fetch('/api/auth/current_user', {
+        method: 'get',
+        headers: {
+          'Authorization': 'Bearer ' + token
+        }
+      })
+      .then((res) => {
+        res.json().then( { data } => {
+          dispatch(setUserId(data.id))
           dispatch(dataLoaded())
         })
-      } else {
+      })
+      .catch(err => {
+        dispatch(unsetUserId())
         dispatch(dataLoaded())
-      }
+      })
+    } else {
+      dispatch(dataLoaded())
     }
   }
-}
+})
 
 // the Shell component allows us to access the Route props
 // in the Nav component (allowing us to display the subSideNav
@@ -66,14 +62,13 @@ class AppLayout extends Component {
   render() {
     const { props } = this
     const desiredRoute = props.children.props.route.path
-    const routeGo = props.router.go
     return (
       <MuiThemeProvider >
         { props.isLoading ?
           <FullPageLoading /> :
           props.userId ?
-          <Shell children={ props.children }/> :
-          <Login desiredRoute={ desiredRoute } routeGo={ routeGo } />
+          <Shell children={ props.children } /> :
+          <Login desiredRoute={ desiredRoute } routeGo={ props.router.go } />
         }
       </MuiThemeProvider>
     )
