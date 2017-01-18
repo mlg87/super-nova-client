@@ -12,9 +12,10 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    dateChange: () => {
-      dispatch({type: 'SET_RESERVATION_START_DATE', date: new Date()})
-      dispatch({type: 'SET_RESERVATION_END_DATE', date: new Date()})
+    dateChange: ({ startDate, endDate }) => {
+      console.log(startDate);
+      dispatch({type: 'SET_RESERVATION_START_DATE', date: startDate})
+      dispatch({type: 'SET_RESERVATION_END_DATE', date: endDate})
     }
   }
 }

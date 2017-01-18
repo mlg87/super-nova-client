@@ -44,7 +44,7 @@ describe('reservations reducer', () => {
 
       expect(() => {
         reservationStartDate(date, action)
-      }).toThrowError('date must be a moment')
+      }).toThrowError('start date must be a moment')
 
     })
 
@@ -102,7 +102,7 @@ describe('reservations reducer', () => {
 
       expect(() => {
         reservationEndDate(date, action)
-      }).toThrowError('date must be a moment')
+      }).toThrowError('end date must be a moment')
 
     })
 

@@ -65,6 +65,7 @@ export const AppRouter = (
       <Route
         path='/reservations/select-date'
         component={ ReservationsDateSelect }
+        isSubSideNavOpen={ false }
       />
       <Route
         path='/users'
