@@ -12,8 +12,10 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
+    // we only get one event - onChange, but we don't know if it was for the
+    // start date or end date. So we have to dispatch both. It's fine for now,
+    // but if we stick with this calendar we'll probably want to change that. -AD
     dateChange: ({ startDate, endDate }) => {
-      console.log(startDate);
       dispatch({type: 'SET_RESERVATION_START_DATE', date: startDate})
       dispatch({type: 'SET_RESERVATION_END_DATE', date: endDate})
     }
@@ -47,6 +49,7 @@ class DateSelect extends Component {
           endDate={endDate}
           onInit={ dateChange }
           onChange={ dateChange }
+          minDate={ moment() }
           linkedCalendars={true}
         />
       </div>
