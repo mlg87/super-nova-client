@@ -2,6 +2,7 @@ import React from 'react'
 import { DateRange } from 'react-date-range'
 import moment from 'moment'
 import { connect } from 'react-redux'
+import { setStartDate, setEndDate } from 'actions'
 
 const mapStateToProps = (state) => ({
   startDate: state.reservationStartDate || moment(),
@@ -13,8 +14,8 @@ const mapDispatchToProps = (dispatch) => ({
   // start date or end date. So we have to dispatch both. It's fine for now,
   // but if we stick with this calendar we'll probably want to change that. -AD
   dateChange: ({ startDate, endDate }) => {
-    dispatch({type: 'SET_RESERVATION_START_DATE', date: startDate})
-    dispatch({type: 'SET_RESERVATION_END_DATE', date: endDate})
+    dispatch(setStartDate(startDate))
+    dispatch(setEndDate(endDate))
   }
 })
 
