@@ -32,7 +32,7 @@ const mapDispatchToProps = dispatch => ({
         }
       })
       .then((res) => {
-        res.json().then( { data } => {
+        res.json().then(({ data }) => {
           dispatch(setUserId(data.id))
           dispatch(dataLoaded())
         })
