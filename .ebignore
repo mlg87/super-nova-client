@@ -1,0 +1,10 @@
+# files to ignore when deploying
+
+.DS_Store
+.env
+npm-debug.log
+
+# don't need `src`, we deploy only `build`
+src
+# modules are installed on deployment
+node_modules

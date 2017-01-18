@@ -1,22 +1,19 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import { browserHistory, Router, Route } from 'react-router'
+import React from 'react'
+import { AppRouter } from 'bin/router'
+import { render } from 'react-dom'
+import { Provider } from 'react-redux'
+import { createStore } from 'redux'
+import { reducers } from 'reducers'
 
-import './index.css';
-import App from './App';
-import Calculator from './components/calculator/Calculator';
-import Login from './components/login/Login';
-import Register from './components/register/Register';
-import Todo from './components/todo/Todo';
+// just some styles for the boys
+import 'override.css';
 
 
-ReactDOM.render(
-  <Router history={ browserHistory }>
-    <Route path='/' component={ App } />
-    <Route path='/calculator' component={ Calculator } />
-    <Route path='/login' component={ Login } />
-    <Route path='/register' component={ Register } />
-    <Route path='/todo' component={ Todo } />
-  </Router>,
-  document.getElementById('root')
-);
+const store = createStore(reducers)
+
+render(
+  <Provider store={store}>
+    {AppRouter}
+  </Provider>
+  , document.getElementById('root')
+)
