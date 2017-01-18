@@ -1,3 +1,4 @@
+import deepFreeze from 'deepFreeze'
 import { reservationStartDate, reservationEndDate } from './reservations'
 
 describe('reservations reducer', () => {
@@ -11,7 +12,7 @@ describe('reservations reducer', () => {
     it('should set initial reservation start date', () => {
       const date = new Date()
       const action = {type: 'SET_RESERVATION_START_DATE', date}
-
+      deepFreeze(date)
       expect(
         reservationStartDate(undefined, action)
       ).toEqual(date)
@@ -21,7 +22,7 @@ describe('reservations reducer', () => {
       const oldDate = new Date('1984-02-28')
       const newDate = new Date()
       const action = {type: 'SET_RESERVATION_START_DATE', date: newDate}
-
+      deepFreeze(oldDate)
       expect(
         reservationStartDate(oldDate, action)
       ).toEqual(newDate)
@@ -40,7 +41,7 @@ describe('reservations reducer', () => {
     it('should set initial reservation end date', () => {
       const date = new Date()
       const action = {type: 'SET_RESERVATION_END_DATE', date}
-
+      deepFreeze(date)
       expect(
         reservationEndDate(undefined, action)
       ).toEqual(date)
@@ -50,7 +51,7 @@ describe('reservations reducer', () => {
       const oldDate = new Date('1984-02-28')
       const newDate = new Date()
       const action = {type: 'SET_RESERVATION_END_DATE', date: newDate}
-
+      deepFreeze(oldDate)
       expect(
         reservationEndDate(oldDate, action)
       ).toEqual(newDate)

@@ -20,17 +20,17 @@ describe('user logged in reducer', () => {
     ).toEqual(2)
   })
 
-  it('should return current state if no valid id provided', () => {
+  it('should throw error if no valid id provided', () => {
     const action = {
       type: 'SET_USER_ID',
     }
-    expect(
+    expect(() => {
       userId(1, action)
-    ).toEqual(1)
+    }).toThrowError('invalid user ID')
 
-    expect(
+    expect(() => {
       userId(2,  {...action, id: 'hi'})
-    ).toEqual(2)
+    }).toThrowError('invalid user ID')
   })
 
   it('should unset the current user', () => {

@@ -5,6 +5,7 @@
   "description": "The client side of super nova",
   "proxy": "http://localhost:3001",
   "devDependencies": {
+    "deepfreeze": "^2.0.0",
     "react-scripts": "0.8.4"
   },
   "dependencies": {
