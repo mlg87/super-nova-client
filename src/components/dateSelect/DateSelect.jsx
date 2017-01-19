@@ -3,8 +3,6 @@ import { DateRange } from 'react-date-range'
 import moment from 'moment'
 import { connect } from 'react-redux'
 import { setStartDate, setEndDate } from 'actions'
-import { Link } from 'react-router'
-import RaisedButton from 'material-ui/RaisedButton';
 
 // export for testing
 export const mapStateToProps = (state) => ({
@@ -79,15 +77,6 @@ export const DateSelect = (props) => {
         minDate={ moment() }
         linkedCalendars={true}
       />
-      <Link
-        to={nextStage}
-      >
-        <RaisedButton
-          label='Next'
-          primary={true}
-          style={{float: 'right'}}
-        />
-      </Link>
     </div>
   )
 }

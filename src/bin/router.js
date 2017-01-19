@@ -12,7 +12,7 @@ import { NotFound } from 'layouts/NotFound'
 import { InventoryLayout } from 'layouts/InventoryLayout'
 import { LandingLayout } from 'layouts/LandingLayout'
 import { UsersLayout } from 'layouts/UsersLayout'
-import { ReservationsDateSelect } from 'layouts/ReservationsDateSelect'
+import ReservationsDateSelect from 'layouts/ReservationsDateSelect'
 
 import { Register } from 'components/register/Register'
 import { CurrentUser } from 'components/currentUser/CurrentUser'
@@ -65,6 +65,11 @@ export const AppRouter = (
       <Route
         path='/reservations/select-date'
         component={ ReservationsDateSelect }
+        isSubSideNavOpen={ false }
+      />
+      <Route
+        path='/reservations/select-inventory'
+        component={ UnderConstruction }
         isSubSideNavOpen={ false }
       />
       <Route
