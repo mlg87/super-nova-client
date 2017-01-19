@@ -125,3 +125,7 @@ describe('mapStateToProps', () => {
     mockDate.reset()
   })
 })
+
+describe('mapDispatchToProps', () => {
+  
+})
