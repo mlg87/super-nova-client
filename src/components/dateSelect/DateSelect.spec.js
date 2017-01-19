@@ -1,41 +1,37 @@
 import React from 'react';
-import { shallow, mount } from 'enzyme';
-import { DateSelect } from './DateSelect';
-import { Provider } from 'react-redux'
-import { createStore } from 'redux'
+import { shallow } from 'enzyme';
+import { DateSelect, mapStateToProps, mapDispatchToProps } from './DateSelect';
 import moment from 'moment'
+import mockDate from 'mockdate'
+import { reducers } from 'reducers'
 
-const setup = (dates) => {
-  const props = {
-    ...dates,
-    dateChange: jest.fn(),
-    // we need the moment the component is created, to test the minDate
-    currentMoment: moment()
-  }
-
-  const enzymeWrapper = shallow(<DateSelect {...props} />)
-
-  return { props, enzymeWrapper }
-}
 
 describe('DateSelect Component', () => {
+  const setup = (dates) => {
+    const props = {
+      ...dates,
+      dateChange: jest.fn(),
+    }
+
+    const wrapper = shallow(<DateSelect {...props} />)
+    return { props, wrapper }
+  }
+
   it('renders without crashing', () => {
-    mount(
-      <DateSelect />
-    );
+    setup()
   });
 
   it('renders a header', () => {
-    const { enzymeWrapper } = setup()
-    const header = enzymeWrapper.find('h1')
+    const { wrapper } = setup()
+    const header = wrapper.find('h1')
     expect(header.length).toBe(1)
     expect(header.text()).toBe('Choose dates to start a reservation')
     expect(header.props().style).toEqual({textAlign: 'center'})
   })
 
   it('renders 2 inputs centered above the calendar', () => {
-    const { enzymeWrapper } = setup()
-    const inputContainer = enzymeWrapper.find('.input-container')
+    const { wrapper } = setup()
+    const inputContainer = wrapper.find('.input-container')
     const inputs = inputContainer.find('input')
     expect(inputContainer.props().style).toEqual({
       display: 'flex',
@@ -59,13 +55,13 @@ describe('DateSelect Component', () => {
   })
 
   it('displays the formatted start and end date in inputs above the calendar', () => {
-    const { enzymeWrapper } = setup({
+    const { wrapper } = setup({
       startDate: moment('09/16/1968', 'MM/DD/YYYY'),
       endDate: moment('02/25/1988', 'MM/DD/YYYY')
     })
-    const startDateDisplay = enzymeWrapper.find('.start-date-display')
-    const endDateDisplay = enzymeWrapper.find('.end-date-display')
-    const calendar = enzymeWrapper.find('DateRange')
+    const startDateDisplay = wrapper.find('.start-date-display')
+    const endDateDisplay = wrapper.find('.end-date-display')
+    const calendar = wrapper.find('DateRange')
 
     expect(startDateDisplay.props().value).toEqual('Monday, 16 September 1968')
     expect(endDateDisplay.props().value).toEqual('Thursday, 25 February 1988')
@@ -73,9 +69,9 @@ describe('DateSelect Component', () => {
   })
 
   it('displays empty values if no dates supplied', () => {
-    const { enzymeWrapper } = setup()
-    const startDateDisplay = enzymeWrapper.find('.start-date-display')
-    const endDateDisplay = enzymeWrapper.find('.end-date-display')
+    const { wrapper } = setup()
+    const startDateDisplay = wrapper.find('.start-date-display')
+    const endDateDisplay = wrapper.find('.end-date-display')
     expect(startDateDisplay.props().value).toBe('')
     expect(endDateDisplay.props().value).toBe('')
   })
@@ -92,8 +88,11 @@ describe('DateSelect Component', () => {
   it('includes a DateRange component with the right props', () => {
     const startDate = moment('09/16/1968', 'MM/DD/YYYY')
     const endDate = moment('02/25/1988', 'MM/DD/YYYY')
-    const { enzymeWrapper, props } = setup({ startDate, endDate })
-    const dateRange = enzymeWrapper.find('DateRange')
+    // we mock new Date() that's called by moment in the minDate prop
+    mockDate.set(1)
+    const { wrapper, props } = setup({ startDate, endDate })
+    mockDate.reset()
+    const dateRange = wrapper.find('DateRange')
     expect(dateRange.length).toBe(1)
 
     const dateRangeProps = dateRange.props()
@@ -101,7 +100,28 @@ describe('DateSelect Component', () => {
     expect(dateRangeProps.endDate).toEqual(endDate)
     expect(dateRangeProps.onInit).toEqual(props.dateChange)
     expect(dateRangeProps.onChange).toEqual(props.dateChange)
-    expect(dateRangeProps.minDate).toEqual(props.currentMoment)
+    expect(moment(dateRangeProps.minDate).isSame(1)).toBeTruthy()
     expect(dateRangeProps.linkedCalendars).toBeTruthy()
+  })
+})
+
+describe('mapStateToProps', () => {
+  it('passes down start and end dates from the store if they exist', () => {
+    const state = {
+      reservationStartDate: 'startDate',
+      reservationEndDate: 'endDate'
+    }
+    expect(mapStateToProps(state)).toEqual({
+      startDate: 'startDate',
+      endDate: 'endDate'
+    })
+  })
+
+  it('passes down now moments if store is empty of the dates', () => {
+    mockDate.set(1)
+    const stateMap = mapStateToProps({})
+    expect(moment(stateMap.startDate).isSame(1)).toBeTruthy()
+    expect(moment(stateMap.endDate).isSame(1)).toBeTruthy()
+    mockDate.reset()
   })
 })

@@ -6,9 +6,11 @@
   "proxy": "http://localhost:3001",
   "devDependencies": {
     "deepfreeze": "^2.0.0",
+    "enzyme": "^2.7.0",
+    "mockdate": "^2.0.1",
     "react-addons-test-utils": "^15.4.2",
     "react-scripts": "0.8.4",
-    "enzyme": "^2.7.0"
+    "redux-mock-store": "^1.2.1"
   },
   "dependencies": {
     "express": "^4.14.0",

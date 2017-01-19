@@ -4,12 +4,14 @@ import moment from 'moment'
 import { connect } from 'react-redux'
 import { setStartDate, setEndDate } from 'actions'
 
-const mapStateToProps = (state) => ({
+// export for testing
+export const mapStateToProps = (state) => ({
   startDate: state.reservationStartDate || moment(),
   endDate: state.reservationEndDate || moment()
 })
 
-const mapDispatchToProps = (dispatch) => ({
+// export for testing
+export const mapDispatchToProps = (dispatch) => ({
   // we only get one event - onChange, but we don't know if it was for the
   // start date or end date. So we have to dispatch both. It's fine for now,
   // but if we stick with this calendar we'll probably want to change that. -AD
