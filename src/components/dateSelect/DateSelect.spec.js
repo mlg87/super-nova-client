@@ -8,7 +8,9 @@ import moment from 'moment'
 const setup = (dates) => {
   const props = {
     ...dates,
-    dateChange: jest.fn()
+    dateChange: jest.fn(),
+    // we need the moment the component is created, to test the minDate
+    currentMoment: moment()
   }
 
   const enzymeWrapper = shallow(<DateSelect {...props} />)
@@ -85,5 +87,21 @@ describe('DateSelect Component', () => {
         endDate: new Date('02/25/1988')
       })
     }).toThrowError('date selected must be a moment')
+  })
+
+  it('includes a DateRange component with the right props', () => {
+    const startDate = moment('09/16/1968', 'MM/DD/YYYY')
+    const endDate = moment('02/25/1988', 'MM/DD/YYYY')
+    const { enzymeWrapper, props } = setup({ startDate, endDate })
+    const dateRange = enzymeWrapper.find('DateRange')
+    expect(dateRange.length).toBe(1)
+
+    const dateRangeProps = dateRange.props()
+    expect(dateRangeProps.startDate).toEqual(startDate)
+    expect(dateRangeProps.endDate).toEqual(endDate)
+    expect(dateRangeProps.onInit).toEqual(props.dateChange)
+    expect(dateRangeProps.onChange).toEqual(props.dateChange)
+    expect(dateRangeProps.minDate).toEqual(props.currentMoment)
+    expect(dateRangeProps.linkedCalendars).toBeTruthy()
   })
 })
