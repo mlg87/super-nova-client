@@ -5,14 +5,12 @@ import { Provider } from 'react-redux'
 import { createStore } from 'redux'
 import moment from 'moment'
 
-const setup = (defineDates = true) => {
-  const props = defineDates ? {
-    startDate: moment('09/16/1968', 'MM/DD/YYYY'),
-    endDate: moment('02/25/1988', 'MM/DD/YYYY'),
+const setup = (dates) => {
+  const props = {
+    ...dates,
     dateChange: jest.fn()
-  } : {
-
   }
+
   const enzymeWrapper = shallow(<DateSelect {...props} />)
 
   return { props, enzymeWrapper }
@@ -59,7 +57,10 @@ describe('DateSelect Component', () => {
   })
 
   it('displays the formatted start and end date in inputs above the calendar', () => {
-    const { enzymeWrapper } = setup()
+    const { enzymeWrapper } = setup({
+      startDate: moment('09/16/1968', 'MM/DD/YYYY'),
+      endDate: moment('02/25/1988', 'MM/DD/YYYY')
+    })
     const startDateDisplay = enzymeWrapper.find('.start-date-display')
     const endDateDisplay = enzymeWrapper.find('.end-date-display')
     const calendar = enzymeWrapper.find('DateRange')
@@ -70,10 +71,19 @@ describe('DateSelect Component', () => {
   })
 
   it('displays empty values if no dates supplied', () => {
-    const { enzymeWrapper } = setup(false)
+    const { enzymeWrapper } = setup()
     const startDateDisplay = enzymeWrapper.find('.start-date-display')
     const endDateDisplay = enzymeWrapper.find('.end-date-display')
     expect(startDateDisplay.props().value).toBe('')
     expect(endDateDisplay.props().value).toBe('')
+  })
+
+  it('throws if dates are not moments', () => {
+    expect(() => {
+      setup({
+        startDate: new Date('09/16/1968'),
+        endDate: new Date('02/25/1988')
+      })
+    }).toThrowError('date selected must be a moment')
   })
 })
