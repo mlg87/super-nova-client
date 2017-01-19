@@ -3,7 +3,7 @@ import { shallow } from 'enzyme';
 import { DateSelect, mapStateToProps, mapDispatchToProps } from './DateSelect';
 import moment from 'moment'
 import mockDate from 'mockdate'
-import { reducers } from 'reducers'
+import { setStartDate, setEndDate } from 'actions'
 
 
 describe('DateSelect Component', () => {
@@ -127,5 +127,15 @@ describe('mapStateToProps', () => {
 })
 
 describe('mapDispatchToProps', () => {
-  
+  it('has a dateChange method that dispatches setStartDate and setEndDate', () => {
+    const dispatch = jest.fn()
+    const dates = {
+      startDate: 'startDate',
+      endDate: 'endDate'
+    }
+    mapDispatchToProps(dispatch).dateChange(dates)
+    expect(dispatch.mock.calls.length).toBe(2)
+    expect(dispatch.mock.calls[0][0]).toEqual(setStartDate('startDate'))
+    expect(dispatch.mock.calls[1][0]).toEqual(setEndDate('endDate'))
+  })
 })
