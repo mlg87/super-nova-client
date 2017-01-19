@@ -19,6 +19,14 @@ const mapDispatchToProps = (dispatch) => ({
   }
 })
 
+const getInputValue = (date) => {
+  const format = 'dddd, D MMMM YYYY';
+  if (!date) return ''
+  if (!moment.isMoment(date)) {
+    throw new Error('date selected must be a moment')
+  }
+  return date.format(format).toString()
+}
 
 // named export for testing
 export const DateSelect = (props) => {
@@ -29,28 +37,27 @@ export const DateSelect = (props) => {
     textAlign: 'center'
   }
   const { endDate, startDate, dateChange } = props
-  const format = 'dddd, D MMMM YYYY';
   return (
     <div>
       <h1 style={{textAlign: 'center'}}>
         Choose dates to start a reservation
       </h1>
-      <div
+      <div className='input-container'
         style={{
           display: 'flex',
           justifyContent: 'space-around'
         }}
       >
-        <input
+        <input className='start-date-display'
           type='text'
           readOnly
-          value={ startDate && startDate.format(format).toString() }
+          value={ getInputValue(startDate) }
           style={inputStyle}
         />
-        <input
+      <input className='end-date-display'
           type='text'
           readOnly
-          value={ endDate && endDate.format(format).toString() }
+          value={ getInputValue(endDate) }
           style={inputStyle}
         />
       </div>
