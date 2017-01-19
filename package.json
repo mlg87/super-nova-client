@@ -6,7 +6,9 @@
   "proxy": "http://localhost:3001",
   "devDependencies": {
     "deepfreeze": "^2.0.0",
-    "react-scripts": "0.8.4"
+    "react-addons-test-utils": "^15.4.2",
+    "react-scripts": "0.8.4",
+    "enzyme": "^2.7.0"
   },
   "dependencies": {
     "express": "^4.14.0",

@@ -20,7 +20,8 @@ const mapDispatchToProps = (dispatch) => ({
 })
 
 
-const DateSelect = (props) => {
+// named export for testing
+export const DateSelect = (props) => {
   const inputStyle = {
     height: '25px',
     width: '45%',
