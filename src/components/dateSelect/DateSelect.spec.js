@@ -11,6 +11,7 @@ describe('DateSelect Component', () => {
     const props = {
       ...dates,
       dateChange: jest.fn(),
+      nextStage: 'next stage'
     }
 
     const wrapper = shallow(<DateSelect {...props} />)
@@ -102,6 +103,21 @@ describe('DateSelect Component', () => {
     expect(dateRangeProps.onChange).toEqual(props.dateChange)
     expect(moment(dateRangeProps.minDate).isSame(1)).toBeTruthy()
     expect(dateRangeProps.linkedCalendars).toBeTruthy()
+  })
+
+  it('contains a button that links to the next section', () => {
+    const { wrapper } = setup()
+    const link = wrapper.find('Link')
+    expect(link.length).toBe(1)
+    expect(link.props().to).toBe('next stage')
+
+    const button = link.find('RaisedButton')
+    expect(button.length).toBe(1)
+    const buttonProps = button.props()
+    expect(buttonProps.label).toBe('Next')
+    expect(buttonProps.primary).toBeTruthy()
+    expect(buttonProps.style).toEqual({float: 'right'})
+
   })
 })
 
