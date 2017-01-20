@@ -13,6 +13,7 @@ import { InventoryLayout } from 'layouts/InventoryLayout'
 import { LandingLayout } from 'layouts/LandingLayout'
 import { UsersLayout } from 'layouts/UsersLayout'
 import ReservationsDateSelect from 'layouts/ReservationsDateSelect'
+import ReservationsInventorySelect from 'layouts/ReservationsInventorySelect'
 
 import { Register } from 'components/register/Register'
 import { CurrentUser } from 'components/currentUser/CurrentUser'
@@ -69,7 +70,7 @@ export const AppRouter = (
       />
       <Route
         path='/reservations/select-inventory'
-        component={ UnderConstruction }
+        component={ ReservationsInventorySelect }
         isSubSideNavOpen={ false }
       />
       <Route
