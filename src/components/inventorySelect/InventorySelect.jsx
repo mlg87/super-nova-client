@@ -17,16 +17,19 @@ const styles = {
 const tilesData = [
   {
     id: 1,
-    title: 'title1',
-    author: 'Alon',
+    brand: 'Eddyline',
+    model: 'Aura',
+    type: 'kayak',
     img: 'https://www.rei.com/media/product/894562'
   },
   {
     id: 2,
-    title: 'title2',
-    author: 'Avi',
+    brand: 'La Sportiva',
+    model: 'Miura',
+    type: 'climbing shoe',
     img: 'https://www.rei.com/media/product/894562'
-  }
+  },
+
 ]
 
 const InventorySelect = () => (
@@ -38,8 +41,8 @@ const InventorySelect = () => (
       {tilesData.map((tile) => (
         <GridTile
           key={tile.id}
-          title={tile.title}
-          subtitle={<span>by <b>{tile.author}</b></span>}
+          title={`${tile.brand} ${tile.model}`}
+          subtitle={<span><b>{tile.type}</b></span>}
         >
           <img src={tile.img} alt='Category icon'/>
         </GridTile>
