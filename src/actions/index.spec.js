@@ -50,3 +50,13 @@ describe('set end date', () => {
     })
   })
 })
+
+describe('set inventory', () => {
+  it('should create SET_INVENTORY action', () => {
+    const inventory = ['hi']
+    expect(actions.setInventory(inventory)).toEqual({
+      type: 'SET_INVENTORY',
+      payload: ['hi']
+    })
+  })
+})
