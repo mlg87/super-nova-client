@@ -6,7 +6,7 @@ import RaisedButton from 'material-ui/RaisedButton';
 
 const ReservationsDateSelect = () => (
   <Center>
-    <div>
+    <div className='date-select-wrapper'>
       <DateSelect />
 
       <Link

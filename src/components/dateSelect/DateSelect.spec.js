@@ -10,8 +10,7 @@ describe('DateSelect Component', () => {
   const setup = (dates) => {
     const props = {
       ...dates,
-      dateChange: jest.fn(),
-      nextStage: 'next stage'
+      dateChange: jest.fn()
     }
 
     const wrapper = shallow(<DateSelect {...props} />)

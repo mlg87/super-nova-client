@@ -1,6 +1,8 @@
 import ReservationsDateSelect from './ReservationsDateSelect'
 import React from 'react';
-import { shallow } from 'enzyme';
+import { shallow } from 'enzyme'
+import { DateSelect } from 'components/dateSelect/DateSelect'
+import mockDate from 'mockdate'
 
 describe('ReservationsDateSelect', () => {
   const setup = () => {
@@ -16,6 +18,9 @@ describe('ReservationsDateSelect', () => {
     const center = wrapper.find('Center')
     expect(center.length).toBe(1)
     expect(center.find('Connect').length).toBe(1)
+    mockDate.set(1)
+    expect(center.find('Connect').node.type.WrappedComponent({})).toEqual(DateSelect({}))
+    mockDate.reset()
   })
 
   it('contains a button that links to the next section', () => {

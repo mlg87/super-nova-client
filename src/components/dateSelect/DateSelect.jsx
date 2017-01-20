@@ -41,8 +41,7 @@ export const DateSelect = (props) => {
   const {
     endDate,
     startDate,
-    dateChange,
-    nextStage
+    dateChange
   } = props
 
   return (
