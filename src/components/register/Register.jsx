@@ -23,14 +23,6 @@ class Register extends Component {
     ]
   }
 
-  // TODO: figure out how to display errs using the USER_REGISTER_ERROR action and getting it from state
-  resetSnackBar() {
-    this.setState({
-      isOpen: false,
-      errMsg: ''
-    })
-  }
-
   render() {
     const containerStyle = {
       width: '50%',
