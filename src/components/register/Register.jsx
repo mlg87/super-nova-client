@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 // components
 import UserRegisterForm from 'components/form/UserRegisterForm'
 import Snackbar from 'material-ui/Snackbar'
-import { userRegisterApiCall } from 'actions/users'
+import { userRegisterApiCall, userRegisterError } from 'actions/users'
 
 class Register extends Component {
   getFields() {
@@ -60,7 +60,7 @@ class Register extends Component {
           autoHideDuration={ 4000 }
           bodyStyle={ errSnackBarStyle }
           contentStyle={ errSnackBarContentStyle }
-          onRequestClose={ this.resetSnackBar.bind(this) }
+          onRequestClose={ this.props.userRegisterError }
         />
       </div>
     )
@@ -83,7 +83,8 @@ const mapDispatchToProps = (dispatch, ownProps) => {
       let user = {...values}
       delete user.password_confirm
       dispatch(userRegisterApiCall(user.username, user.password))
-    }
+    },
+    onRequestClose: () => dispatch(userRegisterError(false))
   }
 }
 
