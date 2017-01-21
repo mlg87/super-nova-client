@@ -1,30 +1,32 @@
-export const userRegisterFetch = (state = false, action) => {
+export const userApiFetch = (state = false, action) => {
   switch (action.type) {
     case 'USER_REGISTER_FETCH':
+    case 'USER_LOGIN_FETCH':
       return action.isFetching
     default:
       return state
   }
 }
 
-export const userRegisterSuccess = (state = {}, action) => {
+export const userApiSuccess = (state = {}, action) => {
   switch (action.type) {
     case 'USER_REGISTER_SUCCESS':
+    case 'USER_LOGIN_SUCCESS':
       return action.token
     default:
       return state
   }
 }
 
-export const userRegisterError = (state = {}, action) => {
+export const userApiError = (state = {}, action) => {
   switch (action.type) {
     case 'USER_REGISTER_ERROR':
+    case 'USER_LOGIN_ERROR':
       return action.err
     default:
       return state
   }
 }
-
 
 // OLD WAY - MAY GO BACK TO THIS
 // const users = (state = {}, action) => {

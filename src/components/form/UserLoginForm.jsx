@@ -6,17 +6,11 @@ import RaisedButton from 'material-ui/RaisedButton'
 import { TextField } from 'redux-form-material-ui'
 import { colors } from 'config/colors'
 
-const UserRegisterForm = (props) => {
+const UserLoginForm = (props) => {
   const { handleSubmit, reset, submitting, fields, valid } = props
 
   // validation functions
   const required = value => value == null ? 'Required' : undefined
-  const passwordsMatch = (value, allValues) => {
-    // only look to validate if both fields have values
-    if (!!allValues.password && !!allValues.password_confirm) {
-      return allValues.password === allValues.password_confirm ? undefined : 'Passwords must match'
-     }
-  }
 
   const style_floatingLabelShrink = {
     color: colors.blue
@@ -32,7 +26,7 @@ const UserRegisterForm = (props) => {
 
   return (
     <form onSubmit={ handleSubmit } style={{minWidth: '100%'}}>
-      <h1>Register a new user</h1>
+      <h1>Login</h1>
       <div>
         <Field
           name='username'
@@ -56,18 +50,6 @@ const UserRegisterForm = (props) => {
           type='password'
         />
       </div>
-      <div>
-        <Field
-          name='password_confirm'
-          component={ TextField }
-          floatingLabelText='confirm password'
-          floatingLabelShrinkStyle={ style_floatingLabelShrink }
-          underlineFocusStyle={ style_underlineFocus }
-          fullWidth={ true }
-          validate={[ required, passwordsMatch ]}
-          type='password'
-        />
-      </div>
       <RaisedButton
         label='Submit'
         style={ style_submit }
@@ -80,5 +62,5 @@ const UserRegisterForm = (props) => {
 }
 
 export default reduxForm({
-  form: 'userRegisterForm'
-})(UserRegisterForm)
+  form: 'userLoginForm'
+})(UserLoginForm)

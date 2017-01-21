@@ -5,7 +5,7 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 // needed for touch devices
 import injectTapEventPlugin from 'react-tap-event-plugin'
 // components
-import { Login } from 'components/login/Login'
+import Login from 'components/login/Login'
 import { Shell } from 'components/shell/Shell'
 import { FullPageLoading } from 'layouts/FullPageLoading'
 
@@ -74,7 +74,7 @@ export default class AppLayout extends Component {
           <div>
             { this.state.isUserLoggedIn ?
               <Shell children={ this.props.children }/> :
-              <Login desiredRoute={ desiredRoute} routeGo={ routeGo} />
+              <Login desiredRoute={ desiredRoute } routeGo={ routeGo}  />
             }
           </div>
         }

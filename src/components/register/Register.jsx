@@ -5,68 +5,44 @@ import UserRegisterForm from 'components/form/UserRegisterForm'
 import Snackbar from 'material-ui/Snackbar'
 import { userRegisterApiCall, userRegisterError } from 'actions/users'
 
-class Register extends Component {
-  getFields() {
-    return [
-      {
-        name: 'username',
-        component: 'TextField'
-      },
-      {
-        name: 'password',
-        component: 'TextField'
-      },
-      {
-        name: 'password_confirm',
-        component: 'TextField'
-      }
-    ]
+const Register = (props) => {
+  const containerStyle = {
+    width: '50%',
+    marginTop: '20px',
+    marginLeft: 'auto',
+    marginRight: 'auto'
   }
 
-  render() {
-    const containerStyle = {
-      width: '50%',
-      marginTop: '20px',
-      marginLeft: 'auto',
-      marginRight: 'auto'
-    }
-
-    const errSnackBarStyle = {
-      backgroundColor: 'red'
-    }
-
-    const errSnackBarContentStyle = {
-      color: 'white'
-    }
-
-    const { handleSubmit, isOpen, errMsg } = this.props
-
-    return (
-      <div style={ containerStyle }>
-        <UserRegisterForm
-          onSubmit={ handleSubmit }
-        />
-        <Snackbar
-          open={ !!this.props.err.message }
-          message={ !!this.props.err.message ? this.props.err.message : ''}
-          autoHideDuration={ 4000 }
-          bodyStyle={ errSnackBarStyle }
-          contentStyle={ errSnackBarContentStyle }
-          onRequestClose={ this.props.userRegisterError }
-        />
-      </div>
-    )
+  const errSnackBarStyle = {
+    backgroundColor: 'red'
   }
+
+  const errSnackBarContentStyle = {
+    color: 'white'
+  }
+
+  const { handleSubmit, onRequestClose, err } = props
+
+  return (
+    <div style={ containerStyle }>
+      <UserRegisterForm onSubmit={ handleSubmit } />
+      <Snackbar
+        open={ !!err.message }
+        message={ !!err.message ? err.message : ''}
+        autoHideDuration={ 4000 }
+        bodyStyle={ errSnackBarStyle }
+        contentStyle={ errSnackBarContentStyle }
+        onRequestClose={ onRequestClose }
+      />
+    </div>
+  )
 }
 
 const mapStateToProps = (state, ownProps) => {
-  const isOpen = false
-  const err = state.userRegisterError
+  // userApiError is from the reducer
+  const err = state.userApiError
 
-  return {
-    isOpen,
-    err
-  }
+  return { err }
 }
 
 const mapDispatchToProps = (dispatch, ownProps) => {
@@ -81,9 +57,9 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 }
 
 Register.propTypes = {
-  isOpen: PropTypes.bool.isRequired,
   err: PropTypes.object,
-  handleSubmit: PropTypes.func.isRequired
+  handleSubmit: PropTypes.func.isRequired,
+  onRequestClose: PropTypes.func.isRequired
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Register)
