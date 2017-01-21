@@ -29,6 +29,7 @@ export class Form extends Component {
       return (
         <TextField
           onChange={ input.onChange }
+          name={ input.value }
           value={ input.value }
           type={ input.type }
           floatingLabelText={ input.placeholder }

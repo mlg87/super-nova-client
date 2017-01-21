@@ -2,13 +2,9 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux'
 import fetch from 'isomorphic-fetch';
 // components
-import { Form } from 'components/Form'
-import * as formActions from 'actions/forms'
+import { Form } from 'components/form/Form'
 // appearance
 import Radium from 'radium'
-
-// make a smart form
-const SmartForm = connect(state => state, formActions)(Form)
 
 export class Login extends Component {
   constructor(props) {
@@ -90,11 +86,7 @@ export class Login extends Component {
 
     return(
       <div style={ containerStyle }>
-        <SmartForm
-          header='Login'
-          onSubmit={ this.handleSubmit.bind(this) }
-          inputs={ this.getInputs() }
-        />
+        WE NEED TO MAKE THIS AGAIN
       </div>
     )
   }

@@ -1,38 +1,93 @@
-import fetch from 'isomorphic-fetch'
-
-const authUrlBase = '/api/auth/'
-
-const registerUser = (username = '', password = '') => {
-  const user = {
-    username,
-    password
-  }
-
-  fetch(authUrlBase + 'register', {
-    method: 'post',
-    // cookies and whatnot
-    credentials: 'include',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({user})
-  })
-  .then((res) => {
-    res.json().then( json => {
-      localStorage.setItem('token', json.token)
-    })
-  })
-}
-
-export default store => next => action => {
-  if (action.type !== 'USER_REGISTER') {
-    return next(action)
-  }
-  registerUser(action.username, action.password)
-}
+// NOTE: THIS FILE IS CURRENTLY NOT USED, BUT I WOULD LIKE
+// TO MOVE US TO HANDLING API CALLS THIS WAY. I JUST GOT
+// SICK OF BANGING MY HEAD AGAINST THE WALL -mg
 
 
+// import fetch from 'isomorphic-fetch'
+// import * as userActions from 'actions/users'
+//
+// const authUrlBase = '/api/auth/'
+//
+// const userRegisterAPICall = (username = '', password = '') => {
+//   const user = {
+//     username,
+//     password
+//   }
+//
+//   fetch(authUrlBase + 'register', {
+//     method: 'post',
+//     // cookies and whatnot
+//     credentials: 'include',
+//     headers: {
+//       'Content-Type': 'application/json'
+//     },
+//     body: JSON.stringify({user})
+//   })
+//   .then(res => {
+//     res.json().then( json => {
+//       console.log('what is json', json);
+//       if (!res.token) {
+//         return Promise.reject(json)
+//       }
+//       // shouldnt do this bc a logged in user is registering other users
+//       // localStorage.setItem('token', json.token)
+//
+//       return userActions.userRegisterSuccess(json.token)
+//     })
+//   })
+// }
 
+// export default store => next => action => {
+//   if (action.type !== 'USER_REGISTER') {
+//     return next(action)
+//   }
+//   return userRegisterAPICall(action.username, action.password).then(() => {
+//     console.log('sup babies');
+//   })
+// }
+
+
+// OUR APP
+// next === store.dispatch
+// export default store => next => action => {
+//   next(action)
+//
+//   switch (action.type) {
+//     case 'USER_REGISTER':
+//       const user = {
+//         username: action.username,
+//         password: action.password
+//       }
+//
+//       fetch(authUrlBase + 'register', {
+//         method: 'post',
+//         // cookies and whatnot
+//         credentials: 'include',
+//         headers: {
+//           'Content-Type': 'application/json'
+//         },
+//         body: JSON.stringify({user})
+//       })
+//       .then(res => {
+//         res.json().then( json => {
+//           console.log('dafuq is json', json);
+//           if (!res.token) {
+//             return next(userActions.userRegisterError(res))
+//           }
+//           // shouldnt do this bc a logged in user is registering other users
+//           // localStorage.setItem('token', json.token)
+//
+//           return next(userActions.userRegisterSuccess(json.token))
+//         })
+//       })
+//     break
+//     default:
+//       break
+//   }
+// }
+
+
+// DANNY EXAMPLE
 // // A Redux middleware that interprets actions with CALL_API info specified.
 // // Performs the call and promises when such actions are dispatched.
 // export default store => next => action => {

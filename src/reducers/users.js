@@ -1,66 +1,60 @@
-const users = (state = {}, action) => {
-  // console.log('USER REDUCER CALLED. STATE: ', state, ' ACTION: ', action);
+export const userRegisterFetch = (state = false, action) => {
   switch (action.type) {
-    case 'USER_REGISTER':
-    case 'USER_LOGIN':
-      return {
-        // perhaps use Object.assign here?
-        ...state,
-        username: action.username,
-        password: action.password
-      }
-    case 'USER_LOGOUT':
-      return {
-        ...state,
-        username: action.username
-      }
+    case 'USER_REGISTER_FETCH':
+      return action.isFetching
     default:
       return state
   }
 }
 
-export default users
+export const userRegisterSuccess = (state = {}, action) => {
+  switch (action.type) {
+    case 'USER_REGISTER_SUCCESS':
+      return action.token
+    default:
+      return state
+  }
+}
+
+export const userRegisterError = (state = {}, action) => {
+  switch (action.type) {
+    case 'USER_REGISTER_ERROR':
+      return action.err
+    default:
+      return state
+  }
+}
 
 
-
-
-
-// const todo = (state, action) => {
+// OLD WAY - MAY GO BACK TO THIS
+// const users = (state = {}, action) => {
 //   switch (action.type) {
-//     case 'ADD_TODO':
+//     case 'USER_REGISTER':
+//     case 'USER_LOGIN':
 //       return {
-//         id: action.id,
-//         text: action.text,
-//         completed: false
+//         // perhaps use Object.assign here?
+//         ...state,
+//         username: action.username,
+//         password: action.password
 //       }
-//     case 'TOGGLE_TODO':
-//       if (state.id !== action.id) {
-//         return state
-//       }
-//
+//     case 'USER_LOGOUT':
 //       return {
 //         ...state,
-//         completed: !state.completed
+//         username: action.username
+//       }
+//     case 'USER_REGISTER_SUCCESS':
+//       return {
+//         ...state,
+//         token: action.token
+//       }
+//     case 'USER_REGISTER_ERROR':
+//       return {
+//         ...state,
+//         err: action.err
 //       }
 //     default:
 //       return state
 //   }
 // }
 //
-// const todos = (state = [], action) => {
-//   switch (action.type) {
-//     case 'ADD_TODO':
-//       return [
-//         ...state,
-//         todo(undefined, action)
-//       ]
-//     case 'TOGGLE_TODO':
-//       return state.map(t =>
-//         todo(t, action)
-//       )
-//     default:
-//       return state
-//   }
-// }
-//
-// export default todos
+// export default users
