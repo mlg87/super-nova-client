@@ -1,10 +1,10 @@
 import React from 'react'
 import { Center } from 'components/center/Center';
-import InventorySelect from 'components/inventorySelect/InventorySelect'
+import InventoryList from 'components/inventoryList/InventoryList'
 
 const ReservationsInventorySelect = () => (
   <Center>
-    <InventorySelect />
+    <InventoryList />
 
   </Center>
 )

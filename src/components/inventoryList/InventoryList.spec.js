@@ -1,10 +1,13 @@
 import React from 'react'
 import { shallow } from 'enzyme'
-import InventorySelect from './InventorySelect'
+import { InventoryList } from './InventoryList'
 
-describe('InventorySelect', () => {
+describe('InventoryList', () => {
   const setup = () => {
-    return shallow(<InventorySelect />)
+    const props = {
+      fetchInventory: jest.fn()
+    }
+    return shallow(<InventoryList {...props} />)
   }
 
   it('renders without crashing', () => {
