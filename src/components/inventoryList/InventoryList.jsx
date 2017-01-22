@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
-import {GridList, GridTile} from 'material-ui/GridList'
+import { GridList, GridTile } from 'material-ui/GridList'
 import { connect } from 'react-redux'
+import { setInventory } from 'actions'
 
 const styles = {
   root: {
@@ -15,36 +16,18 @@ const styles = {
   },
 };
 
-const tilesData = [
-  {
-    id: 1,
-    brand: 'Eddyline',
-    model: 'Aura',
-    type: 'kayak',
-    img: 'https://www.rei.com/media/product/894562'
-  },
-  {
-    id: 2,
-    brand: 'La Sportiva',
-    model: 'Miura',
-    type: 'climbing shoe',
-    img: 'https://www.rei.com/media/product/894562'
-  },
-
-]
-
 const mapStateToProps = (state) => ({
-  inventory: state.inventory
+  inventory: state.inventory || []
 })
 
 const mapDispatchToProps = (dispatch) => ({
   fetchInventory: (searchTerm) => {
-    fetch('/api/inventory', {
+    fetch('/api/inventory/search', {
       method: 'get',
     })
     .then((res) => {
       res.json().then( (json) => {
-        console.log(json);
+        dispatch(setInventory(json))
       })
     })
     .catch((err) => {console.log('fetch err:', err);})
@@ -58,20 +41,19 @@ export class InventoryList extends Component {
   }
 
   render() {
-
     return (
       <div style={styles.root}>
         <GridList
           cellHeight={180}
           style={styles.gridList}
           >
-          {tilesData.map((tile) => (
+          {this.props.inventory.map((tile) => (
             <GridTile
-              key={tile.id}
+              key={tile.item_id}
               title={`${tile.brand} ${tile.model}`}
               subtitle={<span><b>{tile.type}</b></span>}
               >
-              <img src={tile.img} alt='Category icon'/>
+              <img src={tile.image_url} alt='Category icon'/>
             </GridTile>
           ))}
         </GridList>

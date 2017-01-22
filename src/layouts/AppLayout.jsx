@@ -10,6 +10,7 @@ import { Shell } from 'components/shell/Shell'
 import { FullPageLoading } from 'layouts/FullPageLoading'
 import { connect } from 'react-redux'
 import { setUserId, unsetUserId, dataLoaded } from 'actions'
+import { handleFetchErrors } from 'bin/helpers'
 
 // init the touch event handler (needed for material-ui, also prevents
 // console errs)
@@ -31,6 +32,7 @@ const mapDispatchToProps = dispatch => ({
           'Authorization': 'Bearer ' + token
         }
       })
+      .then(handleFetchErrors)
       .then((res) => {
         res.json().then(({ data }) => {
           dispatch(setUserId(data.id))
