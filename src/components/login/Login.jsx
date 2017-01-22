@@ -46,7 +46,6 @@ const mapStateToProps = (state, ownProps) => {
 }
 
 const mapDispatchToProps = (dispatch, ownProps) => {
-  console.log('args in mapDispatchToProps', arguments);
   return {
     handleSubmit: (values) => {
       let user = {...values}
