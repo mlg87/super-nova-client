@@ -1,4 +1,5 @@
 import fetch from 'isomorphic-fetch'
+import { setUserId } from 'actions'
 
 // constants - user registration
 const USER_REGISTER_FETCH = 'USER_REGISTER_FETCH'
@@ -48,7 +49,6 @@ export const userRegisterApiCall = (username, password) => dispatch => {
     return json
   })
   .then((res) => dispatch(userRegisterSuccess(res.token)))
-  // NOTE: i think we need to change the server to properly
   // throw errs
   .catch((err) => {
     dispatch(userRegisterFetch(false))
@@ -100,7 +100,12 @@ export const userLoginApiCall = (username, password) => dispatch => {
     dispatch(userLoginFetch(false))
     return json
   })
-  .then((res) => dispatch(userLoginSuccess(res.token)))
+  .then((res) => {
+    dispatch(userLoginSuccess(res.token))
+    // these are seperate actions bc of how we set them up. we could easily refactor
+    // to make them one
+    dispatch(setUserId(res.id))
+  })
   .catch((err) => {
     dispatch(userLoginFetch(false))
     dispatch(userLoginError(err))
