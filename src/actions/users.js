@@ -14,9 +14,8 @@ export const userRegisterFetch = (bool) => ({
 
 // TODO: change the server to return something here other than the token for the
 // created user (since another user will be making the new user)
-export const userRegisterSuccess = (token) => ({
-  type: USER_REGISTER_SUCCESS,
-  token
+export const userRegisterSuccess = () => ({
+  type: USER_REGISTER_SUCCESS
 })
 
 export const userRegisterError = (err) => ({
@@ -48,7 +47,9 @@ export const userRegisterApiCall = (username, password) => dispatch => {
     dispatch(userRegisterFetch(false))
     return json
   })
-  .then((res) => dispatch(userRegisterSuccess(res.token)))
+  .then((res) => {
+    dispatch(userRegisterSuccess())
+  })
   // throw errs
   .catch((err) => {
     dispatch(userRegisterFetch(false))
@@ -67,9 +68,8 @@ export const userLoginFetch = (bool) => ({
   isFetching: bool
 })
 
-export const userLoginSuccess = (token) => ({
-  type: USER_LOGIN_SUCCESS,
-  token
+export const userLoginSuccess = () => ({
+  type: USER_LOGIN_SUCCESS
 })
 
 export const userLoginError = (err) => ({
@@ -101,10 +101,12 @@ export const userLoginApiCall = (username, password) => dispatch => {
     return json
   })
   .then((res) => {
-    dispatch(userLoginSuccess(res.token))
+    dispatch(userLoginSuccess())
     // these are seperate actions bc of how we set them up. we could easily refactor
     // to make them one
     dispatch(setUserId(res.id))
+    // id like to find a way to do this outside of localStorage
+    localStorage.setItem('token', res.token)
   })
   .catch((err) => {
     dispatch(userLoginFetch(false))

@@ -10,9 +10,10 @@ export const userApiFetch = (state = false, action) => {
 
 export const userApiSuccess = (state = {}, action) => {
   switch (action.type) {
+    // we should make these more useful
     case 'USER_REGISTER_SUCCESS':
     case 'USER_LOGIN_SUCCESS':
-      return action.token
+      return state
     default:
       return state
   }
