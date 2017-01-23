@@ -5,6 +5,8 @@ import InventoryList from 'components/inventoryList/InventoryList'
 import TextField from 'material-ui/TextField'
 import Chip from 'material-ui/Chip'
 import { updateSearchTerms, fetchInventory } from 'actions/inventory'
+import { Link } from 'react-router'
+import RaisedButton from 'material-ui/RaisedButton'
 
 const mapStateToProps = (state) => ({
   searchTerms: state.inventorySearchTerms,
@@ -60,7 +62,34 @@ class ReservationsInventorySelect extends Component {
             hintText='search for inventory'
             onKeyUp={this.props.handleSearchChange}
             />
+
           <InventoryList />
+
+          <Link
+            to='/reservations/select-date'
+            style={{
+              float: 'left',
+              marginTop: '10px'
+            }}
+          >
+            <RaisedButton
+              label='Back'
+              primary={true}
+            />
+          </Link>
+
+          <Link
+            to='/reservations/select-user'
+            style={{
+              float: 'right',
+              marginTop: '10px'
+            }}
+          >
+            <RaisedButton
+              label='Next'
+              primary={true}
+            />
+          </Link>
         </div>
       </Center>
     )
