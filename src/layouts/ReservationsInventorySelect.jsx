@@ -18,6 +18,7 @@ const mapDispatchToProps = (dispatch) => ({
   handleSearchChange: (e) => {
     if (e.which === 13){
       dispatch(updateSearchTerms('add', e.target.value))
+      // this does not bring back the placeholder text, tough...
       e.target.value = ''
     }
   },
