@@ -1,5 +1,11 @@
 import React from 'react'
 import { Router, Route, IndexRoute, browserHistory } from 'react-router'
+import { syncHistoryWithStore } from 'react-router-redux'
+// create the store here so that we dont have to export from index.js
+import { createStore, applyMiddleware, compose } from 'redux'
+import { reducers } from 'reducers'
+import thunk from 'redux-thunk'
+import DevTools from 'containers/DevTools'
 
 // the subSideNav links are in another file so this isnt
 // super cluttered
@@ -15,9 +21,17 @@ import { UsersLayout } from 'layouts/UsersLayout'
 import Register from 'components/register/Register'
 import { CurrentUser } from 'components/currentUser/CurrentUser'
 
+// export store for the Provider in index.js
+export const store = createStore(
+  reducers,
+  compose(applyMiddleware(thunk),
+  DevTools.instrument())
+)
+
+const history = syncHistoryWithStore(browserHistory, store)
 
 export const AppRouter = (
-  <Router history={ browserHistory }>
+  <Router history={ history }>
     <Route
       path='/'
       component={ AppLayout }
