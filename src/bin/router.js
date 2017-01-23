@@ -14,8 +14,7 @@ import { LandingLayout } from 'layouts/LandingLayout'
 import { UsersLayout } from 'layouts/UsersLayout'
 import ReservationsDateSelect from 'layouts/ReservationsDateSelect'
 import ReservationsInventorySelect from 'layouts/ReservationsInventorySelect'
-
-import { Register } from 'components/register/Register'
+import Register from 'components/register/Register'
 import { CurrentUser } from 'components/currentUser/CurrentUser'
 
 

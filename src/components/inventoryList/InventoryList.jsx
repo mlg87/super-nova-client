@@ -54,6 +54,7 @@ export class InventoryList extends Component {
               subtitle={<span><b>{tile.type}</b></span>}
               >
               <img src={tile.image_url} alt='Category icon'/>
+              <img src={tile.image_url} alt='Category icon'/>
             </GridTile>
           ))}
         </GridList>

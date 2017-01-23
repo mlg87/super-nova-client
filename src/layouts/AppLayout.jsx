@@ -5,7 +5,7 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 // needed for touch devices
 import injectTapEventPlugin from 'react-tap-event-plugin'
 // components
-import { Login } from 'components/login/Login'
+import Login from 'components/login/Login'
 import { Shell } from 'components/shell/Shell'
 import { FullPageLoading } from 'layouts/FullPageLoading'
 import { connect } from 'react-redux'
@@ -15,7 +15,6 @@ import { handleFetchErrors } from 'bin/helpers'
 // init the touch event handler (needed for material-ui, also prevents
 // console errs)
 injectTapEventPlugin()
-
 
 const mapStateToProps = state => ({
   isLoading: state.isLoading,
