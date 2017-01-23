@@ -38,6 +38,7 @@ class ReservationsInventorySelect extends Component {
       return (
         <Chip
           key={searchTerm}
+          style={{margin: 4}}
           onRequestDelete={() => this.props.removeSearchTerm(searchTerm)}
         >
           {searchTerm}
