@@ -7,7 +7,7 @@ import { TextField } from 'redux-form-material-ui'
 import { colors } from 'config/colors'
 
 const UserRegisterForm = (props) => {
-  const { handleSubmit, reset, submitting, fields, valid } = props
+  const { handleSubmit, valid } = props
 
   // validation functions
   const required = value => value == null ? 'Required' : undefined
