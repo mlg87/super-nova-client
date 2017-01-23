@@ -15,3 +15,12 @@ export const fetchInventory = (searchTerm) => dispatch => {
   })
   .catch((err) => {console.log('fetch err:', err);})
 }
+
+export const addInventorySearchTerm = (searchTerm) => ({
+  type: 'ADD_INVENTORY_SEARCH_TERM',
+  payload: searchTerm
+})
+export const removeInventorySearchTerm = (searchTerm) => ({
+  type: 'REMOVE_INVENTORY_SEARCH_TERM',
+  payload: searchTerm
+})
