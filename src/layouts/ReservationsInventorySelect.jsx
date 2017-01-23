@@ -50,7 +50,9 @@ class ReservationsInventorySelect extends Component {
     return (
       <Center>
         <div>
-          {this.renderSearchTerms()}
+          <div style={{display: 'flex'}}>
+            {this.renderSearchTerms()}
+          </div>
           <TextField
             name='inventory-search'
             hintText='search for inventory'
