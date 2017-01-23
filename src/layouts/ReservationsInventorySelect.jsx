@@ -3,8 +3,12 @@ import { connect } from 'react-redux'
 import { Center } from 'components/center/Center';
 import InventoryList from 'components/inventoryList/InventoryList'
 import TextField from 'material-ui/TextField'
+import Chip from 'material-ui/Chip'
+import { updateSearchTerms, fetchInventory } from 'actions/inventory'
 
-import { fetchInventory } from 'actions/inventory'
+const mapStateToProps = (state) => ({
+  searchTerms: state.inventorySearchTerms,
+})
 
 const mapDispatchToProps = (dispatch) => ({
   fetchInitialInventory: () => {
@@ -13,9 +17,13 @@ const mapDispatchToProps = (dispatch) => ({
 
   handleSearchChange: (e) => {
     if (e.which === 13){
-      dispatch(fetchInventory(e.target.value))
+      dispatch(updateSearchTerms('add', e.target.value))
       e.target.value = ''
     }
+  },
+
+  removeSearchTerm: (searchTerm) => {
+    dispatch(updateSearchTerms('remove', searchTerm))
   }
 })
 
@@ -25,10 +33,24 @@ class ReservationsInventorySelect extends Component {
     props.fetchInitialInventory()
   }
 
+  renderSearchTerms() {
+    return this.props.searchTerms.map((searchTerm) => {
+      return (
+        <Chip
+          key={searchTerm}
+          onRequestDelete={() => this.props.removeSearchTerm(searchTerm)}
+        >
+          {searchTerm}
+        </Chip>
+      )
+    })
+  }
+
   render() {
     return (
       <Center>
         <div>
+          {this.renderSearchTerms()}
           <TextField
             name='inventory-search'
             hintText='search for inventory'
@@ -42,5 +64,5 @@ class ReservationsInventorySelect extends Component {
 }
 
 export default connect(
-  null, mapDispatchToProps
+  mapStateToProps, mapDispatchToProps
 )(ReservationsInventorySelect)
