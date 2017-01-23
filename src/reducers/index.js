@@ -5,6 +5,7 @@ import { reducer as formReducer } from 'redux-form'
 import { userId } from 'reducers/userId'
 import { isLoading } from 'reducers/isLoading'
 import { inventory } from 'reducers/inventory'
+import { inventorySearchTerms } from 'reducers/inventorySearchTerms'
 
 export const reducers = combineReducers({
   form: formReducer,
@@ -15,5 +16,6 @@ export const reducers = combineReducers({
   userApiError,
   userId,
   isLoading,
-  inventory
+  inventory,
+  inventorySearchTerms
 })
