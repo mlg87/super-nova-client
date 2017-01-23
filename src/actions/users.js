@@ -39,11 +39,13 @@ export const userRegisterApiCall = (username, password) => dispatch => {
     },
     body: JSON.stringify({user})
   })
-  .then((res) => res.json())
-  .then((json) => {
-    if (!json.token) {
-      throw Error('User registration failed. Better error message coming soon...')
+  .then((res) => {
+    if (!res.ok) {
+      throw Error(`${res.status}: ${res.statusText}`)
     }
+    return res.json()
+  })
+  .then((json) => {
     dispatch(userRegisterFetch(false))
     return json
   })
@@ -92,11 +94,13 @@ export const userLoginApiCall = (username, password) => dispatch => {
     },
     body: JSON.stringify({user})
   })
-  .then((res) => res.json())
-  .then((json) => {
-    if (!json.token) {
-      throw Error('Login failed. We need a more descriptive error message here...')
+  .then((res) => {
+    if (!res.ok) {
+      throw Error(`${res.status}: ${res.statusText}`)
     }
+    return res.json()
+  })
+  .then((json) => {
     dispatch(userLoginFetch(false))
     return json
   })
