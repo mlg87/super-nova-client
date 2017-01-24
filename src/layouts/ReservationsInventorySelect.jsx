@@ -4,8 +4,7 @@ import { Center } from 'components/center/Center';
 import InventoryList from 'components/inventoryList/InventoryList'
 import InventorySearch from 'components/inventorySearch/InventorySearch'
 import { fetchInventory } from 'actions/inventory'
-import { Link } from 'react-router'
-import RaisedButton from 'material-ui/RaisedButton'
+import ReservationNav from 'components/reservationNav/ReservationNav'
 
 const mapDispatchToProps = (dispatch) => ({
   fetchInitialInventory: () => {
@@ -27,31 +26,10 @@ class ReservationsInventorySelect extends Component {
 
           <InventoryList />
 
-          <Link
-            to='/reservations/select-date'
-            style={{
-              float: 'left',
-              marginTop: '10px'
-            }}
-          >
-            <RaisedButton
-              label='Back'
-              primary={true}
-            />
-          </Link>
-
-          <Link
-            to='/reservations/select-user'
-            style={{
-              float: 'right',
-              marginTop: '10px'
-            }}
-          >
-            <RaisedButton
-              label='Next'
-              primary={true}
-            />
-          </Link>
+          <ReservationNav
+            back='/reservations/select-date'
+            next='/reservations/select-user'
+          />
         </div>
       </Center>
     )
