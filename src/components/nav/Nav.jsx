@@ -23,22 +23,18 @@ export class Nav extends Component {
     let links = [
       {
         path: '/inventory',
-        tooltip: 'Inventory',
         icon: () => <Landscape />
       },
       {
         path: '/customers',
-        tooltip: 'Customers',
         icon: () => <TagFaces />
       },
       {
         path: '/reservations',
-        tooltip: 'Reservations',
         icon: () => <EventNote />
       },
       {
         path: '/users',
-        tooltip: 'Users',
         icon: () => <Group />
       }
     ]
@@ -100,9 +96,11 @@ export class Nav extends Component {
     // to not throw errs
     let subSideNavHeader = null
     let subSideNavLinks = null
+    let subSideNavPath = null
     if (routeProps.subSideNavHeader && routeProps.subSideNavLinks) {
       subSideNavHeader = routeProps.subSideNavHeader
       subSideNavLinks = routeProps.subSideNavLinks
+      subSideNavPath = routeProps.path
     }
 
     return (
@@ -127,6 +125,7 @@ export class Nav extends Component {
           <SubSideNav
             header={ subSideNavHeader }
             links={ subSideNavLinks }
+            path={ subSideNavPath }
           />
         }
         </Drawer>

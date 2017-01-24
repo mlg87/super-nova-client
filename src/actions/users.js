@@ -7,9 +7,9 @@ const USER_REGISTER_SUCCESS = 'USER_REGISTER_SUCCESS'
 const USER_REGISTER_ERROR = 'USER_REGISTER_ERROR'
 
 // action creators - user registration
-export const userRegisterFetch = (bool) => ({
+export const userRegisterFetch = (isFetching) => ({
   type: USER_REGISTER_FETCH,
-  isFetching: bool
+  isFetching
 })
 
 // TODO: change the server to return something here other than the token for the
@@ -23,6 +23,7 @@ export const userRegisterError = (err) => ({
   err
 })
 
+// middleware api call
 export const userRegisterApiCall = (username, password) => dispatch => {
   dispatch(userRegisterFetch(true))
   const user = {
@@ -65,9 +66,9 @@ const USER_LOGIN_SUCCESS = 'USER_LOGIN_SUCCESS'
 const USER_LOGIN_ERROR = 'USER_LOGIN_ERROR'
 
 // action creators - user login process
-export const userLoginFetch = (bool) => ({
+export const userLoginFetch = (isFetching) => ({
   type: USER_LOGIN_FETCH,
-  isFetching: bool
+  isFetching
 })
 
 export const userLoginSuccess = () => ({
@@ -79,6 +80,7 @@ export const userLoginError = (err) => ({
   err
 })
 
+// middleware api call
 export const userLoginApiCall = (username, password) => dispatch => {
   dispatch(userLoginFetch(true))
   const user = {
@@ -122,3 +124,53 @@ export const userLogout = (username) => ({
   type: 'USER_LOGOUT',
   username
 })
+
+// constants - users get
+export const USERS_GET_FETCH = 'USERS_GET_FETCH'
+export const USERS_GET_SUCCESS = 'USERS_GET_SUCCESS'
+export const USERS_GET_ERROR = 'USERS_GET_ERROR'
+
+// action creators - users get
+export const usersGetFetch = (isFetching) => ({
+  type: USERS_GET_FETCH,
+  isFetching
+})
+
+export const usersGetSuccess = (payload) => ({
+  type: USERS_GET_SUCCESS,
+  payload
+})
+
+export const usersGetError = (err) => ({
+  type: USERS_GET_ERROR,
+  err
+})
+
+// middleware api call
+export const usersGetApiCall = (query) => dispatch => {
+  dispatch(usersGetFetch(true))
+  return fetch('/api/users/all', {
+    method: 'get',
+    credentials: 'include', //pass cookies, for authentication
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  })
+  .then((res) => {
+    if (!res.ok) {
+      throw Error(`${res.status}: ${res.statusText}`)
+    }
+    return res.json()
+  })
+  .then((json) => {
+    dispatch(usersGetFetch(false))
+    return json
+  })
+  .then((res) => {
+    dispatch(usersGetSuccess(res.data))
+  })
+  .catch((err) => {
+    dispatch(usersGetFetch(false))
+    dispatch(usersGetError(err))
+  })
+}

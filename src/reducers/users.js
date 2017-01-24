@@ -2,6 +2,7 @@ export const userApiFetch = (state = false, action) => {
   switch (action.type) {
     case 'USER_REGISTER_FETCH':
     case 'USER_LOGIN_FETCH':
+    case 'USERS_GET_FETCH':
       return action.isFetching
     default:
       return state
@@ -23,6 +24,24 @@ export const userApiError = (state = {}, action) => {
   switch (action.type) {
     case 'USER_REGISTER_ERROR':
     case 'USER_LOGIN_ERROR':
+      return action.err
+    default:
+      return state
+  }
+}
+
+export const usersApiSuccess = (state = [], action) => {
+  switch (action.type) {
+    case 'USERS_GET_SUCCESS':
+      return action.payload
+    default:
+      return state
+  }
+}
+
+export const usersApiError = (state = {}, action) => {
+  switch (action.type) {
+    case 'USERS_GET_ERROR':
       return action.err
     default:
       return state

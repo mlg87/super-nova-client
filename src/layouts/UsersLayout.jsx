@@ -1,14 +1,40 @@
 import React, { Component } from 'react'
-import Radium from 'radium'
+import { connect } from 'react-redux'
+import { usersGetApiCall, usersGetError } from 'actions/users'
 
-export class UsersLayout extends Component {
+class UsersLayout extends Component {
+  componentWillMount() {
+    this.props.usersGetApiCall('mason')
+  }
+
   render() {
+    const { children, users } = this.props
+
     return (
       <div>
-        { this.props.children }
+        <ul>
+          { users.map((user) => <li>{user.username}</li>)}
+        </ul>
+        { children }
       </div>
     )
   }
 }
 
-UsersLayout = Radium(UsersLayout)
+const mapStateToProps = (state, ownProps) => {
+  return {
+    users: state.usersApiSuccess
+  }
+}
+
+const mapDispatchToProps = (dispatch, ownProps) => {
+  console.log('dispatch', dispatch);
+  return {
+    usersGetApiCall: (query) => {
+      console.log('query', query);
+      return dispatch(usersGetApiCall(query))
+    }
+  }
+}
+
+export default UsersLayout = connect(mapStateToProps, mapDispatchToProps)(UsersLayout)
