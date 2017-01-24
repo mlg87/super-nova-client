@@ -1,11 +1,19 @@
 import fetch from 'isomorphic-fetch'
 import { handleFetchErrors } from 'bin/helpers'
 
-export const setInventory = (inventory) => ({type: 'SET_INVENTORY', payload: inventory})
+export const setInventory = (inventory) => ({
+  type: 'SET_INVENTORY',
+  payload: inventory
+})
 
 export const addInventoryToReservation = (item) => ({
   type: 'ADD_INVENTORY_TO_RESERVATION',
   payload: item
+})
+
+export const removeInventoryFromReservation = (uuid) => ({
+  type: 'REMOVE_INVENTORY_FROM_RESERVATION',
+  payload: uuid
 })
 
 export const addInventorySearchTerm = (searchTerm) => ({

@@ -4,6 +4,7 @@ import Subheader from 'material-ui/Subheader'
 import { connect } from 'react-redux'
 import Avatar from 'material-ui/Avatar'
 import RemoveItem from 'material-ui/svg-icons/content/clear'
+import { removeInventoryFromReservation } from 'actions/inventory'
 
 const listStyle = {
   position: 'absolute',
@@ -14,11 +15,11 @@ const mapStateToProps = (state) => ({
   items: state.reservationSelectedInventory
 })
 
-const mapDispatchToProps = (dispatch) => ({
-  removeInventory: () => console.log('hi')
-})
+// const mapDispatchToProps = (dispatch) => ({
+//   removeInventoryFromReservation: dispatch(removeInventoryFromReservation)
+// })
 
-const renderItems = ({ items, removeInventory }) => {
+const renderItems = ({ items, removeInventoryFromReservation }) => {
   return items.map((item) => {
     return (
       <ListItem
@@ -26,7 +27,7 @@ const renderItems = ({ items, removeInventory }) => {
         primaryText={item.model}
         leftAvatar={<Avatar src={item.image_url} />}
 
-        rightIcon={<RemoveItem onClick={removeInventory}/>}
+        rightIcon={<RemoveItem onClick={() => removeInventoryFromReservation(item.uuid)}/>}
       />
     )
   })
@@ -42,5 +43,5 @@ const SelectedInventoryList = (props) => {
 }
 
 export default connect(
-  mapStateToProps, mapDispatchToProps
+  mapStateToProps, { removeInventoryFromReservation }
 )(SelectedInventoryList)

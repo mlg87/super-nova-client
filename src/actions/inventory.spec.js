@@ -31,11 +31,21 @@ describe('remove inventory search term', () => {
 })
 
 describe('add item to selected inventory', () => {
-  it('should create SELECT_INVENTORY_FOR_RESERVATION action', () => {
+  it('should create ADD_INVENTORY_TO_RESERVATION action', () => {
     const inventory = {item: 'wow'}
     expect(actions.addInventoryToReservation(inventory)).toEqual({
       type: 'ADD_INVENTORY_TO_RESERVATION',
       payload: inventory
+    })
+  })
+})
+
+describe('remove item from selected inventory', () => {
+  it('should create REMOVE_INVENTORY_FROM_RESERVATION action', () => {
+    const uuid = 'wow'
+    expect(actions.removeInventoryFromReservation(uuid)).toEqual({
+      type: 'REMOVE_INVENTORY_FROM_RESERVATION',
+      payload: uuid
     })
   })
 })
