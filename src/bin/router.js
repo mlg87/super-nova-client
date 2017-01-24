@@ -1,6 +1,6 @@
 import React from 'react'
 import { Router, Route, IndexRoute, browserHistory } from 'react-router'
-import { syncHistoryWithStore } from 'react-router-redux'
+import { syncHistoryWithStore, routerMiddleware } from 'react-router-redux'
 // create the store here so that we dont have to export from index.js
 import { createStore, applyMiddleware, compose } from 'redux'
 import { reducers } from 'reducers'
@@ -21,10 +21,11 @@ import UsersLayout from 'layouts/UsersLayout'
 import Register from 'components/register/Register'
 import { CurrentUser } from 'components/currentUser/CurrentUser'
 
+const middleware = routerMiddleware(browserHistory)
 // export store for the Provider in index.js
 export const store = createStore(
   reducers,
-  compose(applyMiddleware(thunk),
+  compose(applyMiddleware(thunk, middleware),
   DevTools.instrument())
 )
 
@@ -89,6 +90,12 @@ export const AppRouter = (
         <Route
           path='/users/add'
           component={ Register }
+          returnPath='/users'
+        />
+        <Route
+          path='/users/remove'
+          component={ UnderConstruction }
+          returnPath='/users'
         />
       </Route>
       <Route

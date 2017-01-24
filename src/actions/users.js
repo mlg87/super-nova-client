@@ -1,4 +1,5 @@
 import fetch from 'isomorphic-fetch'
+import { push } from 'react-router-redux'
 import { setUserId } from 'actions'
 
 // constants - user registration
@@ -52,6 +53,8 @@ export const userRegisterApiCall = (username, password) => dispatch => {
   })
   .then((res) => {
     dispatch(userRegisterSuccess())
+    // user creation happens at /users/add, so send them back to users on success
+    dispatch(push('/users'))
   })
   // throw errs
   .catch((err) => {
@@ -174,3 +177,10 @@ export const usersGetApiCall = (query) => dispatch => {
     dispatch(usersGetError(err))
   })
 }
+
+const USERS_UPDATE_SELECTED = 'USERS_UPDATE_SELECTED'
+
+export const usersUpdateSelected = (index) => ({
+  type: USERS_UPDATE_SELECTED,
+  index
+})

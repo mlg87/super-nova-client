@@ -48,6 +48,36 @@ export const usersApiError = (state = {}, action) => {
   }
 }
 
+// pushes/pulls user from an arr based on their index in the Table
+// this works because the index in the table is the same as the index
+// for the usersApiSuccess arr
+export const usersSelected = (state = [], action) => {
+  const { type, index } = action
+
+  switch (type) {
+    case 'USERS_UPDATE_SELECTED':
+      const i = state.indexOf(index)
+      if (i === -1 && typeof index !== 'undefined') {
+        return [
+          ...state,
+          index
+        ]
+      } else if (i !== 1 && typeof index !== 'undefined') {
+        return [
+          ...state.slice(0, i),
+          ...state.slice(i + 1)
+        ]
+      } else {
+        return state
+      }
+    case 'USERS_PULL_FROM_EDIT_ARR':
+    // get this to work
+      return state
+    default:
+      return state
+  }
+}
+
 // OLD WAY - MAY GO BACK TO THIS
 // const users = (state = {}, action) => {
 //   switch (action.type) {

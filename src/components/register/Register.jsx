@@ -2,10 +2,15 @@ import React, { PropTypes } from 'react'
 import { connect } from 'react-redux'
 // components
 import UserRegisterForm from 'components/form/UserRegisterForm'
+import Dialog from 'material-ui/Dialog'
+import RaisedButton from 'material-ui/RaisedButton'
 import Snackbar from 'material-ui/Snackbar'
 import { userRegisterApiCall, userRegisterError } from 'actions/users'
 
 const Register = (props) => {
+  const { handleSubmit, onRequestClose, err } = props
+  const { returnPath } = props.route
+
   const containerStyle = {
     width: '50%',
     marginTop: '20px',
@@ -21,11 +26,14 @@ const Register = (props) => {
     color: 'white'
   }
 
-  const { handleSubmit, onRequestClose, err } = props
-
   return (
     <div style={ containerStyle }>
-      <UserRegisterForm onSubmit={ handleSubmit } />
+      <Dialog
+        open={ true }
+        title='Register A New User'
+      >
+        <UserRegisterForm onSubmit={ handleSubmit } returnPath={ returnPath } />
+      </Dialog>
       <Snackbar
         open={ !!err.message }
         message={ !!err.message ? err.message : ''}
@@ -50,7 +58,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     handleSubmit: (values) => {
       let user = {...values}
       delete user.password_confirm
-      dispatch(userRegisterApiCall(user.username, user.password))
+      return dispatch(userRegisterApiCall(user.username, user.password))
     },
     onRequestClose: () => dispatch(userRegisterError(false))
   }
