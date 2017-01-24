@@ -4,26 +4,32 @@ import Subheader from 'material-ui/Subheader'
 import { connect } from 'react-redux'
 import Avatar from 'material-ui/Avatar'
 
-const mapStateToProps = (state) => {
-  selectedInventoryItems: state.selectedInventoryItems
+const listStyle = {
+  position: 'absolute',
+  top: 0
 }
+
+const mapStateToProps = (state) => ({
+  items: state.reservationSelectedInventory
+})
 
 const renderItems = (items) => {
   return items.map((item) => {
     return (
       <ListItem
-        primaryText="Brendan Lim"
-        leftAvatar={<Avatar src="images/ok-128.jpg" />}
+        key={item.uuid}
+        primaryText={item.model}
+        leftAvatar={<Avatar src={item.image_url} />}
       />
     )
   })
 }
 
-const SelectedInventoryList = (props) => {
+const SelectedInventoryList = ({ items }) => {
   return (
-    <List style={{float: 'right'}}>
-      <Subheader>Selected Gear</Subheader>
-      { renderItems(props.selectedInventoryItems) }
+    <List style={listStyle}>
+      { items.length ? <Subheader>Selected Gear</Subheader> : ''}
+      { renderItems(items) }
     </List>
   )
 }

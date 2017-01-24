@@ -1,4 +1,5 @@
 import { reservationSelectedInventory } from './reservationSelectedInventory'
+import deepFreeze from 'deepFreeze'
 
 describe('reservation selected inventory reducer', () => {
   it('should handle initial state', () => {
@@ -7,28 +8,31 @@ describe('reservation selected inventory reducer', () => {
     ).toEqual([])
   })
 
-  // it('should add inventory item', () => {
-  //   const action = {
-  //     type: 'ADD_INVENTORY_TO_RESERVATION',
-  //     payload: 'hello'
-  //   }
-  //
-  //   expect(
-  //     reservationSelectedInventory(undefined, {...action})
-  //   ).toEqual(['hello'])
-  //
-  //   expect(
-  //     reservationSelectedInventory(['hi'],  {...action})
-  //   ).toEqual(['hello'])
-  // })
-  //
-  // it('should return current state on default', () => {
-  //   const action = {
-  //     type: 'OTHER_ACTION',
-  //     payload: ['dude']
-  //   }
-  //   expect(
-  //     reservationSelectedInventory(['chick'], action)
-  //   ).toEqual(['chick'])
-  // })
+  it('should add inventory item', () => {
+    const action = {
+      type: 'ADD_INVENTORY_TO_RESERVATION',
+      payload: {name: 'hello'}
+    }
+
+    expect(
+      reservationSelectedInventory(undefined, {...action})
+    ).toEqual([{name: 'hello'}])
+
+    const state = [{name: 'hi'}]
+    deepFreeze(state)
+
+    expect(
+      reservationSelectedInventory(state,  {...action})
+    ).toEqual([{name: 'hi'}, {name: 'hello'}])
+  })
+
+  it('should return current state on default', () => {
+    const action = {
+      type: 'OTHER_ACTION',
+      payload: [{name: 'hi'}]
+    }
+    expect(
+      reservationSelectedInventory([{name: 'hello'}], action)
+    ).toEqual([{name: 'hello'}])
+  })
 })

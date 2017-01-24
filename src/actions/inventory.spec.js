@@ -33,7 +33,7 @@ describe('remove inventory search term', () => {
 describe('add item to selected inventory', () => {
   it('should create SELECT_INVENTORY_FOR_RESERVATION action', () => {
     const inventory = {item: 'wow'}
-    expect(actions.selectInventoryForReservation(inventory)).toEqual({
+    expect(actions.addInventoryToReservation(inventory)).toEqual({
       type: 'ADD_INVENTORY_TO_RESERVATION',
       payload: inventory
     })

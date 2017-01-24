@@ -1,6 +1,7 @@
 import React from 'react'
 import { GridList, GridTile } from 'material-ui/GridList'
 import { connect } from 'react-redux'
+import { addInventoryToReservation } from 'actions/inventory'
 
 const styles = {
   root: {
@@ -26,13 +27,15 @@ export const InventoryList = (props) => {
         cellHeight={180}
         style={styles.gridList}
         >
-        {props.inventory.map((tile) => (
+        {props.inventory.map((item) => (
           <GridTile
-            key={tile.item_id}
-            title={`${tile.brand} ${tile.model}`}
-            subtitle={<span><b>{tile.type}</b></span>}
-            >
-            <img src={tile.image_url} alt='Category icon'/>
+            key={item.item_id}
+            title={`${item.brand} ${item.model}`}
+            subtitle={<span><b>{item.type}</b></span>}
+            style={{cursor: 'pointer'}}
+            onClick={() => props.addInventoryToReservation(item)}
+          >
+            <img src={item.image_url} alt='Category icon'/>
           </GridTile>
         ))}
       </GridList>
@@ -41,5 +44,6 @@ export const InventoryList = (props) => {
 }
 
 export default connect(
-  mapStateToProps
+  mapStateToProps,
+  { addInventoryToReservation }
 )(InventoryList)
