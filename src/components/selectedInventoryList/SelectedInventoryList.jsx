@@ -15,10 +15,6 @@ const mapStateToProps = (state) => ({
   items: state.reservationSelectedInventory
 })
 
-// const mapDispatchToProps = (dispatch) => ({
-//   removeInventoryFromReservation: dispatch(removeInventoryFromReservation)
-// })
-
 const renderItems = ({ items, removeInventoryFromReservation }) => {
   return items.map((item) => {
     return (
