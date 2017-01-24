@@ -3,6 +3,11 @@ import { handleFetchErrors } from 'bin/helpers'
 
 export const setInventory = (inventory) => ({type: 'SET_INVENTORY', payload: inventory})
 
+export const selectInventoryForReservation = (item) => ({
+  type: 'ADD_INVENTORY_TO_RESERVATION',
+  payload: item
+})
+
 export const addInventorySearchTerm = (searchTerm) => ({
   type: 'ADD_INVENTORY_SEARCH_TERM',
   payload: searchTerm

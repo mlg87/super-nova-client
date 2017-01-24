@@ -5,6 +5,7 @@ import InventoryList from 'components/inventoryList/InventoryList'
 import InventorySearch from 'components/inventorySearch/InventorySearch'
 import { fetchInventory } from 'actions/inventory'
 import ReservationNav from 'components/reservationNav/ReservationNav'
+import SelectedInventoryList from 'components/selectedInventoryList/SelectedInventoryList'
 
 const mapDispatchToProps = (dispatch) => ({
   fetchInitialInventory: () => {
@@ -12,7 +13,7 @@ const mapDispatchToProps = (dispatch) => ({
   }
 })
 
-class ReservationsInventorySelect extends Component {
+export class ReservationsInventorySelect extends Component {
   constructor(props) {
     super(props)
     props.fetchInitialInventory()
@@ -20,18 +21,22 @@ class ReservationsInventorySelect extends Component {
 
   render() {
     return (
-      <Center>
-        <div>
-          <InventorySearch />
+      <div>
+        <Center>
+          <div>
+            <InventorySearch />
 
-          <InventoryList />
+            <InventoryList />
 
-          <ReservationNav
-            back='/reservations/select-date'
-            next='/reservations/select-user'
-          />
-        </div>
-      </Center>
+            <ReservationNav
+              back='/reservations/select-date'
+              next='/reservations/select-user'
+            />
+          </div>
+        </Center>
+
+        <SelectedInventoryList />
+      </div>
     )
   }
 }

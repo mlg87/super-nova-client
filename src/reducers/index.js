@@ -6,6 +6,7 @@ import { userId } from 'reducers/userId'
 import { isLoading } from 'reducers/isLoading'
 import { inventory } from 'reducers/inventory'
 import { inventorySearchTerms } from 'reducers/inventorySearchTerms'
+import { reservationSelectedInventory } from 'reducers/reservationSelectedInventory'
 
 export const reducers = combineReducers({
   form: formReducer,
@@ -17,5 +18,6 @@ export const reducers = combineReducers({
   userId,
   isLoading,
   inventory,
-  inventorySearchTerms
+  inventorySearchTerms,
+  reservationSelectedInventory
 })
