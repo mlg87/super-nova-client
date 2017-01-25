@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { Center } from 'components/center/Center';
 import InventoryList from 'components/inventoryList/InventoryList'
 import InventorySearch from 'components/inventorySearch/InventorySearch'
-import { fetchInventory } from 'actions/inventory'
+import { fetchInventory } from 'actions/reservations'
 import ReservationNav from 'components/reservationNav/ReservationNav'
 import SelectedInventoryList from 'components/selectedInventoryList/SelectedInventoryList'
 
@@ -30,7 +30,7 @@ export class ReservationsInventorySelect extends Component {
 
             <ReservationNav
               back='/reservations/select-date'
-              next='/reservations/select-user'
+              next='/reservations/select-customer'
             />
           </div>
         </Center>

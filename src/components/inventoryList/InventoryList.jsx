@@ -1,7 +1,7 @@
 import React from 'react'
 import { GridList, GridTile } from 'material-ui/GridList'
 import { connect } from 'react-redux'
-import { addInventoryToReservation } from 'actions/inventory'
+import { addInventoryToReservation } from 'actions/reservations'
 
 const styles = {
   root: {

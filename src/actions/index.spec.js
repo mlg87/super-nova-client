@@ -1,5 +1,4 @@
 import * as actions from './index'
-import moment from 'moment'
 
 describe('userId actions', () => {
   describe('setUserId', () => {
@@ -27,26 +26,6 @@ describe('data loading', () => {
         type: 'SET_LOADING_STATE',
         value: false
       })
-    })
-  })
-})
-
-describe('set start date', () => {
-  it('should create SET_RESERVATION_START_DATE action', () => {
-    const startDate = moment()
-    expect(actions.setStartDate(startDate)).toEqual({
-      type: 'SET_RESERVATION_START_DATE',
-      date: startDate
-    })
-  })
-})
-
-describe('set end date', () => {
-  it('should create SET_RESERVATION_END_DATE action', () => {
-    const endDate = moment()
-    expect(actions.setEndDate(endDate)).toEqual({
-      type: 'SET_RESERVATION_END_DATE',
-      date: endDate
     })
   })
 })

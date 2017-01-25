@@ -4,7 +4,7 @@ import Subheader from 'material-ui/Subheader'
 import { connect } from 'react-redux'
 import Avatar from 'material-ui/Avatar'
 import RemoveItem from 'material-ui/svg-icons/content/clear'
-import { removeInventoryFromReservation } from 'actions/inventory'
+import { removeInventoryFromReservation } from 'actions/reservations'
 
 const listStyle = {
   position: 'absolute',

@@ -2,7 +2,7 @@ import React from 'react'
 import { DateRange } from 'react-date-range'
 import moment from 'moment'
 import { connect } from 'react-redux'
-import { setStartDate, setEndDate } from 'actions'
+import { setStartDate, setEndDate } from 'actions/reservations'
 
 // export for testing
 export const mapStateToProps = (state) => ({

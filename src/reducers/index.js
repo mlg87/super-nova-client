@@ -7,6 +7,8 @@ import { isLoading } from 'reducers/isLoading'
 import { inventory } from 'reducers/inventory'
 import { inventorySearchTerms } from 'reducers/inventorySearchTerms'
 import { reservationSelectedInventory } from 'reducers/reservationSelectedInventory'
+import { reservationSelectedCustomer } from 'reducers/reservationSelectedCustomer'
+import { reservationCustomers } from 'reducers/reservationCustomers'
 
 export const reducers = combineReducers({
   form: formReducer,
@@ -19,5 +21,7 @@ export const reducers = combineReducers({
   isLoading,
   inventory,
   inventorySearchTerms,
-  reservationSelectedInventory
+  reservationSelectedInventory,
+  reservationCustomers,
+  reservationSelectedCustomer
 })

@@ -2,7 +2,7 @@ import React from 'react'
 import TextField from 'material-ui/TextField'
 import Chip from 'material-ui/Chip'
 import { connect } from 'react-redux'
-import { updateSearchTerms } from 'actions/inventory'
+import { updateSearchTerms } from 'actions/reservations'
 
 const mapStateToProps = (state) => ({
   searchTerms: state.inventorySearchTerms,

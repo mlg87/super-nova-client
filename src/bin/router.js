@@ -14,6 +14,7 @@ import { LandingLayout } from 'layouts/LandingLayout'
 import { UsersLayout } from 'layouts/UsersLayout'
 import ReservationsDateSelect from 'layouts/ReservationsDateSelect'
 import ReservationsInventorySelect from 'layouts/ReservationsInventorySelect'
+import ReservationsCustomerSelect from 'layouts/ReservationsCustomerSelect'
 import Register from 'components/register/Register'
 import { CurrentUser } from 'components/currentUser/CurrentUser'
 
@@ -70,6 +71,11 @@ export const AppRouter = (
       <Route
         path='/reservations/select-inventory'
         component={ ReservationsInventorySelect }
+        isSubSideNavOpen={ false }
+      />
+      <Route
+        path='/reservations/select-customer'
+        component={ ReservationsCustomerSelect }
         isSubSideNavOpen={ false }
       />
       <Route
