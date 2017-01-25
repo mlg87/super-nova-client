@@ -3,9 +3,9 @@ import { push } from 'react-router-redux'
 import { setUserId } from 'actions'
 
 // constants - user registration
-const USER_REGISTER_FETCH = 'USER_REGISTER_FETCH'
-const USER_REGISTER_SUCCESS = 'USER_REGISTER_SUCCESS'
-const USER_REGISTER_ERROR = 'USER_REGISTER_ERROR'
+export const USER_REGISTER_FETCH = 'USER_REGISTER_FETCH'
+export const USER_REGISTER_SUCCESS = 'USER_REGISTER_SUCCESS'
+export const USER_REGISTER_ERROR = 'USER_REGISTER_ERROR'
 
 // action creators - user registration
 export const userRegisterFetch = (isFetching) => ({
@@ -15,13 +15,16 @@ export const userRegisterFetch = (isFetching) => ({
 
 // TODO: change the server to return something here other than the token for the
 // created user (since another user will be making the new user)
-export const userRegisterSuccess = () => ({
-  type: USER_REGISTER_SUCCESS
+export const userRegisterSuccess = (payload) => ({
+  type: USER_REGISTER_SUCCESS,
+  // payload is a string
+  payload
 })
 
-export const userRegisterError = (err) => ({
+export const userRegisterError = (payload) => ({
   type: USER_REGISTER_ERROR,
-  err
+  // payload is err
+  payload
 })
 
 // middleware api call
@@ -64,9 +67,9 @@ export const userRegisterApiCall = (username, password) => dispatch => {
 }
 
 // constants - user login process
-const USER_LOGIN_FETCH = 'USER_LOGIN_FETCH'
-const USER_LOGIN_SUCCESS = 'USER_LOGIN_SUCCESS'
-const USER_LOGIN_ERROR = 'USER_LOGIN_ERROR'
+export const USER_LOGIN_FETCH = 'USER_LOGIN_FETCH'
+export const USER_LOGIN_SUCCESS = 'USER_LOGIN_SUCCESS'
+export const USER_LOGIN_ERROR = 'USER_LOGIN_ERROR'
 
 // action creators - user login process
 export const userLoginFetch = (isFetching) => ({
@@ -178,7 +181,7 @@ export const usersGetApiCall = (query) => dispatch => {
   })
 }
 
-const USERS_UPDATE_SELECTED = 'USERS_UPDATE_SELECTED'
+export const USERS_UPDATE_SELECTED = 'USERS_UPDATE_SELECTED'
 
 // NOTE: solid chance that this is how its actually supposed to work and Table
 // is being finicky right now

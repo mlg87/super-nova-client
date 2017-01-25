@@ -1,58 +1,85 @@
 export const userApiFetch = (state = false, action) => {
-  switch (action.type) {
+  const { type, isFetching } = action
+
+  switch (type) {
     case 'USER_REGISTER_FETCH':
     case 'USER_LOGIN_FETCH':
     case 'USERS_GET_FETCH':
-      return action.isFetching
+      if (typeof isFetching !== 'boolean') {
+        throw new Error('isFetching must be a boolean')
+      }
+      return isFetching
     default:
       return state
   }
 }
 
-export const userApiSuccess = (state = {}, action) => {
-  switch (action.type) {
-    // we should make these more useful
+export const userApiRes = (state = {}, action) => {
+  const { type, payload } = action
+
+  switch (type) {
     case 'USER_REGISTER_SUCCESS':
     case 'USER_LOGIN_SUCCESS':
-      return state
-    default:
-      return state
-  }
-}
-
-export const userApiError = (state = {}, action) => {
-  switch (action.type) {
+      if (typeof payload !== 'string') {
+        throw new Error('invalid payload')
+      }
+      return payload
     case 'USER_REGISTER_ERROR':
     case 'USER_LOGIN_ERROR':
-      return action.err
+      if (typeof payload !== 'object') {
+        throw new Error('invalid payload')
+      }
+      return payload
     default:
       return state
   }
 }
 
-export const usersApiSuccess = (state = [], action) => {
-  switch (action.type) {
+export const usersApiRes = (state = null, action) => {
+  const { type, payload } = action
+
+  switch (type) {
     case 'USERS_GET_SUCCESS':
-      return action.payload
+      if (!(payload instanceof Array)) {
+        throw new Error('invalid payload')
+      }
+      return payload
+    case 'USERS_GET_ERROR':
+      if (typeof payload !== 'object') {
+        throw new Error('invalid payload')
+      }
+      return payload
     default:
       return state
   }
 }
 
-export const usersApiError = (state = {}, action) => {
-  switch (action.type) {
-    case 'USERS_GET_ERROR':
-      return action.err
-    default:
-      return state
-  }
-}
+// export const usersApiSuccess = (state = [], action) => {
+//   switch (action.type) {
+//     case 'USERS_GET_SUCCESS':
+//       return action.payload
+//     default:
+//       return state
+//   }
+// }
+//
+// export const usersApiError = (state = {}, action) => {
+//   switch (action.type) {
+//     case 'USERS_GET_ERROR':
+//       return action.err
+//     default:
+//       return state
+//   }
+// }
 
 export const usersSelected = (state = [], action) => {
   const { type, indexes } = action
 
   switch (type) {
     case 'USERS_UPDATE_SELECTED':
+      if (!(indexes instanceof Array)) {
+        throw new Error('indexes must be an array')
+      }
       return indexes
     default:
       return state
