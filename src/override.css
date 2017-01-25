@@ -2,3 +2,8 @@ body {
   margin: 0;
   font-family: sans-serif;
 }
+
+a:-webkit-any-link {
+  text-decoration: none;
+  color: inherit;
+}

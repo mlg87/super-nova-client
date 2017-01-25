@@ -7,9 +7,7 @@ import MenuItem from 'material-ui/MenuItem'
 import Radium from 'radium'
 
 export class SubSideNav extends Component {
-  renderLinks() {
-    const links = this.props.links
-
+  renderLinks(links) {
     const activeStyle = {
       backgroundColor: 'black',
       textDecoration: 'none'
@@ -31,6 +29,8 @@ export class SubSideNav extends Component {
   }
 
   render() {
+    const { links, header, path } = this.props
+
     const containerStyle = {
       width: '100%',
       marginLeft: 'auto',
@@ -50,9 +50,11 @@ export class SubSideNav extends Component {
 
     return (
       <div style={ containerStyle }>
-        <h2 style={ headerStyle }>{ this.props.header }</h2>
+        <Link to={ path }>
+          <h2 style={ headerStyle }>{ header }</h2>
+        </Link>
         <ul style={ linkListStyle }>
-          { this.renderLinks() }
+          { this.renderLinks(links) }
         </ul>
       </div>
     )
