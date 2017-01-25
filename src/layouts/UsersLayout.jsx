@@ -16,7 +16,7 @@ class UsersLayout extends Component {
   renderUserRows(users) {
     return users.map((user) => {
       return (
-        <TableRow key={ user.username }>
+        <TableRow key={ user.username } style={{cursor: 'pointer'}}>
           <TableRowColumn>{ user.username }</TableRowColumn>
           <TableRowColumn>{ `${moment(user.created_at).format('MM/DD/YYYY')}` }</TableRowColumn>
         </TableRow>
@@ -29,14 +29,14 @@ class UsersLayout extends Component {
 
     return (
       <div>
-        <Table multiSelectable={ true } onRowSelection={ usersUpdateSelected.bind(this) }>
-          <TableHeader displaySelectAll={ false }>
+        <Table multiSelectable={ true } onRowSelection={ usersUpdateSelected }>
+          <TableHeader displaySelectAll={ false } adjustForCheckbox={ false }>
             <TableRow>
               <TableHeaderColumn>USERNAME</TableHeaderColumn>
               <TableHeaderColumn>CREATED</TableHeaderColumn>
             </TableRow>
           </TableHeader>
-          <TableBody deselectOnClickaway={ false }>
+          <TableBody deselectOnClickaway={ false } displayRowCheckbox={ false }>
             { this.renderUserRows(users) }
           </TableBody>
         </Table>
@@ -57,10 +57,9 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     usersGetApiCall: (query) => {
       return dispatch(usersGetApiCall(query))
     },
-    usersUpdateSelected: (selectedRow) => {
-      console.log('what is selectedRow', selectedRow);
-      const i = selectedRow[0]
-      return dispatch(usersUpdateSelected(i))
+    // NOTE: this Table seems to change its behavior with the wind
+    usersUpdateSelected: (selectedRows) => {
+      return dispatch(usersUpdateSelected(selectedRows))
     }
   }
 }

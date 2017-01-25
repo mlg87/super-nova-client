@@ -180,7 +180,14 @@ export const usersGetApiCall = (query) => dispatch => {
 
 const USERS_UPDATE_SELECTED = 'USERS_UPDATE_SELECTED'
 
-export const usersUpdateSelected = (index) => ({
+// NOTE: solid chance that this is how its actually supposed to work and Table
+// is being finicky right now
+// export const usersUpdateSelected = (index) => ({
+//   type: USERS_UPDATE_SELECTED,
+//   index
+// })
+
+export const usersUpdateSelected = (indexes) => ({
   type: USERS_UPDATE_SELECTED,
-  index
+  indexes
 })
