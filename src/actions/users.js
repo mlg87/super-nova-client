@@ -3,7 +3,7 @@ import { push } from 'react-router-redux'
 // need to get this for the res of logging in
 // in the future, the API calls will be in a seperate
 // middleware file
-import { setUserId } from 'actions'
+import { setUserId, unsetUserId } from 'actions'
 
 // constants - user registration
 export const USER_REGISTER_FETCH = 'USER_REGISTER_FETCH'
@@ -18,10 +18,8 @@ export const userRegisterFetch = (isFetching) => ({
 
 // TODO: change the server to return something here other than the token for the
 // created user (since another user will be making the new user)
-export const userRegisterSuccess = (payload) => ({
+export const userRegisterSuccess = () => ({
   type: USER_REGISTER_SUCCESS,
-  // payload is a string
-  payload
 })
 
 export const userRegisterError = (payload) => ({
@@ -80,9 +78,8 @@ export const userLoginFetch = (isFetching) => ({
   isFetching
 })
 
-export const userLoginSuccess = (payload) => ({
-  type: USER_LOGIN_SUCCESS,
-  payload
+export const userLoginSuccess = () => ({
+  type: USER_LOGIN_SUCCESS
 })
 
 export const userLoginError = (payload) => ({
@@ -130,10 +127,18 @@ export const userLoginApiCall = (username, password) => dispatch => {
   })
 }
 
-export const userLogout = (username) => ({
-  type: 'USER_LOGOUT',
-  username
+export const USER_LOGOUT = 'USER_LOGOUT'
+
+export const userLogout = (id) => ({
+  type: USER_LOGOUT,
+  id
 })
+
+export const userLogoutCall = (id) => dispatch => {
+  dispatch(userLogout(id))
+  localStorage.removeItem('token')
+  dispatch(unsetUserId())
+}
 
 // constants - users get
 export const USERS_GET_FETCH = 'USERS_GET_FETCH'

@@ -19,8 +19,6 @@ export const UnderConstruction = () => {
 }
 
 export const UnderConstructionDialog = (props) => {
-  const { returnPath } = props.route
-
   const actions = [
     <Link to='/users'>
       <RaisedButton

@@ -2,18 +2,12 @@ import React, { Component, PropTypes } from 'react'
 import fetch from 'isomorphic-fetch'
 // material-ui requires the importing of a theme
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
-// needed for touch devices
-import injectTapEventPlugin from 'react-tap-event-plugin'
 // components
 import Login from 'components/login/Login'
-import { Shell } from 'components/shell/Shell'
+import Shell from 'components/shell/Shell'
 import { FullPageLoading } from 'layouts/FullPageLoading'
 import { connect } from 'react-redux'
 import { setUserId, unsetUserId, dataLoaded } from 'actions'
-
-// init the touch event handler (needed for material-ui, also prevents
-// console errs)
-injectTapEventPlugin()
 
 const mapStateToProps = state => ({
   isLoading: state.isLoading,
@@ -23,7 +17,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   checkUserToken: () => {
     let token = localStorage.getItem('token')
-    if (token) {
+    if (!!token) {
       fetch('/api/auth/current_user', {
         method: 'get',
         headers: {

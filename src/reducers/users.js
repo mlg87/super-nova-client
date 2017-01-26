@@ -19,13 +19,12 @@ export const userApiFetch = (state = false, action) => {
 export const userApiRes = (state = {}, action) => {
   const { type, payload } = action
 
+
   switch (type) {
+    // might want to make this more useful
     case ActionTypes.USER_REGISTER_SUCCESS:
     case ActionTypes.USER_LOGIN_SUCCESS:
-      if (typeof payload !== 'string') {
-        throw new Error('invalid payload')
-      }
-      return payload
+      return state
     case ActionTypes.USER_REGISTER_ERROR:
     case ActionTypes.USER_LOGIN_ERROR:
       if (!(payload instanceof Error)) {
@@ -71,6 +70,16 @@ export const usersSelected = (state = [], action) => {
     default:
       return state
   }
+}
+
+export const userLogout = (state = null, action) => {
+  const { type, id } = action
+
+  if (type === ActionTypes.USER_LOGOUT) {
+    return id
+  }
+
+  return state
 }
 
 // NOTE: this was working, nothing changed, now its not coming through as a single

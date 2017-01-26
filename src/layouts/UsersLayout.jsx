@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { usersGetApiCall, usersGetError } from 'actions/users'
+import { usersGetApiCall } from 'actions/users'
 import { Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn } from 'material-ui/Table'
 import moment from 'moment'
 import { usersUpdateSelected } from 'actions/users'

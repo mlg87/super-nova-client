@@ -1,10 +1,9 @@
-import React, { Component, PropTypes } from 'react';
+import React, { PropTypes } from 'react';
 import { connect } from 'react-redux'
-import fetch from 'isomorphic-fetch';
 // components
 import UserLoginForm from 'components/form/UserLoginForm'
 import Snackbar from 'material-ui/Snackbar'
-import { userLoginApiCall, userApiRes, usersResetErr } from 'actions/users'
+import { userLoginApiCall, usersResetErr } from 'actions/users'
 
 const Login = (props) => {
   const containerStyle = {
