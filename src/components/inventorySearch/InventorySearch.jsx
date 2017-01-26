@@ -45,6 +45,7 @@ const InventorySearch = (props) => {
       <TextField
         name='inventory-search'
         hintText='search for inventory'
+        fullWidth={true}
         onKeyUp={props.handleSearchChange}
       />
     </div>

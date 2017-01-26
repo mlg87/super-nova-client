@@ -59,10 +59,10 @@ export const fetchInventory = (search_terms) => dispatch => {
   .catch((err) => {console.log('fetch err:', err);})
 }
 
-export const fetchCustomers = (search_terms) => dispatch => {
+export const fetchCustomers = (search_term) => dispatch => {
   fetch('/api/customers/search', {
     method: 'get',
-    headers: { search_terms }
+    headers: { search_term }
   })
   .then(handleFetchErrors)
   .then((res) => {
