@@ -55,7 +55,7 @@ export const userRegisterApiCall = (username, password) => dispatch => {
     return json
   })
   .then((res) => {
-    dispatch(userRegisterSuccess())
+    dispatch(userRegisterSuccess('success'))
     // user creation happens at /users/add, so send them back to users on success
     dispatch(push('/users'))
   })
@@ -77,13 +77,14 @@ export const userLoginFetch = (isFetching) => ({
   isFetching
 })
 
-export const userLoginSuccess = () => ({
-  type: USER_LOGIN_SUCCESS
+export const userLoginSuccess = (payload) => ({
+  type: USER_LOGIN_SUCCESS,
+  payload
 })
 
-export const userLoginError = (err) => ({
+export const userLoginError = (payload) => ({
   type: USER_LOGIN_ERROR,
-  err
+  payload
 })
 
 // middleware api call
@@ -147,9 +148,9 @@ export const usersGetSuccess = (payload) => ({
   payload
 })
 
-export const usersGetError = (err) => ({
+export const usersGetError = (payload) => ({
   type: USERS_GET_ERROR,
-  err
+  payload
 })
 
 // middleware api call

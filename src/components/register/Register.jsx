@@ -35,8 +35,8 @@ const Register = (props) => {
         <UserRegisterForm onSubmit={ handleSubmit } returnPath={ returnPath } />
       </Dialog>
       <Snackbar
-        open={ !!err.message }
-        message={ !!err.message ? err.message : ''}
+        open={ !!err }
+        message={ !!err ? err.message : ''}
         autoHideDuration={ 4000 }
         bodyStyle={ errSnackBarStyle }
         contentStyle={ errSnackBarContentStyle }
@@ -47,10 +47,15 @@ const Register = (props) => {
 }
 
 const mapStateToProps = (state, ownProps) => {
-  // userApiError is from the reducer
-  const err = state.userApiError
+  // HACK: the redux state dealing with this could use
+  // a refactor, but short of that, this works for now
+  let err = state.userApiRes
+  if (err instanceof Error) {
+    return { err }
+  } else {
+    return {}
+  }
 
-  return { err }
 }
 
 const mapDispatchToProps = (dispatch, ownProps) => {
@@ -60,12 +65,11 @@ const mapDispatchToProps = (dispatch, ownProps) => {
       delete user.password_confirm
       return dispatch(userRegisterApiCall(user.username, user.password))
     },
-    onRequestClose: () => dispatch(userRegisterError(false))
+    onRequestClose: () => dispatch(userRegisterError(null))
   }
 }
 
 Register.propTypes = {
-  err: PropTypes.object,
   handleSubmit: PropTypes.func.isRequired,
   onRequestClose: PropTypes.func.isRequired
 }

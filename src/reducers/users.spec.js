@@ -73,14 +73,12 @@ describe('userApiRes reducer', () => {
     ).toEqual('success')
   })
 
-  it('should set payload for err res to an obj', () => {
+  it('should set payload for err res to an Error', () => {
     const action = {
       type: userActions.USER_REGISTER_ERROR
     }
 
-    const err = {
-      err: {}
-    }
+    const err = new Error('dali')
 
     expect(
       userReducers.userApiRes(undefined, {...action, payload: err})
@@ -124,7 +122,7 @@ describe('usersApiRes reducer', () => {
   it('should handle initial state', () => {
     expect(
       userReducers.usersApiRes(undefined, {})
-    ).toEqual(null)
+    ).toEqual([])
   })
 
   it('should set payload for a successful res to an arr', () => {
@@ -183,7 +181,7 @@ describe('usersApiRes reducer', () => {
 
     expect(
       userReducers.usersApiRes(undefined, action)
-    ).toEqual(null)
+    ).toEqual([])
   })
 })
 

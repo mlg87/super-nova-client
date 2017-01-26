@@ -26,8 +26,8 @@ export const userApiRes = (state = {}, action) => {
       return payload
     case 'USER_REGISTER_ERROR':
     case 'USER_LOGIN_ERROR':
-      if (typeof payload !== 'object') {
-        throw new Error('invalid payload')
+      if (!(payload instanceof Error) && payload !== null) {
+        throw new Error(`invalid payload ${payload}`)
       }
       return payload
     default:
@@ -35,7 +35,8 @@ export const userApiRes = (state = {}, action) => {
   }
 }
 
-export const usersApiRes = (state = null, action) => {
+// set to an empty arr so that users view can load without mapping over null
+export const usersApiRes = (state = [], action) => {
   const { type, payload } = action
 
   switch (type) {
@@ -53,24 +54,6 @@ export const usersApiRes = (state = null, action) => {
       return state
   }
 }
-
-// export const usersApiSuccess = (state = [], action) => {
-//   switch (action.type) {
-//     case 'USERS_GET_SUCCESS':
-//       return action.payload
-//     default:
-//       return state
-//   }
-// }
-//
-// export const usersApiError = (state = {}, action) => {
-//   switch (action.type) {
-//     case 'USERS_GET_ERROR':
-//       return action.err
-//     default:
-//       return state
-//   }
-// }
 
 export const usersSelected = (state = [], action) => {
   const { type, indexes } = action

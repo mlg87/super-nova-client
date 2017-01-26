@@ -48,7 +48,7 @@ class UsersLayout extends Component {
 
 const mapStateToProps = (state, ownProps) => {
   return {
-    users: state.usersApiSuccess
+    users: state.usersApiRes
   }
 }
 
