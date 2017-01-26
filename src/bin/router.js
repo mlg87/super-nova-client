@@ -42,11 +42,6 @@ export const AppRouter = (
         isSubSideNavOpen={ false }
       />
       <Route
-        path='/register'
-        component={ Register }
-        isSubSideNavOpen={ false }
-      />
-      <Route
         path='/inventory'
         component={ InventoryLayout }
         isSubSideNavOpen={ true }
