@@ -116,6 +116,16 @@ describe('userApiRes reducer', () => {
     ).toEqual('dali')
   })
 
+  it('should reset the err when told to do so', () => {
+    const action = {
+      type: userActions.USERS_RESET_ERR
+    }
+
+    expect(
+      userReducers.userApiRes(undefined, action)
+    ).toEqual(null)
+  })
+
 })
 
 describe('usersApiRes reducer', () => {

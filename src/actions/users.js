@@ -1,5 +1,8 @@
 import fetch from 'isomorphic-fetch'
 import { push } from 'react-router-redux'
+// need to get this for the res of logging in
+// in the future, the API calls will be in a seperate
+// middleware file
 import { setUserId } from 'actions'
 
 // constants - user registration
@@ -181,6 +184,12 @@ export const usersGetApiCall = (query) => dispatch => {
     dispatch(usersGetError(err))
   })
 }
+
+export const USERS_RESET_ERR = 'USERS_RESET_ERR'
+
+export const usersResetErr = () => ({
+  type: USERS_RESET_ERR
+})
 
 export const USERS_UPDATE_SELECTED = 'USERS_UPDATE_SELECTED'
 

@@ -1,10 +1,12 @@
+import * as ActionTypes from 'actions/users'
+
 export const userApiFetch = (state = false, action) => {
   const { type, isFetching } = action
 
   switch (type) {
-    case 'USER_REGISTER_FETCH':
-    case 'USER_LOGIN_FETCH':
-    case 'USERS_GET_FETCH':
+    case ActionTypes.USER_REGISTER_FETCH:
+    case ActionTypes.USER_LOGIN_FETCH:
+    case ActionTypes.USERS_GET_FETCH:
       if (typeof isFetching !== 'boolean') {
         throw new Error('isFetching must be a boolean')
       }
@@ -18,18 +20,20 @@ export const userApiRes = (state = {}, action) => {
   const { type, payload } = action
 
   switch (type) {
-    case 'USER_REGISTER_SUCCESS':
-    case 'USER_LOGIN_SUCCESS':
+    case ActionTypes.USER_REGISTER_SUCCESS:
+    case ActionTypes.USER_LOGIN_SUCCESS:
       if (typeof payload !== 'string') {
         throw new Error('invalid payload')
       }
       return payload
-    case 'USER_REGISTER_ERROR':
-    case 'USER_LOGIN_ERROR':
-      if (!(payload instanceof Error) && payload !== null) {
+    case ActionTypes.USER_REGISTER_ERROR:
+    case ActionTypes.USER_LOGIN_ERROR:
+      if (!(payload instanceof Error)) {
         throw new Error(`invalid payload ${payload}`)
       }
       return payload
+    case ActionTypes.USERS_RESET_ERR:
+      return null
     default:
       return state
   }
@@ -40,12 +44,12 @@ export const usersApiRes = (state = [], action) => {
   const { type, payload } = action
 
   switch (type) {
-    case 'USERS_GET_SUCCESS':
+    case ActionTypes.USERS_GET_SUCCESS:
       if (!(payload instanceof Array)) {
         throw new Error('invalid payload')
       }
       return payload
-    case 'USERS_GET_ERROR':
+    case ActionTypes.USERS_GET_ERROR:
       if (typeof payload !== 'object') {
         throw new Error('invalid payload')
       }
@@ -59,7 +63,7 @@ export const usersSelected = (state = [], action) => {
   const { type, indexes } = action
 
   switch (type) {
-    case 'USERS_UPDATE_SELECTED':
+    case ActionTypes.USERS_UPDATE_SELECTED:
       if (!(indexes instanceof Array)) {
         throw new Error('indexes must be an array')
       }
@@ -78,7 +82,7 @@ export const usersSelected = (state = [], action) => {
 //   const { type, index } = action
 //
 //   switch (type) {
-//     case 'USERS_UPDATE_SELECTED':
+//     case ActionTypes.USERS_UPDATE_SELECTED:
 //       const i = state.indexOf(index)
 //       if (i === -1 && typeof index !== 'undefined') {
 //         return [
@@ -93,7 +97,7 @@ export const usersSelected = (state = [], action) => {
 //       } else {
 //         return state
 //       }
-//     case 'USERS_PULL_FROM_EDIT_ARR':
+//     case ActionTypes.USERS_PULL_FROM_EDIT_ARR:
 //     // get this to work
 //       return state
 //     default:
@@ -104,25 +108,25 @@ export const usersSelected = (state = [], action) => {
 // OLD WAY - MAY GO BACK TO THIS
 // const users = (state = {}, action) => {
 //   switch (action.type) {
-//     case 'USER_REGISTER':
-//     case 'USER_LOGIN':
+//     case ActionTypes.USER_REGISTER:
+//     case ActionTypes.USER_LOGIN:
 //       return {
 //         // perhaps use Object.assign here?
 //         ...state,
 //         username: action.username,
 //         password: action.password
 //       }
-//     case 'USER_LOGOUT':
+//     case ActionTypes.USER_LOGOUT:
 //       return {
 //         ...state,
 //         username: action.username
 //       }
-//     case 'USER_REGISTER_SUCCESS':
+//     case ActionTypes.USER_REGISTER_SUCCESS:
 //       return {
 //         ...state,
 //         token: action.token
 //       }
-//     case 'USER_REGISTER_ERROR':
+//     case ActionTypes.USER_REGISTER_ERROR:
 //       return {
 //         ...state,
 //         err: action.err
