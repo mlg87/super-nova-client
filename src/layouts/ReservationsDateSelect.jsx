@@ -1,6 +1,6 @@
 import React from 'react'
 import DateSelect from '../components/dateSelect/DateSelect'
-import { Center } from '../components/center/Center';
+import Center from '../components/center/Center';
 import ReservationNav from 'components/reservationNav/ReservationNav'
 
 const ReservationsDateSelect = () => (

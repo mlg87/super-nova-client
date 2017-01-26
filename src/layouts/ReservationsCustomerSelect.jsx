@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { Center } from 'components/center/Center';
+import Center from 'components/center/Center';
 import CustomerList from 'components/customerList/CustomerList'
 import { fetchCustomers } from 'actions/reservations'
 import ReservationNav from 'components/reservationNav/ReservationNav'
