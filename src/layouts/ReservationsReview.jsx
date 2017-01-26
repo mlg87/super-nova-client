@@ -24,7 +24,8 @@ const ReservationReview = (props) => {
 
         <ReservationNav
           back='/reservations/select-customer'
-          submit={true}
+          next='/reservations/submit'
+          nextLabel='Submit'
         />
 
       </div>

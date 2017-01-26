@@ -2,44 +2,35 @@ import React from 'react'
 import { Link } from 'react-router'
 import RaisedButton from 'material-ui/RaisedButton'
 
+const renderButton = (to, side, label) => (
+  <Link
+    to={to}
+    style={{
+      float: side,
+      marginTop: '10px'
+    }}
+  >
+    <RaisedButton
+      label={label}
+      primary={true}
+      />
+  </Link>
+)
+
 const ReservationNav = (props) => {
   const {
     back,
+    backLabel,
     next,
+    nextLabel,
     nextCondition
   } = props
 
   return (
     <div>
-      {back ?
-        <Link
-          to={back}
-          style={{
-            float: 'left',
-            marginTop: '10px'
-          }}
-        >
-          <RaisedButton
-            label='Back'
-            primary={true}
-            />
-        </Link>
-      : ''}
+      {back ? renderButton(back, 'left', backLabel || 'Back')  : ''}
 
-      {next && nextCondition !== false ?
-        <Link
-          to={next}
-          style={{
-            float: 'right',
-            marginTop: '10px'
-          }}
-        >
-          <RaisedButton
-            label='Next'
-            primary={true}
-            />
-        </Link>
-      : ''}
+      {next && nextCondition !== false ? renderButton(next, 'right', nextLabel || 'Next') : ''}
     </div>
   )
 }
