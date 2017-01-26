@@ -3,11 +3,17 @@ import { Link } from 'react-router'
 import RaisedButton from 'material-ui/RaisedButton'
 
 const ReservationNav = (props) => {
+  const {
+    back,
+    next,
+    nextCondition
+  } = props
+
   return (
     <div>
-      {props.back ?
+      {back ?
         <Link
-          to={props.back}
+          to={back}
           style={{
             float: 'left',
             marginTop: '10px'
@@ -20,9 +26,9 @@ const ReservationNav = (props) => {
         </Link>
       : ''}
 
-      {props.next ?
+      {next && nextCondition !== false ?
         <Link
-          to={props.next}
+          to={next}
           style={{
             float: 'right',
             marginTop: '10px'

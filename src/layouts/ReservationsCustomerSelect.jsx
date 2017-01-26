@@ -7,6 +7,10 @@ import ReservationNav from 'components/reservationNav/ReservationNav'
 import SelectedCustomer from 'components/selectedCustomer/SelectedCustomer'
 import CustomerSearch from 'components/customerSearch/CustomerSearch'
 
+const mapStateToProps = (state) => ({
+  selectedCustomer: state.reservationSelectedCustomer
+})
+
 const mapDispatchToProps = (dispatch) => ({
   fetchInitialCustomers: () => {
     dispatch(fetchCustomers(''))
@@ -36,6 +40,7 @@ export class ReservationsCustomerSelect extends Component {
             <ReservationNav
               back='/reservations/select-inventory'
               next='/reservations/review'
+              nextCondition={!!this.props.selectedCustomer.id}
             />
           </div>
         </Center>
@@ -46,5 +51,5 @@ export class ReservationsCustomerSelect extends Component {
 }
 
 export default connect(
-  null, mapDispatchToProps
+  mapStateToProps, mapDispatchToProps
 )(ReservationsCustomerSelect)

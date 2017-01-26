@@ -7,6 +7,10 @@ import { fetchInventory } from 'actions/reservations'
 import ReservationNav from 'components/reservationNav/ReservationNav'
 import SelectedInventoryList from 'components/selectedInventoryList/SelectedInventoryList'
 
+const mapStateToProps = (state) => ({
+  selectedInventory: state.reservationSelectedInventory
+})
+
 const mapDispatchToProps = (dispatch) => ({
   fetchInitialInventory: () => {
     dispatch(fetchInventory(''))
@@ -31,6 +35,7 @@ export class ReservationsInventorySelect extends Component {
             <ReservationNav
               back='/reservations/select-date'
               next='/reservations/select-customer'
+              nextCondition={!!this.props.selectedInventory.length}
             />
           </div>
         </Center>
@@ -44,5 +49,6 @@ export class ReservationsInventorySelect extends Component {
 }
 
 export default connect(
-  null, mapDispatchToProps
+  mapStateToProps,
+  mapDispatchToProps
 )(ReservationsInventorySelect)

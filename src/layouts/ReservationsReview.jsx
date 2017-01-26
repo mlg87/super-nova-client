@@ -4,7 +4,7 @@ import Center from 'components/center/Center'
 import { format } from 'bin/helpers'
 import SelectedInventoryList from 'components/selectedInventoryList/SelectedInventoryList'
 import SelectedCustomer from 'components/selectedCustomer/SelectedCustomer'
-
+import ReservationNav from 'components/reservationNav/ReservationNav'
 const mapStateToProps = (state) => ({
   startDate: state.reservationStartDate,
   endDate: state.reservationEndDate
@@ -21,6 +21,12 @@ const ReservationReview = (props) => {
         <p>Dates: {format('date', startDate)} - {format('date', endDate)}</p>
         <SelectedInventoryList />
         <SelectedCustomer />
+
+        <ReservationNav
+          back='/reservations/select-customer'
+          submit={true}
+        />
+
       </div>
     </Center>
   )
