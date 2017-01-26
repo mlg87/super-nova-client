@@ -2,6 +2,8 @@ import React from 'react'
 import moment from 'moment'
 import { format } from 'bin/helpers'
 
+// NOTE: this is very specific. We should probably change this structure in the
+// future to have a formatter and a styler components
 const CustomerDetails = (props) => {
   const { ...c } = props.customer
   return (
