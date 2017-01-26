@@ -4,3 +4,12 @@ export const handleFetchErrors = (response) => {
   }
   return response;
 }
+
+export const format = (type, str) => {
+  switch (type) {
+    case 'phoneNumber':
+      return `(${str.substr(0, 3)}) ${str.substr(3, 3)}-${str.substr(6, 4)}`
+    default:
+      return ''
+  }
+}

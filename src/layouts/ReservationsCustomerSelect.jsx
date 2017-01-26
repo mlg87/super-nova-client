@@ -4,6 +4,7 @@ import { Center } from 'components/center/Center';
 import CustomerList from 'components/customerList/CustomerList'
 import { fetchCustomers } from 'actions/reservations'
 import ReservationNav from 'components/reservationNav/ReservationNav'
+import SelectedCustomer from 'components/selectedCustomer/SelectedCustomer'
 
 const mapDispatchToProps = (dispatch) => ({
   fetchInitialCustomers: () => {
@@ -20,6 +21,7 @@ export class ReservationsCustomerSelect extends Component {
   render() {
     return (
       <div>
+        <SelectedCustomer />
         <Center>
           <div>
 
