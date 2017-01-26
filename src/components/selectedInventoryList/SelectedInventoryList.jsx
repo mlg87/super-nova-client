@@ -6,11 +6,6 @@ import Avatar from 'material-ui/Avatar'
 import RemoveItem from 'material-ui/svg-icons/content/clear'
 import { removeInventoryFromReservation } from 'actions/reservations'
 
-const listStyle = {
-  position: 'absolute',
-  top: 0
-}
-
 const mapStateToProps = (state) => ({
   items: state.reservationSelectedInventory
 })
@@ -31,7 +26,7 @@ const renderItems = ({ items, removeInventoryFromReservation }) => {
 
 const SelectedInventoryList = (props) => {
   return (
-    <List style={listStyle}>
+    <List>
       { props.items.length ? <Subheader>Selected Gear</Subheader> : ''}
       { renderItems(props) }
     </List>

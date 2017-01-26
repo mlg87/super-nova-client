@@ -22,7 +22,11 @@ export class ReservationsCustomerSelect extends Component {
   render() {
     return (
       <div>
-        <SelectedCustomer />
+        <div
+          style={{position: 'absolute', top: 0, left: 0}}
+        >
+          <SelectedCustomer />
+        </div>
         <Center>
           <div>
             <CustomerSearch />

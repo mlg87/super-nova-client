@@ -13,9 +13,9 @@ export const format = (type, val) => {
     case 'phoneNumber':
       return `(${val.substr(0, 3)}) ${val.substr(3, 3)}-${val.substr(6, 4)}`
     case 'date':
-      // convert a date to moment if it's not a moment already
-      const momentVal = moment.isMoment(val) ? val : moment(val)
-      return momentVal.format('MM/DD/YYYY')
+      return moment(val).format('MM/DD/YYYY')
+    case 'timestamp':
+      return moment(val).format('MM/DD/YYYY h:mma')
     default:
       return ''
   }

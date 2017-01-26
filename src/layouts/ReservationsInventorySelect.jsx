@@ -35,7 +35,9 @@ export class ReservationsInventorySelect extends Component {
           </div>
         </Center>
 
-        <SelectedInventoryList />
+        <div style={{position: 'absolute', top: 0}}>
+          <SelectedInventoryList />
+        </div>
       </div>
     )
   }

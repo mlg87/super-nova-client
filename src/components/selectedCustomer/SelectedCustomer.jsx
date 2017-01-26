@@ -12,23 +12,19 @@ const SelectedCustomer = (props) => {
   const { customer } = props
   if (!Object.keys(customer).length) return null
   return (
-    <div
-      style={{position: 'absolute', top: 0, left: 0}}
+    <Paper
+      zDepth={1}
+      style={{
+        padding: '0 16px 16px',
+      }}
     >
-      <Paper
-        zDepth={1}
-        style={{
-          padding: '0 16px 16px',
-        }}
-      >
-        <Subheader style={{padding: 0}}>
-          Selected Customer
-        </Subheader>
-        <CustomerDetails
-          customer={customer}
-        />
-      </Paper>
-    </div>
+      <Subheader style={{padding: 0}}>
+        Selected Customer
+      </Subheader>
+      <CustomerDetails
+        customer={customer}
+      />
+    </Paper>
   )
 }
 
