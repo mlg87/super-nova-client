@@ -3,7 +3,6 @@ import { connect } from 'react-redux'
 // components
 import UserRegisterForm from 'components/form/UserRegisterForm'
 import Dialog from 'material-ui/Dialog'
-import RaisedButton from 'material-ui/RaisedButton'
 import Snackbar from 'material-ui/Snackbar'
 import { userRegisterApiCall, usersResetErr } from 'actions/users'
 

@@ -8,10 +8,8 @@ import Drawer from 'material-ui/Drawer'
 import FlatButton from 'material-ui/FlatButton'
 import IconMenu from 'material-ui/IconMenu'
 import MenuItem from 'material-ui/MenuItem'
-import IconButton from 'material-ui/IconButton'
 import NavigationMenu from 'material-ui/svg-icons/navigation/menu'
 // appearance
-import Radium from 'radium'
 import { colors } from 'config/colors'
 // side nav button icons
 // icon: inventory
@@ -22,8 +20,8 @@ import TagFaces from 'material-ui/svg-icons/image/tag-faces'
 import EventNote from 'material-ui/svg-icons/notification/event-note'
 // icon: users
 import Group from 'material-ui/svg-icons/social/group'
-
 import { userLogoutCall } from 'actions/users'
+
 
 const buttonStyle = {
   minWidth: '100%',
@@ -177,7 +175,5 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
     return dispatch(userLogoutCall(id))
   }
 })
-
-// Nav = Radium(Nav)
 
 export default connect(mapStateToProps, mapDispatchToProps)(Nav)

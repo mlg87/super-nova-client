@@ -4,6 +4,8 @@ import { render } from 'react-dom'
 import { Provider } from 'react-redux'
 import { store } from 'bin/router'
 import DevTools from 'containers/DevTools'
+// needed for touch devices
+import injectTapEventPlugin from 'react-tap-event-plugin'
 
 // NOTE: this will be re-implemented when we get the API
 // to work like danny's real-world example
@@ -11,6 +13,10 @@ import DevTools from 'containers/DevTools'
 
 // just some styles for the boys
 import 'override.css';
+
+// init the touch event handler (needed for material-ui, also prevents
+// console errs)
+injectTapEventPlugin()
 
 render(
   <Provider store={ store }>
