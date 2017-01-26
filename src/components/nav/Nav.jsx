@@ -1,4 +1,5 @@
-import React, { Component } from 'react'
+import React from 'react'
+import { connect } from 'react-redux'
 // routing
 import { Link } from 'react-router'
 // components
@@ -22,7 +23,7 @@ import EventNote from 'material-ui/svg-icons/notification/event-note'
 // icon: users
 import Group from 'material-ui/svg-icons/social/group'
 
-import { userLogout } from 'actions/users'
+import { userLogoutCall } from 'actions/users'
 
 const buttonStyle = {
   minWidth: '100%',
@@ -30,8 +31,10 @@ const buttonStyle = {
   color: 'white'
 }
 
-export class Nav extends Component {
-  renderNavLinks() {
+const Nav = (props) => {
+  const { routeProps, userLogoutCall, userId } = props
+
+  const renderNavLinks = () => {
     let links = [
       {
         path: '/inventory',
@@ -51,7 +54,7 @@ export class Nav extends Component {
       }
     ]
 
-    const activeStyle = {
+    const style_activeLink = {
       backgroundColor: colors.sideNav.activeLink,
       display: 'block'
     }
@@ -61,7 +64,7 @@ export class Nav extends Component {
         <Link
           to={ link.path }
           key={ link.path }
-          activeStyle={ activeStyle }
+          activeStyle={ style_activeLink }
         >
           <FlatButton
             icon={ link.icon() }
@@ -73,14 +76,14 @@ export class Nav extends Component {
     })
   }
 
-  renderUserMenu() {
-    const iconMenuStyle = {
+  const renderUserMenu = () => {
+    const style_iconMenu = {
       display: 'block',
       position: 'fixed',
       width: '100%',
       bottom: '0'
     }
-
+    // cb for selecting a li from the icon menu
     const onItemTouchTap = (e, child) => {
       const { action } = child.props
 
@@ -88,91 +91,93 @@ export class Nav extends Component {
         return action()
       }
     }
-
-    const logout = () => {
-      const { userId } = this.props
-      // TODO: left off here: need to connect component
-      dispatch(userLogout(userId))
+    // we can change this once we have more options in the icon menu, but for
+    // now there is no need to loop over an arr to generate the MenuItems
+    const userLogout = () => {
+      return userLogoutCall(userId)
     }
 
     return (
       <IconMenu
         iconButtonElement={<FlatButton icon={<NavigationMenu />} style={ buttonStyle } hoverColor={ colors.blue } />}
-        style={ iconMenuStyle }
+        style={ style_iconMenu }
         anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
         onItemTouchTap={ onItemTouchTap }
         >
-        <MenuItem primaryText='Logout' action={ logout }></MenuItem>
+        <MenuItem primaryText='Logout' action={ userLogout }></MenuItem>
       </IconMenu>
     )
   }
 
-  render() {
-    const { routeProps } = this.props
+  const style_sideNav = {
+    width: '80px',
+    backgroundColor: colors.sideNav.background,
 
-    const sideNavStyle = {
-      width: '80px',
-      backgroundColor: colors.sideNav.background,
-
-      linkContainer: {
-        marginTop: '80px'
-      }
+    linkContainer: {
+      marginTop: '80px'
     }
-
-    // this needs to always be defined bc otherwise the
-    // subSideNav will not have the sliding effect (only
-    // works if it is already rendered on the dom)
-    const subSideNavStyle = {
-      marginLeft: (routeProps.isSubSideNavOpen ? '80px' : '0'),
-      backgroundColor: colors.subSideNav.background,
-      width: '280px',
-      // boxShadow: 'none',
-      zIndex: '2'
-      // display: (this.props.isSubSideNavOpen ? 'block' : 'none')
-    }
-
-    // this needs to be defined but an empty string as
-    // to not throw errs
-    let subSideNavHeader = null
-    let subSideNavLinks = null
-    let subSideNavPath = null
-    if (routeProps.subSideNavHeader && routeProps.subSideNavLinks) {
-      subSideNavHeader = routeProps.subSideNavHeader
-      subSideNavLinks = routeProps.subSideNavLinks
-      subSideNavPath = routeProps.path
-    }
-
-    return (
-      <div>
-        {/*
-          // drawer is docked by default
-          // style will not work on Drawer, must use containerStyle
-        */}
-        <Drawer containerStyle={ sideNavStyle }>
-          <div style={ sideNavStyle.linkContainer }>
-            { this.renderNavLinks() }
-            { this.renderUserMenu() }
-          </div>
-        </Drawer>
-        {/*
-          // this will not display when a child of the other Drawer
-        */}
-        <Drawer
-          containerStyle={ subSideNavStyle }
-          open={ routeProps.isSubSideNavOpen }
-        >
-        { routeProps.isSubSideNavOpen &&
-          <SubSideNav
-            header={ subSideNavHeader }
-            links={ subSideNavLinks }
-            path={ subSideNavPath }
-          />
-        }
-        </Drawer>
-      </div>
-    )
+  }
+  // this needs to always be defined bc otherwise the
+  // subSideNav will not have the sliding effect (only
+  // works if it is already rendered on the dom)
+  const style_subSideNav = {
+    marginLeft: (routeProps.isSubSideNavOpen ? '80px' : '0'),
+    backgroundColor: colors.subSideNav.background,
+    width: '280px',
+    zIndex: '2'
+  }
+  // this needs to be defined but an empty string as
+  // to not throw errs
+  let subSideNavHeader = null
+  let subSideNavLinks = null
+  let subSideNavPath = null
+  if (routeProps.subSideNavHeader && routeProps.subSideNavLinks) {
+    subSideNavHeader = routeProps.subSideNavHeader
+    subSideNavLinks = routeProps.subSideNavLinks
+    subSideNavPath = routeProps.path
   }
 
+  return (
+    <div>
+      {/*
+        // drawer is docked by default
+        // style will not work on Drawer, must use containerStyle
+      */}
+      <Drawer containerStyle={ style_sideNav }>
+        <div style={ style_sideNav.linkContainer }>
+          { renderNavLinks() }
+          { renderUserMenu() }
+        </div>
+      </Drawer>
+      {/*
+        // this will not display when a child of the other Drawer
+      */}
+      <Drawer
+        containerStyle={ style_subSideNav }
+        open={ routeProps.isSubSideNavOpen }
+      >
+      { routeProps.isSubSideNavOpen &&
+        <SubSideNav
+          header={ subSideNavHeader }
+          links={ subSideNavLinks }
+          path={ subSideNavPath }
+        />
+      }
+      </Drawer>
+    </div>
+  )
 }
 
-Nav = Radium(Nav)
+const mapStateToProps = (state, ownProps) => ({
+  userId: state.userId
+})
+
+const mapDispatchToProps = (dispatch, ownProps) => ({
+  userLogoutCall: (id) => {
+    return dispatch(userLogoutCall(id))
+  }
+})
+
+// Nav = Radium(Nav)
+
+export default connect(mapStateToProps, mapDispatchToProps)(Nav)

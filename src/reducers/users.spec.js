@@ -59,18 +59,18 @@ describe('userApiRes reducer', () => {
     ).toEqual({})
   })
 
-  it('should set payload for successful res to a string', () => {
+  it('should set payload for successful res to nothing', () => {
     const action = {
       type: userActions.USER_REGISTER_SUCCESS
     }
 
     expect(
       userReducers.userApiRes(undefined, {...action, payload: 'success'})
-    ).toEqual('success')
+    ).toEqual({})
 
     expect(
       userReducers.userApiRes({err: true}, {...action, payload: 'success'})
-    ).toEqual('success')
+    ).toEqual({err: true})
   })
 
   it('should set payload for err res to an Error', () => {
@@ -90,16 +90,9 @@ describe('userApiRes reducer', () => {
   })
 
   it('should throw err if payload is not valid', () => {
-    const successAction = {
-      type: userActions.USER_REGISTER_SUCCESS
-    }
     const errAction = {
       type: userActions.USER_REGISTER_ERROR
     }
-
-    expect(() => {
-      userReducers.userApiRes(undefined, successAction)
-    }).toThrowError('invalid payload')
 
     expect(() => {
       userReducers.userApiRes(undefined, errAction)
