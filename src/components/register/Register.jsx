@@ -5,7 +5,7 @@ import UserRegisterForm from 'components/form/UserRegisterForm'
 import Dialog from 'material-ui/Dialog'
 import RaisedButton from 'material-ui/RaisedButton'
 import Snackbar from 'material-ui/Snackbar'
-import { userRegisterApiCall, userRegisterError } from 'actions/users'
+import { userRegisterApiCall, usersResetErr } from 'actions/users'
 
 const Register = (props) => {
   const { handleSubmit, onRequestClose, err } = props
@@ -65,7 +65,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
       delete user.password_confirm
       return dispatch(userRegisterApiCall(user.username, user.password))
     },
-    onRequestClose: () => dispatch(userRegisterError(null))
+    onRequestClose: () => dispatch(usersResetErr(null))
   }
 }
 
