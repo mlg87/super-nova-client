@@ -19,7 +19,6 @@ export const userApiFetch = (state = false, action) => {
 export const userApiRes = (state = {}, action) => {
   const { type, payload } = action
 
-
   switch (type) {
     // might want to make this more useful
     case ActionTypes.USER_REGISTER_SUCCESS:

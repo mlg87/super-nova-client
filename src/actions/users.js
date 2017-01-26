@@ -209,3 +209,56 @@ export const usersUpdateSelected = (indexes) => ({
   type: USERS_UPDATE_SELECTED,
   indexes
 })
+
+// constants - users delete
+export const USERS_DELETE_FETCH = 'USERS_DELETE_FETCH'
+export const USERS_DELETE_SUCCESS = 'USERS_DELETE_SUCCESS'
+export const USERS_DELETE_ERROR = 'USERS_DELETE_ERROR'
+
+// action creators - users remove
+export const usersDeleteFetch = (isFetching) => ({
+  type: USERS_DELETE_FETCH,
+  isFetching
+})
+
+export const usersDeleteSuccess = () => ({
+  type: USERS_DELETE_SUCCESS
+})
+
+export const usersDeleteError = (payload) => ({
+  type: USERS_DELETE_ERROR,
+  payload
+})
+
+export const usersDeleteApiCall = (userIds) => dispatch => {
+  dispatch(usersDeleteFetch(true))
+  const ids = {
+    userIds
+  }
+  // return promise
+  return fetch('/api/users/remove', {
+    method: 'delete',
+    credentials: 'include', //pass cookies, for authentication
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ids})
+  })
+  .then((res) => {
+    if (!res.ok) {
+      throw Error(`${res.status}: ${res.statusText}`)
+    }
+    return res.json()
+  })
+  .then((json) => {
+    dispatch(usersDeleteFetch(false))
+    return json
+  })
+  .then((res) => {
+    dispatch(usersDeleteSuccess())
+  })
+  .catch((err) => {
+    dispatch(usersDeleteFetch(false))
+    dispatch(usersDeleteError(err))
+  })
+}

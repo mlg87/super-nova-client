@@ -73,7 +73,7 @@ const UserRegisterForm = (props) => {
         <Link to={ returnPath }>
           <RaisedButton
             label='Cancel'
-            style={ {marginRight: '10px'} }
+            style={{ marginRight: '10px' }}
             />
         </Link>
         <RaisedButton
