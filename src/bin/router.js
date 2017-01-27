@@ -18,6 +18,11 @@ import { UnderConstruction } from 'layouts/UnderConstruction'
 import { NotFound } from 'layouts/NotFound'
 import { InventoryLayout } from 'layouts/InventoryLayout'
 import { LandingLayout } from 'layouts/LandingLayout'
+import Reservation from 'layouts/Reservation'
+import ReservationDateSelect from 'components/reservationDateSelect/ReservationDateSelect'
+import ReservationInventorySelect from 'components/reservationInventorySelect/ReservationInventorySelect'
+import ReservationCustomerSelect from 'components/reservationCustomerSelect/ReservationCustomerSelect'
+import ReservationReview from 'components/reservationReview/ReservationReview'
 import UsersLayout from 'layouts/UsersLayout'
 import Register from 'components/register/Register'
 import { CurrentUser } from 'components/currentUser/CurrentUser'
@@ -73,10 +78,28 @@ export const AppRouter = (
         isSubSideNavOpen={ false }
       />
       <Route
-        path='/reservations'
-        component={ UnderConstruction }
+        path='/reservations/select-date'
+        component={ ReservationDateSelect }
         isSubSideNavOpen={ false }
       />
+      <Route
+        path='/reservations'
+        component={Reservation}
+        isSubSideNavOpen={ false }
+      >
+        <Route
+          path='/reservations/select-inventory'
+          component={ ReservationInventorySelect }
+        />
+        <Route
+          path='/reservations/select-customer'
+          component={ ReservationCustomerSelect }
+        />
+        <Route
+          path='/reservations/review'
+          component={ ReservationReview }
+        />
+      </Route>
       <Route
         path='/users'
         component={ UsersLayout }

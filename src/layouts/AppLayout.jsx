@@ -8,6 +8,7 @@ import Shell from 'components/shell/Shell'
 import { FullPageLoading } from 'layouts/FullPageLoading'
 import { connect } from 'react-redux'
 import { setUserId, unsetUserId, dataLoaded } from 'actions'
+import { handleFetchErrors } from 'bin/helpers'
 
 const mapStateToProps = state => ({
   isLoading: state.isLoading,
@@ -24,6 +25,7 @@ const mapDispatchToProps = dispatch => ({
           'Authorization': 'Bearer ' + token
         }
       })
+      .then(handleFetchErrors)
       .then((res) => {
         res.json().then(({ data }) => {
           dispatch(setUserId(data.id))

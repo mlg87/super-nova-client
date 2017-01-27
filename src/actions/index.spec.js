@@ -5,7 +5,7 @@ describe('userId actions', () => {
     it('should create SET_USER_ID', () => {
       expect(actions.setUserId(1)).toEqual({
         type: 'SET_USER_ID',
-        id: 1,
+        userId: 1,
       })
     })
   })
@@ -20,10 +20,12 @@ describe('userId actions', () => {
 })
 
 describe('data loading', () => {
-  it('should create SET_LOADING_STATE action with false', () => {
-    expect(actions.dataLoaded()).toEqual({
-      type: 'SET_LOADING_STATE',
-      value: false
+  describe('data loaded', () => {
+    it('should create SET_LOADING_STATE action with false', () => {
+      expect(actions.dataLoaded()).toEqual({
+        type: 'SET_LOADING_STATE',
+        value: false
+      })
     })
   })
 })
