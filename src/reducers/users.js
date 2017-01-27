@@ -52,6 +52,22 @@ export const usersApiRes = (state = [], action) => {
         throw new Error('invalid payload')
       }
       return payload
+    case ActionTypes.USERS_PULL_DELETED:
+      if (typeof payload !== 'number') {
+        throw new Error(`invalid payload ${payload}`)
+      }
+      // is this the code i would exhibit in an interview? absolutely not.
+      // does it get the job done? yep
+      const userIndex = state.filter((user, i) => {
+        if (user.id === payload) {
+          return i
+        }
+      })
+      const i = state.indexOf(userIndex[0])
+      return [
+        ...state.slice(0, i),
+        ...state.slice(i + 1)
+      ]
     default:
       return state
   }

@@ -57,6 +57,7 @@ export const userRegisterApiCall = (username, password) => dispatch => {
   })
   .then((res) => {
     dispatch(userRegisterSuccess('success'))
+    dispatch(usersGetApiCall())
     // user creation happens at /users/add, so send them back to users on success
     dispatch(push('/users'))
   })
@@ -144,7 +145,7 @@ export const userLogoutCall = (id) => dispatch => {
 export const USERS_GET_FETCH = 'USERS_GET_FETCH'
 export const USERS_GET_SUCCESS = 'USERS_GET_SUCCESS'
 export const USERS_GET_ERROR = 'USERS_GET_ERROR'
-
+export const USERS_PULL_DELETED = 'USERS_PULL_DELETED'
 // action creators - users get
 export const usersGetFetch = (isFetching) => ({
   type: USERS_GET_FETCH,
@@ -161,8 +162,13 @@ export const usersGetError = (payload) => ({
   payload
 })
 
+export const usersPullDeleted = (payload) => ({
+  type: USERS_PULL_DELETED,
+  payload
+})
+
 // middleware api call
-export const usersGetApiCall = (query) => dispatch => {
+export const usersGetApiCall = () => dispatch => {
   dispatch(usersGetFetch(true))
   return fetch('/api/users/all', {
     method: 'get',
@@ -232,9 +238,7 @@ export const usersDeleteError = (payload) => ({
 
 export const usersDeleteApiCall = (userIds) => dispatch => {
   dispatch(usersDeleteFetch(true))
-  const ids = {
-    userIds
-  }
+  const ids = userIds
   // return promise
   return fetch('/api/users/remove', {
     method: 'delete',
@@ -256,6 +260,12 @@ export const usersDeleteApiCall = (userIds) => dispatch => {
   })
   .then((res) => {
     dispatch(usersDeleteSuccess())
+    dispatch(usersUpdateSelected([]))
+    res.data.forEach((userId) => {
+      dispatch(usersPullDeleted(userId))
+    })
+    // user deletion happens at /users/remove, so send them back to users on success
+    dispatch(push('/users'))
   })
   .catch((err) => {
     dispatch(usersDeleteFetch(false))

@@ -4,8 +4,6 @@ import { connect } from 'react-redux'
 import { Link } from 'react-router'
 // components
 import MenuItem from 'material-ui/MenuItem'
-// appearance
-import Radium from 'radium'
 
 const SubSideNav = (props) => {
   const renderLinks = (links) => {

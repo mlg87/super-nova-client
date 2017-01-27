@@ -10,13 +10,20 @@ import { usersUpdateSelected } from 'actions/users'
 
 class UsersLayout extends Component {
   componentWillMount() {
-    this.props.usersGetApiCall('mason')
+    this.props.usersGetApiCall()
   }
 
   renderUserRows(users) {
-    return users.map((user) => {
+    const { userId, usersSelected } = this.props
+
+    return users.map((user, i) => {
       return (
-        <TableRow key={ user.username } style={{cursor: 'pointer'}}>
+        <TableRow
+          key={ user.username }
+          style={{cursor: 'pointer'}}
+          selectable={ user.id !== userId}
+          selected={ usersSelected.indexOf(i) !== -1}
+        >
           <TableRowColumn>{ user.username }</TableRowColumn>
           <TableRowColumn>{ `${moment(user.created_at).format('MM/DD/YYYY')}` }</TableRowColumn>
         </TableRow>
@@ -48,7 +55,9 @@ class UsersLayout extends Component {
 
 const mapStateToProps = (state, ownProps) => {
   return {
-    users: state.usersApiRes
+    users: state.usersApiRes,
+    userId: state.userId,
+    usersSelected: state.usersSelected
   }
 }
 

@@ -6,10 +6,13 @@ import RaisedButton from 'material-ui/RaisedButton'
 import { usersDeleteApiCall } from 'actions/users'
 
 const RemoveUsers = (props) => {
-  const { usersSelected, usersDeleteApiCall } = props
+  const { users, usersSelected, usersDeleteApiCall } = props
 
   const removeUsers = () => {
-    return usersDeleteApiCall(usersSelected)
+    const usersToRemove = usersSelected.map((index) => {
+      return users[index].id
+    })
+    return usersDeleteApiCall(usersToRemove)
   }
 
   const actions = [
@@ -41,7 +44,8 @@ const RemoveUsers = (props) => {
 }
 
 const mapStateToProps = (state, ownProps) => ({
-  usersSelected: state.usersSelected
+  usersSelected: state.usersSelected,
+  users: state.usersApiRes
 })
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
