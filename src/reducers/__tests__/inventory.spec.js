@@ -1,4 +1,4 @@
-import { inventory } from './inventory'
+import { inventory } from '../inventory'
 
 describe('inventory reducer', () => {
   it('should handle initial state', () => {

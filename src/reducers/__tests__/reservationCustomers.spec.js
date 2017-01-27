@@ -1,4 +1,4 @@
-import { reservationCustomers } from './reservationCustomers'
+import { reservationCustomers } from '../reservationCustomers'
 import deepFreeze from 'deepFreeze'
 
 describe('reservation selected inventory reducer', () => {

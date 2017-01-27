@@ -1,5 +1,5 @@
 import deepFreeze from 'deepFreeze'
-import { inventorySearchTerms } from './inventorySearchTerms'
+import { inventorySearchTerms } from '../inventorySearchTerms'
 
 describe('inventory search terms reducer', () => {
   it('should handle initial state', () => {

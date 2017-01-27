@@ -1,6 +1,6 @@
 import deepFreeze from 'deepFreeze'
 import moment from 'moment'
-import { reservationStartDate, reservationEndDate } from './reservations'
+import { reservationStartDate, reservationEndDate } from '../reservations'
 
 describe('reservations reducer', () => {
   describe('reservations start date', () => {

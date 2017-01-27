@@ -1,4 +1,4 @@
-import { userId } from './userId'
+import { userId } from '../userId'
 
 describe('user logged in reducer', () => {
   it('should handle initial state', () => {

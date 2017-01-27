@@ -1,5 +1,5 @@
 import deepFreeze from 'deep-freeze'
-import * as userReducers from './users'
+import * as userReducers from '../users'
 import * as userActions from 'actions/users'
 
 describe('userApiFetch reducer', () => {

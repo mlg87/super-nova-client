@@ -1,4 +1,4 @@
-import { isLoading } from './isLoading'
+import { isLoading } from '../isLoading'
 
 describe('is loading in reducer', () => {
   it('should init in a loading state', () => {
