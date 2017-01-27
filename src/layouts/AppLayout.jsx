@@ -8,7 +8,7 @@ import Shell from 'components/Shell'
 import { FullPageLoading } from 'layouts/FullPageLoading'
 import { connect } from 'react-redux'
 import { setUserId, unsetUserId, dataLoaded } from 'actions'
-import { handleFetchErrors } from 'bin/helpers'
+import { handleFetchErrors } from 'lib/helpers'
 
 const mapStateToProps = state => ({
   isLoading: state.isLoading,

@@ -1,5 +1,5 @@
 import React from 'react'
-import { format } from 'bin/helpers'
+import { format } from 'lib/helpers'
 
 // NOTE: this is very specific. We should probably change this structure in the
 // future to have a formatter and a styler components

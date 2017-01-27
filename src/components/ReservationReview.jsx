@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import Center from 'components/Center'
-import { format } from 'bin/helpers'
+import { format } from 'lib/helpers'
 import SelectedInventoryList from 'components/SelectedInventoryList'
 import SelectedCustomer from 'components/SelectedCustomer'
 import ReservationNav from 'components/ReservationNav'

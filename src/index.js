@@ -1,8 +1,8 @@
 import React from 'react'
-import { AppRouter } from 'bin/router'
+import { AppRouter } from 'lib/router'
 import { render } from 'react-dom'
 import { Provider } from 'react-redux'
-import { store } from 'bin/router'
+import { store } from 'lib/router'
 import DevTools from 'containers/DevTools'
 // needed for touch devices
 import injectTapEventPlugin from 'react-tap-event-plugin'
