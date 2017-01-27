@@ -1,7 +1,7 @@
 import React from 'react'
 import Paper from 'material-ui/Paper'
 import Subheader from 'material-ui/Subheader'
-import CustomerDetails from 'components/customerDetails/CustomerDetails'
+import CustomerDetails from 'components/CustomerDetails'
 import { connect } from 'react-redux'
 
 const mapStateToProps = (state) => ({

@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import Center from 'components/center/Center';
-import CustomerList from 'components/customerList/CustomerList'
+import Center from 'components/Center';
+import CustomerList from 'components/CustomerList'
 import { fetchCustomers } from 'actions/reservations'
-import ReservationNav from 'components/reservationNav/ReservationNav'
-import SelectedCustomer from 'components/selectedCustomer/SelectedCustomer'
-import CustomerSearch from 'components/customerSearch/CustomerSearch'
+import ReservationNav from 'components/ReservationNav'
+import SelectedCustomer from 'components/SelectedCustomer'
+import CustomerSearch from 'components/CustomerSearch'
 
 const mapStateToProps = (state) => ({
   selectedCustomer: state.reservationSelectedCustomer

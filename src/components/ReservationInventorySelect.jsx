@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import Center from 'components/center/Center';
-import InventoryList from 'components/inventoryList/InventoryList'
-import InventorySearch from 'components/inventorySearch/InventorySearch'
+import Center from 'components/Center';
+import InventoryList from 'components/InventoryList'
+import InventorySearch from 'components/InventorySearch'
 import { fetchInventory } from 'actions/reservations'
-import ReservationNav from 'components/reservationNav/ReservationNav'
-import SelectedInventoryList from 'components/selectedInventoryList/SelectedInventoryList'
+import ReservationNav from 'components/ReservationNav'
+import SelectedInventoryList from 'components/SelectedInventoryList'
 
 const mapStateToProps = (state) => ({
   selectedInventory: state.reservationSelectedInventory

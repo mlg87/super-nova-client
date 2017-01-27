@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react'
 import { connect } from 'react-redux'
 // components
-import UserRegisterForm from 'components/form/UserRegisterForm'
+import UserRegisterForm from 'components/UserRegisterForm'
 import Dialog from 'material-ui/Dialog'
 import Snackbar from 'material-ui/Snackbar'
 import { userRegisterApiCall, usersResetErr } from 'actions/users'

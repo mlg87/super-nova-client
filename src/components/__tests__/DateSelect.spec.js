@@ -1,9 +1,9 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import { DateSelect, mapStateToProps, mapDispatchToProps } from './DateSelect';
+import { DateSelect, mapStateToProps, mapDispatchToProps } from '../DateSelect';
 import moment from 'moment'
 import mockDate from 'mockdate'
-import { setReservationStartDate, setReservationEndDate } from 'actions'
+import { setReservationStartDate, setReservationEndDate } from 'actions/reservations'
 
 
 describe('DateSelect Component', () => {
@@ -128,7 +128,7 @@ describe('mapStateToProps', () => {
 })
 
 describe('mapDispatchToProps', () => {
-  it('has a dateChange method that dispatches setReservationStartDate and setEndDate', () => {
+  it('has a dateChange method that dispatches setReservationStartDate and setReservationEndDate', () => {
     const dispatch = jest.fn()
     const dates = {
       startDate: 'startDate',
@@ -137,6 +137,6 @@ describe('mapDispatchToProps', () => {
     mapDispatchToProps(dispatch).dateChange(dates)
     expect(dispatch.mock.calls.length).toBe(2)
     expect(dispatch.mock.calls[0][0]).toEqual(setReservationStartDate('startDate'))
-    expect(dispatch.mock.calls[1][0]).toEqual(setEndDate('endDate'))
+    expect(dispatch.mock.calls[1][0]).toEqual(setReservationEndDate('endDate'))
   })
 })

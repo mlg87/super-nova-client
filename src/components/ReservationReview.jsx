@@ -1,10 +1,10 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import Center from 'components/center/Center'
+import Center from 'components/Center'
 import { format } from 'bin/helpers'
-import SelectedInventoryList from 'components/selectedInventoryList/SelectedInventoryList'
-import SelectedCustomer from 'components/selectedCustomer/SelectedCustomer'
-import ReservationNav from 'components/reservationNav/ReservationNav'
+import SelectedInventoryList from 'components/SelectedInventoryList'
+import SelectedCustomer from 'components/SelectedCustomer'
+import ReservationNav from 'components/ReservationNav'
 import fetch from 'isomorphic-fetch'
 
 const mapStateToProps = (state) => ({

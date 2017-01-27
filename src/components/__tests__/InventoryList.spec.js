@@ -1,6 +1,6 @@
 import React from 'react'
 import { shallow } from 'enzyme'
-import { InventoryList } from './InventoryList'
+import { InventoryList } from '../InventoryList'
 
 describe('InventoryList', () => {
   const setup = () => {

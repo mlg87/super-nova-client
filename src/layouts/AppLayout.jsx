@@ -3,8 +3,8 @@ import fetch from 'isomorphic-fetch'
 // material-ui requires the importing of a theme
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 // components
-import Login from 'components/login/Login'
-import Shell from 'components/shell/Shell'
+import Login from 'components/Login'
+import Shell from 'components/Shell'
 import { FullPageLoading } from 'layouts/FullPageLoading'
 import { connect } from 'react-redux'
 import { setUserId, unsetUserId, dataLoaded } from 'actions'

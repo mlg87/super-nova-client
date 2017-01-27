@@ -1,7 +1,7 @@
 import React from 'react'
-import DateSelect from 'components/dateSelect/DateSelect'
-import Center from 'components/center/Center';
-import ReservationNav from 'components/reservationNav/ReservationNav'
+import DateSelect from 'components/DateSelect'
+import Center from 'components/Center';
+import ReservationNav from 'components/ReservationNav'
 
 const ReservationDateSelect = () => (
   <Center>
