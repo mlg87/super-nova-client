@@ -17,7 +17,7 @@ const mapDispatchToProps = (dispatch) => ({
   }
 })
 
-export class ReservationsInventorySelect extends Component {
+export class ReservationInventorySelect extends Component {
   constructor(props) {
     super(props)
     props.fetchInitialInventory()
@@ -51,4 +51,4 @@ export class ReservationsInventorySelect extends Component {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(ReservationsInventorySelect)
+)(ReservationInventorySelect)

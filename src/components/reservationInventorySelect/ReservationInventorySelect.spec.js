@@ -1,14 +1,14 @@
-import { ReservationsInventorySelect } from './ReservationsInventorySelect'
+import { ReservationInventorySelect } from './ReservationInventorySelect'
 import React from 'react';
 import { shallow } from 'enzyme'
 import { InventoryList } from 'components/inventoryList/InventoryList'
 
-describe('ReservationsInventorySelect', () => {
+describe('ReservationInventorySelect', () => {
   const setup = () => {
     const props = {
       fetchInitialInventory: jest.fn()
     }
-    return shallow(<ReservationsInventorySelect {...props} />)
+    return shallow(<ReservationInventorySelect {...props} />)
   }
 
   it('renders without crashing', () => {

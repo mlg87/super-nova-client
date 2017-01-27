@@ -12,10 +12,11 @@ import { NotFound } from 'layouts/NotFound'
 import { InventoryLayout } from 'layouts/InventoryLayout'
 import { LandingLayout } from 'layouts/LandingLayout'
 import { UsersLayout } from 'layouts/UsersLayout'
-import ReservationsDateSelect from 'layouts/ReservationsDateSelect'
-import ReservationsInventorySelect from 'layouts/ReservationsInventorySelect'
-import ReservationsCustomerSelect from 'layouts/ReservationsCustomerSelect'
-import ReservationsReview from 'layouts/ReservationsReview'
+import Reservation from 'layouts/Reservation'
+import ReservationDateSelect from 'components/reservationDateSelect/ReservationDateSelect'
+import ReservationInventorySelect from 'components/reservationInventorySelect/ReservationInventorySelect'
+import ReservationCustomerSelect from 'components/reservationCustomerSelect/ReservationCustomerSelect'
+import ReservationReview from 'components/reservationReview/ReservationReview'
 import Register from 'components/register/Register'
 import { CurrentUser } from 'components/currentUser/CurrentUser'
 
@@ -66,24 +67,27 @@ export const AppRouter = (
       />
       <Route
         path='/reservations/select-date'
-        component={ ReservationsDateSelect }
+        component={ ReservationDateSelect }
         isSubSideNavOpen={ false }
       />
       <Route
-        path='/reservations/select-inventory'
-        component={ ReservationsInventorySelect }
+        path='/reservations'
+        component={Reservation}
         isSubSideNavOpen={ false }
-      />
-      <Route
-        path='/reservations/select-customer'
-        component={ ReservationsCustomerSelect }
-        isSubSideNavOpen={ false }
-      />
-      <Route
-        path='/reservations/review'
-        component={ ReservationsReview }
-        isSubSideNavOpen={ false }
-      />
+      >
+        <Route
+          path='/reservations/select-inventory'
+          component={ ReservationInventorySelect }
+        />
+        <Route
+          path='/reservations/select-customer'
+          component={ ReservationCustomerSelect }
+        />
+        <Route
+          path='/reservations/review'
+          component={ ReservationReview }
+        />
+      </Route>
       <Route
         path='/users'
         component={ UsersLayout }

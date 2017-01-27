@@ -1,12 +1,12 @@
-import ReservationsDateSelect from './ReservationsDateSelect'
+import ReservationDateSelect from './ReservationDateSelect'
 import React from 'react';
 import { shallow } from 'enzyme'
 import { DateSelect } from 'components/dateSelect/DateSelect'
 import mockDate from 'mockdate'
 
-describe('ReservationsDateSelect', () => {
+describe('ReservationDateSelect', () => {
   const setup = () => {
-    return shallow(<ReservationsDateSelect />)
+    return shallow(<ReservationDateSelect />)
   }
 
   it('renders without crashing', () => {

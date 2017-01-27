@@ -17,7 +17,7 @@ const mapDispatchToProps = (dispatch) => ({
   }
 })
 
-export class ReservationsCustomerSelect extends Component {
+export class ReservationCustomerSelect extends Component {
   constructor(props) {
     super(props)
     props.fetchInitialCustomers()
@@ -52,4 +52,4 @@ export class ReservationsCustomerSelect extends Component {
 
 export default connect(
   mapStateToProps, mapDispatchToProps
-)(ReservationsCustomerSelect)
+)(ReservationCustomerSelect)
