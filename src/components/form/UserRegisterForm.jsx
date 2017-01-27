@@ -1,5 +1,6 @@
 import React from 'react'
 import { Field, reduxForm } from 'redux-form'
+import { Link } from 'react-router'
 // button does not need to be from redux to work with form
 import RaisedButton from 'material-ui/RaisedButton'
 // make sure to use the TextField from the redux material-ui
@@ -7,7 +8,7 @@ import { TextField } from 'redux-form-material-ui'
 import { colors } from 'config/colors'
 
 const UserRegisterForm = (props) => {
-  const { handleSubmit, valid } = props
+  const { handleSubmit, valid, returnPath } = props
 
   // validation functions
   const required = value => value == null ? 'Required' : undefined
@@ -26,13 +27,13 @@ const UserRegisterForm = (props) => {
     borderColor: colors.blue
   }
 
-  const style_submit = {
-    marginTop: '20px',
+  const style_buttonContainer = {
+    float: 'right',
+    marginTop: '20px'
   }
 
   return (
     <form onSubmit={ handleSubmit } style={{minWidth: '100%'}}>
-      <h1>Register a new user</h1>
       <div>
         <Field
           name='username'
@@ -68,13 +69,19 @@ const UserRegisterForm = (props) => {
           type='password'
         />
       </div>
-      <RaisedButton
-        label='Submit'
-        style={ style_submit }
-        fullWidth={ true }
-        type='submit'
-        disabled={ !valid }
-      />
+      <div style={ style_buttonContainer }>
+        <Link to={ returnPath }>
+          <RaisedButton
+            label='Cancel'
+            style={{ marginRight: '10px' }}
+            />
+        </Link>
+        <RaisedButton
+          label='Submit'
+          type='submit'
+          disabled={ !valid }
+          />
+      </div>
     </form>
   )
 }

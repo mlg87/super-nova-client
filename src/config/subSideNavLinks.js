@@ -21,6 +21,13 @@ export const subSideNavLinks = {
     {
       path: '/users/add',
       text: 'Add User'
+    },
+    {
+      path: '/users/remove',
+      text: 'Remove Selected',
+      renderCondition: (props) => {
+        return !!props.usersSelected.length
+      }
     }
   ]
 }

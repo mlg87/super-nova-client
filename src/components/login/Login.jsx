@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 // components
 import UserLoginForm from 'components/form/UserLoginForm'
 import Snackbar from 'material-ui/Snackbar'
-import { userLoginApiCall, userApiError } from 'actions/users'
+import { userLoginApiCall, usersResetErr } from 'actions/users'
 
 const Login = (props) => {
   const containerStyle = {
@@ -39,7 +39,7 @@ const Login = (props) => {
 }
 
 const mapStateToProps = (state, ownProps) => {
-  const err = state.userApiError
+  const err = state.userApiRes
 
   return { err }
 }
@@ -50,7 +50,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
       let user = {...values}
       dispatch(userLoginApiCall(user.username, user.password))
     },
-    onRequestClose: () => dispatch(userApiError(false))
+    onRequestClose: () => dispatch(usersResetErr())
   }
 }
 

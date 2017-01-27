@@ -2,10 +2,14 @@ import React, { PropTypes } from 'react'
 import { connect } from 'react-redux'
 // components
 import UserRegisterForm from 'components/form/UserRegisterForm'
+import Dialog from 'material-ui/Dialog'
 import Snackbar from 'material-ui/Snackbar'
-import { userRegisterApiCall, userRegisterError } from 'actions/users'
+import { userRegisterApiCall, usersResetErr } from 'actions/users'
 
 const Register = (props) => {
+  const { handleSubmit, onRequestClose, err } = props
+  const { returnPath } = props.route
+
   const containerStyle = {
     width: '50%',
     marginTop: '20px',
@@ -21,14 +25,17 @@ const Register = (props) => {
     color: 'white'
   }
 
-  const { handleSubmit, onRequestClose, err } = props
-
   return (
     <div style={ containerStyle }>
-      <UserRegisterForm onSubmit={ handleSubmit } />
+      <Dialog
+        open={ true }
+        title='Register A New User'
+      >
+        <UserRegisterForm onSubmit={ handleSubmit } returnPath={ returnPath } />
+      </Dialog>
       <Snackbar
-        open={ !!err.message }
-        message={ !!err.message ? err.message : ''}
+        open={ !!err }
+        message={ !!err ? err.message : ''}
         autoHideDuration={ 4000 }
         bodyStyle={ errSnackBarStyle }
         contentStyle={ errSnackBarContentStyle }
@@ -39,10 +46,15 @@ const Register = (props) => {
 }
 
 const mapStateToProps = (state, ownProps) => {
-  // userApiError is from the reducer
-  const err = state.userApiError
+  // HACK: the redux state dealing with this could use
+  // a refactor, but short of that, this works for now
+  let err = state.userApiRes
+  if (err instanceof Error) {
+    return { err }
+  } else {
+    return {}
+  }
 
-  return { err }
 }
 
 const mapDispatchToProps = (dispatch, ownProps) => {
@@ -50,14 +62,13 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     handleSubmit: (values) => {
       let user = {...values}
       delete user.password_confirm
-      dispatch(userRegisterApiCall(user.username, user.password))
+      return dispatch(userRegisterApiCall(user.username, user.password))
     },
-    onRequestClose: () => dispatch(userRegisterError(false))
+    onRequestClose: () => dispatch(usersResetErr(null))
   }
 }
 
 Register.propTypes = {
-  err: PropTypes.object,
   handleSubmit: PropTypes.func.isRequired,
   onRequestClose: PropTypes.func.isRequired
 }
