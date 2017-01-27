@@ -11,7 +11,8 @@ const mapStateToProps = (state) => ({
   startDate: state.reservationStartDate,
   endDate: state.reservationEndDate,
   inventory: state.reservationSelectedInventory,
-  customer: state.reservationSelectedCustomer
+  customer: state.reservationSelectedCustomer,
+  user_id: state.userId
 })
 
 const submitReservation = (payload) => {
@@ -35,7 +36,8 @@ const ReservationReview = (props) => {
     startDate,
     endDate,
     inventory,
-    customer
+    customer,
+    user_id
   } = props
   return (
     <Center>
@@ -46,7 +48,13 @@ const ReservationReview = (props) => {
 
         <ReservationNav
           back='/reservations/select-customer'
-          next={() => submitReservation({startDate, endDate, inventory, customer})}
+          next={() => submitReservation({
+            startDate,
+            endDate,
+            inventory_ids: inventory.map((item) => item.item_id),
+            customer_id: customer.id,
+            user_id
+          })}
           nextLabel='Submit'
         />
 

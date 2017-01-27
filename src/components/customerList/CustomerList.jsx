@@ -33,12 +33,7 @@ export const CustomerList = (props) => {
             key={customer.id}
             title={`${customer.first_name} ${customer.last_name}`}
             subtitle={<span><b>{customer.type}</b></span>}
-            style={
-              Object.assign(
-                {cursor: 'pointer'},
-                customer.id === props.selectedCustomer.id && {boxShadow: '0 0 10px 3px'}
-              )
-            }
+            style={{cursor: 'pointer'}}
             onClick={() => props.selectReservationCustomer(customer)}
           >
             <img src={customer.image_url} alt='Faceless Avatar'/>

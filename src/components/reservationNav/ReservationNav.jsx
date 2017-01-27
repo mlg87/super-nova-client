@@ -7,8 +7,7 @@ const renderButton = (handler, side, label) => {
   <Link
     to={handler}
     style={{
-      float: side,
-      marginTop: '10px'
+      float: side
     }}
     >
     <RaisedButton
@@ -20,7 +19,7 @@ const renderButton = (handler, side, label) => {
     onClick={handler}
     label={label}
     primary={true}
-    style={{marginTop: '10px'}}
+    style={{float: side}}
   />
 
 }

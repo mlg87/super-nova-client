@@ -13,6 +13,7 @@ import { subSideNavLinks } from 'config/subSideNavLinks'
 
 // main layout (includes nav and where other layouts go)
 import AppLayout from 'layouts/AppLayout'
+// if you need a modal for under construction, import this: UnderConstructionDialog
 import { UnderConstruction } from 'layouts/UnderConstruction'
 import { NotFound } from 'layouts/NotFound'
 import { InventoryLayout } from 'layouts/InventoryLayout'
