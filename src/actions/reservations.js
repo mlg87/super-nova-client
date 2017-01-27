@@ -1,12 +1,12 @@
 import fetch from 'isomorphic-fetch'
 import { handleFetchErrors } from 'bin/helpers'
 
-export const setStartDate = (startDate) => ({
+export const setReservationStartDate = (startDate) => ({
   type: 'SET_RESERVATION_START_DATE',
   date: startDate
 })
 
-export const setEndDate = (endDate) => ({
+export const setReservationEndDate = (endDate) => ({
   type: 'SET_RESERVATION_END_DATE',
   date: endDate
 })

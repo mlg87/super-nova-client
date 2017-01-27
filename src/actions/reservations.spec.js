@@ -4,7 +4,7 @@ import moment from 'moment'
 describe('set start date', () => {
   it('should create SET_RESERVATION_START_DATE action', () => {
     const startDate = moment()
-    expect(actions.setStartDate(startDate)).toEqual({
+    expect(actions.setReservationStartDate(startDate)).toEqual({
       type: 'SET_RESERVATION_START_DATE',
       date: startDate
     })
@@ -14,7 +14,7 @@ describe('set start date', () => {
 describe('set end date', () => {
   it('should create SET_RESERVATION_END_DATE action', () => {
     const endDate = moment()
-    expect(actions.setEndDate(endDate)).toEqual({
+    expect(actions.setReservationEndDate(endDate)).toEqual({
       type: 'SET_RESERVATION_END_DATE',
       date: endDate
     })
