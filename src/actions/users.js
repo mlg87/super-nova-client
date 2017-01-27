@@ -5,6 +5,61 @@ import { push } from 'react-router-redux'
 // middleware file
 import { setUserId, unsetUserId } from 'actions'
 
+// constants - users get
+export const USERS_GET_FETCH = 'USERS_GET_FETCH'
+export const USERS_GET_SUCCESS = 'USERS_GET_SUCCESS'
+export const USERS_GET_ERROR = 'USERS_GET_ERROR'
+export const USERS_PULL_DELETED = 'USERS_PULL_DELETED'
+// action creators - users get
+export const usersGetFetch = (isFetching) => ({
+  type: USERS_GET_FETCH,
+  isFetching
+})
+
+export const usersGetSuccess = (payload) => ({
+  type: USERS_GET_SUCCESS,
+  payload
+})
+
+export const usersGetError = (payload) => ({
+  type: USERS_GET_ERROR,
+  payload
+})
+
+export const usersPullDeleted = (payload) => ({
+  type: USERS_PULL_DELETED,
+  payload
+})
+
+// middleware api call
+export const usersGetApiCall = () => dispatch => {
+  dispatch(usersGetFetch(true))
+  return fetch('/api/users/all', {
+    method: 'get',
+    credentials: 'include', //pass cookies, for authentication
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  })
+  .then((res) => {
+    if (!res.ok) {
+      throw Error(`${res.status}: ${res.statusText}`)
+    }
+    return res.json()
+  })
+  .then((json) => {
+    dispatch(usersGetFetch(false))
+    return json
+  })
+  .then((res) => {
+    dispatch(usersGetSuccess(res.data))
+  })
+  .catch((err) => {
+    dispatch(usersGetFetch(false))
+    dispatch(usersGetError(err))
+  })
+}
+
 // constants - user registration
 export const USER_REGISTER_FETCH = 'USER_REGISTER_FETCH'
 export const USER_REGISTER_SUCCESS = 'USER_REGISTER_SUCCESS'
@@ -139,61 +194,6 @@ export const userLogoutCall = (id) => dispatch => {
   dispatch(userLogout(id))
   localStorage.removeItem('token')
   dispatch(unsetUserId())
-}
-
-// constants - users get
-export const USERS_GET_FETCH = 'USERS_GET_FETCH'
-export const USERS_GET_SUCCESS = 'USERS_GET_SUCCESS'
-export const USERS_GET_ERROR = 'USERS_GET_ERROR'
-export const USERS_PULL_DELETED = 'USERS_PULL_DELETED'
-// action creators - users get
-export const usersGetFetch = (isFetching) => ({
-  type: USERS_GET_FETCH,
-  isFetching
-})
-
-export const usersGetSuccess = (payload) => ({
-  type: USERS_GET_SUCCESS,
-  payload
-})
-
-export const usersGetError = (payload) => ({
-  type: USERS_GET_ERROR,
-  payload
-})
-
-export const usersPullDeleted = (payload) => ({
-  type: USERS_PULL_DELETED,
-  payload
-})
-
-// middleware api call
-export const usersGetApiCall = () => dispatch => {
-  dispatch(usersGetFetch(true))
-  return fetch('/api/users/all', {
-    method: 'get',
-    credentials: 'include', //pass cookies, for authentication
-    headers: {
-      'Content-Type': 'application/json'
-    }
-  })
-  .then((res) => {
-    if (!res.ok) {
-      throw Error(`${res.status}: ${res.statusText}`)
-    }
-    return res.json()
-  })
-  .then((json) => {
-    dispatch(usersGetFetch(false))
-    return json
-  })
-  .then((res) => {
-    dispatch(usersGetSuccess(res.data))
-  })
-  .catch((err) => {
-    dispatch(usersGetFetch(false))
-    dispatch(usersGetError(err))
-  })
 }
 
 export const USERS_RESET_ERR = 'USERS_RESET_ERR'

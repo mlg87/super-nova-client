@@ -62,6 +62,7 @@ export const usersApiRes = (state = [], action) => {
         if (user.id === payload) {
           return i
         }
+        return false
       })
       const i = state.indexOf(userIndex[0])
       return [
