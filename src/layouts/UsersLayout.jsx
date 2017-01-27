@@ -6,7 +6,7 @@ import moment from 'moment'
 import { usersUpdateSelected } from 'actions/users'
 
 
-// import UserRow from 'components/users/UserRow'
+// import UserRow from 'components/UserRow'
 
 class UsersLayout extends Component {
   componentWillMount() {
