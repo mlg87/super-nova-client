@@ -1,3 +1,4 @@
+import deepFreeze from 'deep-freeze'
 import * as userReducers from './users'
 import * as userActions from 'actions/users'
 
@@ -13,6 +14,8 @@ describe('userApiFetch reducer', () => {
       type: userActions.USER_REGISTER_FETCH
     }
 
+    deepFreeze(action)
+
     expect(
       userReducers.userApiFetch(undefined, {...action, isFetching: false})
     ).toEqual(false)
@@ -26,6 +29,8 @@ describe('userApiFetch reducer', () => {
     const action = {
       type: userActions.USER_REGISTER_FETCH
     }
+
+    deepFreeze(action)
 
     expect(() => {
       userReducers.userApiFetch(undefined, action)
@@ -46,6 +51,8 @@ describe('userApiFetch reducer', () => {
       isFetching: false
     }
 
+    deepFreeze(action)
+
     expect(
       userReducers.userApiFetch(true, action)
     ).toEqual(true)
@@ -64,6 +71,8 @@ describe('userApiRes reducer', () => {
       type: userActions.USER_REGISTER_SUCCESS
     }
 
+    deepFreeze(action)
+
     expect(
       userReducers.userApiRes(undefined, {...action, payload: 'success'})
     ).toEqual({})
@@ -77,8 +86,10 @@ describe('userApiRes reducer', () => {
     const action = {
       type: userActions.USER_REGISTER_ERROR
     }
-
     const err = new Error('dali')
+
+    deepFreeze(action)
+    deepFreeze(err)
 
     expect(
       userReducers.userApiRes(undefined, {...action, payload: err})
@@ -94,6 +105,8 @@ describe('userApiRes reducer', () => {
       type: userActions.USER_REGISTER_ERROR
     }
 
+    deepFreeze(errAction)
+
     expect(() => {
       userReducers.userApiRes(undefined, errAction)
     }).toThrowError('invalid payload')
@@ -104,6 +117,8 @@ describe('userApiRes reducer', () => {
       type: 'NOT_A_REAL_ACTION'
     }
 
+    deepFreeze(action)
+
     expect(
       userReducers.userApiRes('dali', action)
     ).toEqual('dali')
@@ -113,6 +128,8 @@ describe('userApiRes reducer', () => {
     const action = {
       type: userActions.USERS_RESET_ERR
     }
+
+    deepFreeze(action)
 
     expect(
       userReducers.userApiRes(undefined, action)
@@ -134,6 +151,9 @@ describe('usersApiRes reducer', () => {
     }
     const arr = [1,2,3,4,5]
 
+    deepFreeze(successAction)
+    deepFreeze(arr)
+
     expect(
       userReducers.usersApiRes(undefined, {...successAction, payload: arr})
     ).toEqual(arr)
@@ -150,6 +170,9 @@ describe('usersApiRes reducer', () => {
     const err = {
       err: {}
     }
+
+    deepFreeze(errAction)
+    deepFreeze(err)
 
     expect(
       userReducers.usersApiRes(undefined, {...errAction, payload: err})
@@ -168,6 +191,9 @@ describe('usersApiRes reducer', () => {
       type: userActions.USERS_GET_ERROR
     }
 
+    deepFreeze(successAction)
+    deepFreeze(errAction)
+
     expect(() => {
       userReducers.usersApiRes(undefined, successAction)
     }).toThrowError('invalid payload')
@@ -182,9 +208,39 @@ describe('usersApiRes reducer', () => {
       type: 'NOT_A_REAL_ACTION'
     }
 
+    deepFreeze(action)
+
     expect(
       userReducers.usersApiRes(undefined, action)
     ).toEqual([])
+  })
+
+  it('should pull the appropriate items from state', () => {
+    const action = {
+      type: userActions.USERS_PULL_DELETED,
+      payload: 1
+    }
+    const stateBefore = [
+      {id: 0},
+      {id: 1},
+      {id: 2},
+      {id: 3},
+      {id: 4}
+    ]
+    const stateAfter = [
+      {id: 0},
+      {id: 2},
+      {id: 3},
+      {id: 4}
+    ]
+
+    deepFreeze(action)
+    deepFreeze(stateBefore)
+
+    expect(
+      userReducers.usersApiRes(stateBefore, action)
+    ).toEqual(stateAfter)
+
   })
 })
 
@@ -201,6 +257,9 @@ describe('usersSelected reducer', () => {
     }
     const arr = [1,2,3,4,5]
 
+    deepFreeze(action)
+    deepFreeze(arr)
+
     expect(
       userReducers.usersSelected(undefined, {...action, indexes: arr})
     ).toEqual(arr)
@@ -215,6 +274,8 @@ describe('usersSelected reducer', () => {
       type: userActions.USERS_UPDATE_SELECTED
     }
 
+    deepFreeze(action)
+
     expect(() => {
       userReducers.usersSelected(undefined, action)
     }).toThrowError('indexes must be an array')
@@ -224,6 +285,8 @@ describe('usersSelected reducer', () => {
     const action = {
       type: 'NOT_A_REAL_ACTION'
     }
+
+    deepFreeze(action)
 
     expect(
       userReducers.usersSelected(undefined, action)

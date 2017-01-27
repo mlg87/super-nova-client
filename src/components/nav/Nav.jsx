@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 // routing
 import { Link } from 'react-router'
 // components
-import { SubSideNav } from 'components/nav/SubSideNav'
+import SubSideNav from 'components/nav/SubSideNav'
 import Drawer from 'material-ui/Drawer'
 import FlatButton from 'material-ui/FlatButton'
 import IconMenu from 'material-ui/IconMenu'

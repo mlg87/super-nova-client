@@ -20,6 +20,7 @@ import { LandingLayout } from 'layouts/LandingLayout'
 import UsersLayout from 'layouts/UsersLayout'
 import Register from 'components/register/Register'
 import { CurrentUser } from 'components/currentUser/CurrentUser'
+import RemoveUsers from 'components/removeUsers/RemoveUsers'
 
 const middleware = routerMiddleware(browserHistory)
 // export store for the Provider in index.js
@@ -89,7 +90,7 @@ export const AppRouter = (
         />
         <Route
           path='/users/remove'
-          component={ UnderConstructionDialog }
+          component={ RemoveUsers }
           returnPath='/users'
         />
       </Route>

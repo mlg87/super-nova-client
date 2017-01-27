@@ -57,6 +57,7 @@ export const userRegisterApiCall = (username, password) => dispatch => {
   })
   .then((res) => {
     dispatch(userRegisterSuccess('success'))
+    dispatch(usersGetApiCall())
     // user creation happens at /users/add, so send them back to users on success
     dispatch(push('/users'))
   })
@@ -144,7 +145,7 @@ export const userLogoutCall = (id) => dispatch => {
 export const USERS_GET_FETCH = 'USERS_GET_FETCH'
 export const USERS_GET_SUCCESS = 'USERS_GET_SUCCESS'
 export const USERS_GET_ERROR = 'USERS_GET_ERROR'
-
+export const USERS_PULL_DELETED = 'USERS_PULL_DELETED'
 // action creators - users get
 export const usersGetFetch = (isFetching) => ({
   type: USERS_GET_FETCH,
@@ -161,8 +162,13 @@ export const usersGetError = (payload) => ({
   payload
 })
 
+export const usersPullDeleted = (payload) => ({
+  type: USERS_PULL_DELETED,
+  payload
+})
+
 // middleware api call
-export const usersGetApiCall = (query) => dispatch => {
+export const usersGetApiCall = () => dispatch => {
   dispatch(usersGetFetch(true))
   return fetch('/api/users/all', {
     method: 'get',
@@ -209,3 +215,60 @@ export const usersUpdateSelected = (indexes) => ({
   type: USERS_UPDATE_SELECTED,
   indexes
 })
+
+// constants - users delete
+export const USERS_DELETE_FETCH = 'USERS_DELETE_FETCH'
+export const USERS_DELETE_SUCCESS = 'USERS_DELETE_SUCCESS'
+export const USERS_DELETE_ERROR = 'USERS_DELETE_ERROR'
+
+// action creators - users remove
+export const usersDeleteFetch = (isFetching) => ({
+  type: USERS_DELETE_FETCH,
+  isFetching
+})
+
+export const usersDeleteSuccess = () => ({
+  type: USERS_DELETE_SUCCESS
+})
+
+export const usersDeleteError = (payload) => ({
+  type: USERS_DELETE_ERROR,
+  payload
+})
+
+export const usersDeleteApiCall = (userIds) => dispatch => {
+  dispatch(usersDeleteFetch(true))
+  const ids = userIds
+  // return promise
+  return fetch('/api/users/remove', {
+    method: 'delete',
+    credentials: 'include', //pass cookies, for authentication
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ids})
+  })
+  .then((res) => {
+    if (!res.ok) {
+      throw Error(`${res.status}: ${res.statusText}`)
+    }
+    return res.json()
+  })
+  .then((json) => {
+    dispatch(usersDeleteFetch(false))
+    return json
+  })
+  .then((res) => {
+    dispatch(usersDeleteSuccess())
+    dispatch(usersUpdateSelected([]))
+    res.data.forEach((userId) => {
+      dispatch(usersPullDeleted(userId))
+    })
+    // user deletion happens at /users/remove, so send them back to users on success
+    dispatch(push('/users'))
+  })
+  .catch((err) => {
+    dispatch(usersDeleteFetch(false))
+    dispatch(usersDeleteError(err))
+  })
+}
