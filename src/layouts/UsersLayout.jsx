@@ -16,11 +16,15 @@ class UsersLayout extends Component {
   renderUserRows(users) {
     const { userId, usersSelected } = this.props
 
+    const style_cursor = (id) => ({
+      cursor: id !== userId ? 'pointer' : 'not-allowed'
+    })
+
     return users.map((user, i) => {
       return (
         <TableRow
           key={ user.username }
-          style={{cursor: 'pointer'}}
+          style={ style_cursor(user.id) }
           selectable={ user.id !== userId}
           selected={ usersSelected.indexOf(i) !== -1}
         >
