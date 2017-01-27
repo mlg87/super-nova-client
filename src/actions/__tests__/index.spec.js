@@ -1,4 +1,4 @@
-import * as actions from './index'
+import * as actions from '../index'
 
 describe('userId actions', () => {
   describe('setUserId', () => {

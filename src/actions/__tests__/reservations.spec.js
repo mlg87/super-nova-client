@@ -1,4 +1,4 @@
-import * as actions from './reservations'
+import * as actions from '../reservations'
 import moment from 'moment'
 
 describe('set start date', () => {
