@@ -7,7 +7,7 @@ const Shell = (props) => {
 
   const containerStyle = {
     // sum of sideNav and subSideNav widths
-    marginLeft: (routeProps.isSubSideNavOpen ? '360px' : '80px'),
+    marginLeft: (route.isSubSideNavOpen ? '360px' : '80px'),
     height: '100vh',
     position: 'relative'
   }

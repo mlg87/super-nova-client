@@ -13,7 +13,7 @@ import { subSideNavLinks } from 'config/subSideNavLinks'
 
 // main layout (includes nav and where other layouts go)
 import AppLayout from 'layouts/AppLayout'
-import { UnderConstruction, UnderConstructionDialog } from 'layouts/UnderConstruction'
+import { UnderConstruction } from 'layouts/UnderConstruction'
 import { NotFound } from 'layouts/NotFound'
 import { InventoryLayout } from 'layouts/InventoryLayout'
 import { LandingLayout } from 'layouts/LandingLayout'

@@ -9,24 +9,24 @@ const mapStateToProps = (state) => ({
   customer: state.reservationSelectedCustomer
 })
 
-const checkState = ({startDate, endDate, inventory, customer}) => {
-  // if (!startDate || !endDate) {
-  //   browserHistory.push('/reservations/select-date')
-  // } else if (!inventory.length) {
-  //   // Router.transitionTo('/reservations/select-inventory')
-  // } else if (!customer.id) {
-  //   // Router.transitionTo('/reservations/select-customer')
-  // }
-}
+const mapDispatchToProps = (dispatch) => ({
+  checkState: ({startDate, endDate, inventory, customer}) => {
+    if (!startDate || !endDate) {
+      dispatch(push('/reservations/select-date'))
+    } else if (!inventory.length) {
+      dispatch(push('/reservations/select-inventory'))
+    } else if (!customer.id) {
+      dispatch(push('/reservations/select-customer'))
+    }
+  }
+})
 
 // all this component does is check if there's a step missing
 // in the reservation and redirect if needed
 class Reservation extends Component {
-  constructor(props) {
-    super(props)
-    checkState(props)
+  componentWillMount() {
+    this.props.checkState(this.props)
   }
-
 
   render() {
     return (
@@ -38,5 +38,6 @@ class Reservation extends Component {
 }
 
 export default connect(
-  mapStateToProps
+  mapStateToProps,
+  mapDispatchToProps
 )(Reservation)
