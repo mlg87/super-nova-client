@@ -43,7 +43,7 @@ const Nav = (props) => {
         icon: () => <TagFaces />
       },
       {
-        path: '/reservations',
+        path: '/reservations/select-date',
         icon: () => <EventNote />
       },
       {

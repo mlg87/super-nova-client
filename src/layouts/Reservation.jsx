@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { push } from 'react-router-redux'
+import ReservationFooter from 'components/ReservationFooter'
 
 const mapStateToProps = (state) => ({
   startDate: state.reservationStartDate,
@@ -30,8 +31,9 @@ class Reservation extends Component {
 
   render() {
     return (
-      <div>
+      <div style={{height: 'calc(100% - 45px)'}}>
         {this.props.children}
+        <ReservationFooter/>
       </div>
     )
   }

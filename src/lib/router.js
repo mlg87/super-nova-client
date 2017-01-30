@@ -78,15 +78,15 @@ export const AppRouter = (
         isSubSideNavOpen={ false }
       />
       <Route
-        path='/reservations/select-date'
-        component={ ReservationDateSelect }
-        isSubSideNavOpen={ false }
-      />
-      <Route
         path='/reservations'
         component={Reservation}
         isSubSideNavOpen={ false }
       >
+        <Route
+          path='/reservations/select-date'
+          component={ ReservationDateSelect }
+          isSubSideNavOpen={ false }
+        />
         <Route
           path='/reservations/select-inventory'
           component={ ReservationInventorySelect }

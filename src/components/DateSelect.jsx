@@ -31,9 +31,9 @@ export const DateSelect = (props) => {
 
   return (
     <div>
-      <h1 style={{textAlign: 'center'}}>
+      <h2 style={{textAlign: 'center', fontWeight: '300'}}>
         Choose dates to start a reservation
-      </h1>
+      </h2>
       <DateRange
         startDate={startDate}
         endDate={endDate}
