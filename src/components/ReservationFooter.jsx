@@ -20,14 +20,23 @@ const styles = {
   header: {
     fontWeight: '300',
     margin: '0',
+  },
+  leftSide: {
+    marginLeft: '45px'
+  },
+  rightSide: {
+    marginLeft: 'auto',
+    marginRight: '45px'
   }
 }
 
 const ReservationFooter = (props) => {
   return (
     <footer style={styles.footer}>
-      <h4 style={styles.header}>My Reservation</h4>
-      <div style={{marginLeft: 'auto'}}>
+      <div style={styles.leftSide}>
+        <h4 style={styles.header}>My Reservation</h4>
+      </div>
+      <div style={styles.rightSide}>
         <ReservationNav />
       </div>
     </footer>
