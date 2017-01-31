@@ -4,6 +4,7 @@ import { Step, Stepper, StepLabel } from 'material-ui/Stepper'
 import { Link } from 'react-router'
 import RaisedButton from 'material-ui/RaisedButton'
 import { push } from 'react-router-redux'
+import InfoDateSelected from 'components/InfoDateSelected'
 
 // an easy way to map between the steps and the paths
 const indexToStepMap = [
@@ -20,7 +21,7 @@ const styles = {
     backgroundColor: '#4e4e4e',
     position: 'absolute',
     bottom: 0,
-    color: 'white',
+    color: '#858585',
     display: 'flex',
     alignItems: 'center'
   },
@@ -30,7 +31,6 @@ const styles = {
   },
   leftSide: {
     marginLeft: '45px',
-    marginRight: '25px'
   },
   rightSide: {
     marginLeft: 'auto',
@@ -46,6 +46,9 @@ const styles = {
     fontSize: '10px',
     fontWeight: 'bold',
     textTransform: 'none'
+  },
+  stepper: {
+    margin: '0 60px 0 25px'
   }
 }
 
@@ -107,9 +110,26 @@ const ReservationFooter = (props) => {
         <h4 style={styles.header}>My Reservation</h4>
       </div>
 
-      <Stepper activeStep={stepIndex} connector={null}>
+      <Stepper
+        activeStep={stepIndex}
+        connector={null}
+        style={styles.stepper}
+      >
         {renderSteps(stepIndex, props.goBackToStep)}
       </Stepper>
+
+      <InfoDateSelected
+        date={props.startDate}
+        style={{marginRight: '35px'}}
+      />
+
+      <InfoDateSelected
+        date={props.endDate}
+        style={{
+          paddingRight: '35px',
+          borderRight: '1px solid #858585'
+        }}
+      />
 
       <div style={styles.rightSide}>
         <Link
