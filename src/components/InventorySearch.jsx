@@ -4,6 +4,14 @@ import Chip from 'material-ui/Chip'
 import { connect } from 'react-redux'
 import { updateSearchTerms } from 'actions/reservations'
 
+const styles = {
+  container: {
+    width: '100%',
+    height: '94px',
+    'padding': '0 47px'
+  }
+}
+
 const mapStateToProps = (state) => ({
   searchTerms: state.inventorySearchTerms,
 })
@@ -38,7 +46,7 @@ const renderSearchTerms = ({searchTerms, removeSearchTerm}) => {
 
 const InventorySearch = (props) => {
   return (
-    <div>
+    <div style={styles.container}>
       <div style={{display: 'flex'}}>
         {renderSearchTerms(props)}
       </div>

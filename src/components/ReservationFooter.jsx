@@ -28,8 +28,6 @@ const styles = {
   header: {
     fontWeight: '300',
     margin: '0',
-  },
-  leftSide: {
     marginLeft: '45px',
   },
   rightSide: {
@@ -106,9 +104,7 @@ const ReservationFooter = (props) => {
   const disableNext = !isScreenFulfilled(stepIndex, props)
   return (
     <footer style={styles.footer}>
-      <div style={styles.leftSide}>
-        <h4 style={styles.header}>My Reservation</h4>
-      </div>
+      <h4 style={styles.header}>My Reservation</h4>
 
       <Stepper
         activeStep={stepIndex}

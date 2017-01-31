@@ -25,14 +25,9 @@ export class ReservationInventorySelect extends Component {
   render() {
     return (
       <div>
-        <Center>
-          <div>
-            <InventorySearch />
+        <InventorySearch />
 
-            <InventoryList />
-
-          </div>
-        </Center>
+        <InventoryList />
 
         <div style={{position: 'absolute', top: 0}}>
           <SelectedInventoryList />
