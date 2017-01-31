@@ -8,6 +8,9 @@ const styles = {
     display: 'flex',
     flexWrap: 'wrap',
     justifyContent: 'space-around',
+    // this is just for development, until we style this
+    position: 'relative',
+    top: '40px'
   },
   gridList: {
     width: 500,

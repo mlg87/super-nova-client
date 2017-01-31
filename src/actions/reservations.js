@@ -46,8 +46,9 @@ export const removeInventorySearchTerm = (searchTerm) => ({
   payload: searchTerm
 })
 
-export const setCategories = () => ({
-  type: 'SET_CATEGORIES'
+export const setCategories = (categories) => ({
+  type: 'SET_CATEGORIES',
+  payload: categories
 })
 
 export const fetchInventory = (search_terms) => dispatch => {
@@ -65,13 +66,17 @@ export const fetchInventory = (search_terms) => dispatch => {
 }
 
 export const fetchCategories = () => dispatch => {
+  const token = localStorage.getItem('token')
   fetch('/api/categories', {
-    method: 'get'
+    method: 'get',
+    headers: {
+      'Authorization': 'Bearer ' + token
+    }
   })
   .then(handleFetchErrors)
   .then((res) => {
     res.json().then(json => {
-      dispatch(setCategories(json))
+      dispatch(setCategories(json.data))
     })
   })
   .catch((err) => {console.log('fetch err:', err);})
