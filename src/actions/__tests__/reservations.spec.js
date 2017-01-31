@@ -82,11 +82,20 @@ describe('set reservation customers', () => {
 })
 
 describe('select reservation customer', () => {
-  it('should create SELECT_RESERVATION_CUSTOMERS acton', () => {
+  it('should create SELECT_RESERVATION_CUSTOMERS action', () => {
     const customer = {name: 'msmeeves'}
     expect(actions.selectReservationCustomer(customer)).toEqual({
       type: 'SELECT_RESERVATION_CUSTOMER',
       payload: customer
+    })
+  })
+})
+
+describe('set categories', () => {
+  it('should create SET_CATEGORIES action', () => {
+    const customer = {name: 'msmeeves'}
+    expect(actions.setCategories()).toEqual({
+      type: 'SET_CATEGORIES'
     })
   })
 })

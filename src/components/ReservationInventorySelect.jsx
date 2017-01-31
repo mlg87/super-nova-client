@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import Center from 'components/Center';
 import InventoryList from 'components/InventoryList'
 import InventorySearch from 'components/InventorySearch'
 import { fetchInventory } from 'actions/reservations'

@@ -1,37 +1,17 @@
 import React from 'react'
-import TextField from 'material-ui/TextField'
 import Chip from 'material-ui/Chip'
 import { connect } from 'react-redux'
 import { updateSearchTerms } from 'actions/reservations'
-import IconSearch from 'material-ui/svg-icons/action/search'
+import SearchBar from 'components/SearchBar'
+import CategoryFilters from 'components/CategoryFilters'
 
 const styles = {
   container: {
     width: '100%',
     height: '94px',
-    'padding': '20px 47px'
+    'padding': '20px 47px',
+    boxShadow: '0 2px 2px 0 rgba(0, 0, 0, 0.24), 0 0 2px 0 rgba(0, 0, 0, 0.12)'
   },
-  searchContainer: {
-    position: 'relative',
-    left: '40px'
-  },
-  searchBar: {
-    width: '50%',
-    height: '43px',
-    lineHeight: '43px',
-  },
-  underline: {
-    position: 'relative',
-    left: '-40px'
-  },
-  inputStyle: {
-    position: 'relative',
-    top: '-13px'
-  },
-  searchIcon: {
-    marginRight: '10px',
-    marginBottom: '5px'
-  }
 }
 
 const mapStateToProps = (state) => ({
@@ -39,14 +19,6 @@ const mapStateToProps = (state) => ({
 })
 
 const mapDispatchToProps = (dispatch) => ({
-  handleSearchChange: (e) => {
-    if (e.which === 13){
-      dispatch(updateSearchTerms('add', e.target.value))
-      // this does not bring back the placeholder text, tough...
-      e.target.value = ''
-    }
-  },
-
   removeSearchTerm: (searchTerm) => {
     dispatch(updateSearchTerms('remove', searchTerm))
   }
@@ -72,18 +44,8 @@ const InventorySearch = (props) => {
       <div style={{display: 'flex'}}>
         {renderSearchTerms(props)}
       </div>
-      <div style={styles.searchContainer}>
-        <IconSearch style={styles.searchIcon}/>
-        <TextField
-          name='inventory-search'
-          hintText='Search'
-          fullWidth={true}
-          onKeyUp={props.handleSearchChange}
-          style={styles.searchBar}
-          inputStyle={styles.inputStyle}
-          underlineStyle={styles.underline}
-          />
-      </div>
+      <SearchBar />
+      <CategoryFilters />
     </div>
   )
 }

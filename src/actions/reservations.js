@@ -40,9 +40,14 @@ export const addInventorySearchTerm = (searchTerm) => ({
   type: 'ADD_INVENTORY_SEARCH_TERM',
   payload: searchTerm
 })
+
 export const removeInventorySearchTerm = (searchTerm) => ({
   type: 'REMOVE_INVENTORY_SEARCH_TERM',
   payload: searchTerm
+})
+
+export const setCategories = () => ({
+  type: 'SET_CATEGORIES'
 })
 
 export const fetchInventory = (search_terms) => dispatch => {
@@ -54,6 +59,19 @@ export const fetchInventory = (search_terms) => dispatch => {
   .then((res) => {
     res.json().then(json => {
       dispatch(setInventory(json))
+    })
+  })
+  .catch((err) => {console.log('fetch err:', err);})
+}
+
+export const fetchCategories = () => dispatch => {
+  fetch('/api/categories', {
+    method: 'get'
+  })
+  .then(handleFetchErrors)
+  .then((res) => {
+    res.json().then(json => {
+      dispatch(setCategories(json))
     })
   })
   .catch((err) => {console.log('fetch err:', err);})
