@@ -51,10 +51,15 @@ export const setCategories = (categories) => ({
   payload: categories
 })
 
-export const fetchInventory = (search_terms) => dispatch => {
+export const setSelectedCategory = (categoryId) => ({
+  type: 'SET_SELECTED_CATEGORY',
+  payload: categoryId
+})
+
+export const fetchInventory = (search_terms, category) => dispatch => {
   fetch('/api/inventory/search', {
     method: 'get',
-    headers: { search_terms }
+    headers: { search_terms, category }
   })
   .then(handleFetchErrors)
   .then((res) => {
@@ -96,12 +101,18 @@ export const fetchCustomers = (search_term) => dispatch => {
   .catch((err) => {console.log('fetch err:', err);})
 }
 
+export const filterByCategory = (action, categoryId) => (dispatch, getState) => {
+  const { inventorySearchTerms } = getState()
+  dispatch(setSelectedCategory(categoryId))
+  fetchInventory(inventorySearchTerms, categoryId)(dispatch)
+}
+
 export const updateSearchTerms = (action, searchTerm) => (dispatch, getState) => {
   if (action === 'add') {
     dispatch(addInventorySearchTerm(searchTerm))
   } else {
     dispatch(removeInventorySearchTerm(searchTerm))
   }
-
-  fetchInventory(getState().inventorySearchTerms)(dispatch)
+  const { inventorySearchTerms, selectedCategory } = getState()
+  fetchInventory(inventorySearchTerms, selectedCategory)(dispatch)
 }

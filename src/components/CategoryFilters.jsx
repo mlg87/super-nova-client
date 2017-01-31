@@ -1,13 +1,13 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { fetchCategories } from 'actions/reservations'
+import { fetchCategories, filterByCategory } from 'actions/reservations'
 import FlatButton from 'material-ui/FlatButton'
 
 const mapStateToProps = (state) => ({
   categories: state.inventoryCategories
 })
 
-const renderCategories = (categories) => {
+const renderCategories = (categories, filterByCategory) => {
   return categories.map((category) => {
     return (
       <li
@@ -21,6 +21,7 @@ const renderCategories = (categories) => {
             textTransform: 'none',
             fontWeight: 'bold'
           }}
+          onClick={() => filterByCategory(category.id)}
           hoverColor='white'
         />
       </li>
@@ -37,12 +38,13 @@ class CategoryFilters extends Component {
   }
 
   render() {
+    const { categories, filterByCategory } = this.props
     return (
       <ul style={{
           margin: '0 0 -6px 0',
           padding: '2px 0 0 20px'
         }}>
-        {renderCategories(this.props.categories)}
+        {renderCategories(categories, filterByCategory)}
       </ul>
     )
   }
@@ -50,5 +52,5 @@ class CategoryFilters extends Component {
 
 export default connect(
   mapStateToProps,
-  { fetchCategories }
+  { fetchCategories, filterByCategory }
 )(CategoryFilters)
