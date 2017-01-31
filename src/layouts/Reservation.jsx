@@ -7,16 +7,20 @@ const mapStateToProps = (state) => ({
   startDate: state.reservationStartDate,
   endDate: state.reservationEndDate,
   inventory: state.reservationSelectedInventory,
-  customer: state.reservationSelectedCustomer
+  customer: state.reservationSelectedCustomer,
+  currentPath: state.routing.locationBeforeTransitions.pathname
 })
 
 const mapDispatchToProps = (dispatch) => ({
-  checkState: ({startDate, endDate, inventory, customer}) => {
+  checkState: ({startDate, endDate, inventory, customer, currentPath}) => {
     if (!startDate || !endDate) {
+      if (currentPath === '/reservations/select-date') return
       dispatch(push('/reservations/select-date'))
     } else if (!inventory.length) {
-      dispatch(push('/reservations/select-inventory'))
+      if (currentPath === '/reservations/select-inventory') return
+      dispatch(push('/select-inventory'))
     } else if (!customer.id) {
+      if (currentPath === '/reservations/select-customer') return
       dispatch(push('/reservations/select-customer'))
     }
   }

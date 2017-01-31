@@ -1,33 +1,9 @@
 import React from 'react'
-import { Link } from 'react-router'
-import RaisedButton from 'material-ui/RaisedButton'
 import { connect } from 'react-redux'
 
 const mapStateToProps = (state) => ({
   currentPath: state.routing.locationBeforeTransitions.pathname
 })
-
-// const renderButton = (handler, side, label) => {
-//   return typeof handler === 'string' ?
-//   <Link
-//     to={handler}
-//     style={{
-//       float: side
-//     }}
-//     >
-//     <RaisedButton
-//       label={label}
-//       primary={true}
-//     />
-//   </Link> :
-//   <RaisedButton
-//     onClick={handler}
-//     label={label}
-//     primary={true}
-//     style={{float: side}}
-//   />
-//
-// }
 
 const styles = {
   button: {
@@ -45,8 +21,12 @@ const styles = {
 
 const getNextPath = (currentPath) => {
   switch (currentPath) {
-    case 'reservations/select-date':
-      return 'reservations/select-inventory'
+    case '/reservations/select-date':
+      return '/reservations/select-inventory'
+    case '/reservations/select-inventory':
+      return '/reservations/select-customer'
+    case '/reservations/select-customer':
+      return '/reservations/review'
     default:
       return ''
   }

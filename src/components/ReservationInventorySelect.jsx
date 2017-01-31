@@ -4,7 +4,6 @@ import Center from 'components/Center';
 import InventoryList from 'components/InventoryList'
 import InventorySearch from 'components/InventorySearch'
 import { fetchInventory } from 'actions/reservations'
-import ReservationNav from 'components/ReservationNav'
 import SelectedInventoryList from 'components/SelectedInventoryList'
 
 const mapStateToProps = (state) => ({
@@ -32,11 +31,6 @@ export class ReservationInventorySelect extends Component {
 
             <InventoryList />
 
-            <ReservationNav
-              back='/reservations/select-date'
-              next='/reservations/select-customer'
-              nextCondition={!!this.props.selectedInventory.length}
-            />
           </div>
         </Center>
 
