@@ -3,12 +3,34 @@ import TextField from 'material-ui/TextField'
 import Chip from 'material-ui/Chip'
 import { connect } from 'react-redux'
 import { updateSearchTerms } from 'actions/reservations'
+import IconSearch from 'material-ui/svg-icons/action/search'
 
 const styles = {
   container: {
     width: '100%',
     height: '94px',
-    'padding': '0 47px'
+    'padding': '20px 47px'
+  },
+  searchContainer: {
+    position: 'relative',
+    left: '40px'
+  },
+  searchBar: {
+    width: '50%',
+    height: '43px',
+    lineHeight: '43px',
+  },
+  underline: {
+    position: 'relative',
+    left: '-40px'
+  },
+  inputStyle: {
+    position: 'relative',
+    top: '-13px'
+  },
+  searchIcon: {
+    marginRight: '10px',
+    marginBottom: '5px'
   }
 }
 
@@ -50,12 +72,18 @@ const InventorySearch = (props) => {
       <div style={{display: 'flex'}}>
         {renderSearchTerms(props)}
       </div>
-      <TextField
-        name='inventory-search'
-        hintText='search for inventory'
-        fullWidth={true}
-        onKeyUp={props.handleSearchChange}
-      />
+      <div style={styles.searchContainer}>
+        <IconSearch style={styles.searchIcon}/>
+        <TextField
+          name='inventory-search'
+          hintText='Search'
+          fullWidth={true}
+          onKeyUp={props.handleSearchChange}
+          style={styles.searchBar}
+          inputStyle={styles.inputStyle}
+          underlineStyle={styles.underline}
+          />
+      </div>
     </div>
   )
 }
