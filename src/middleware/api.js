@@ -22,16 +22,22 @@ const getNextPageUrl = response => {
 // as JSON that is { data: whateverYouNeed }
 const callApi = (endpoint, method, body) => {
   const fullUrl = `/api/${endpoint}`
-
-  return fetch(fullUrl, {
-    method: method,
-    // by default, including the creds
+  const request = {
+    method,
     credentials: 'include',
     headers: {
       'Content-Type': 'application/json'
     },
-    body: body
-  })
+    body
+  }
+  // by setting the body for a a request to an empty string that doesnt
+  // have a body (i.e. GET), we only need this one function instead of
+  // at least two (GET and POST)
+  if (body === '') {
+    delete request.body
+  }
+
+  return fetch(fullUrl, request)
     .then(response =>
       response.json().then(json => {
         if (!response.ok) {
@@ -107,8 +113,6 @@ export default store => next => action => {
   const [ requestType, successType, failureType ] = types
   next(actionWith({ type: requestType }))
 
-
-  console.error('ABOUT TO CALL THE FUCKING API');
   return callApi(endpoint, method, body).then(
     response => next(actionWith({
       response,

@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux'
 import { routerReducer } from 'react-router-redux'
 import { reservationStartDate, reservationEndDate } from 'reducers/reservations'
-import { userApiFetch, userApiRes, usersApiRes, usersSelected, userLogout, users } from 'reducers/users'
+import { userApiRes, usersApiRes, userLogout, users } from 'reducers/users'
 import { reducer as formReducer } from 'redux-form'
 import { userId } from 'reducers/userId'
 import { isLoading } from 'reducers/isLoading'
@@ -16,10 +16,8 @@ export const reducers = combineReducers({
   routing: routerReducer,
   reservationStartDate,
   reservationEndDate,
-  userApiFetch,
   userApiRes,
   usersApiRes,
-  usersSelected,
   userLogout,
   userId,
   users,

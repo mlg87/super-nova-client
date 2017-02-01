@@ -1,21 +1,20 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { loadUsers } from 'actions/users'
+import { usersGet } from 'actions/users'
 import { Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn } from 'material-ui/Table'
 import moment from 'moment'
-import { usersUpdateSelected, loadUserTest } from 'actions/users'
+import { usersUpdateSelected } from 'actions/users'
 
 
-const loadDataTest = ({ userId, loadUserTest }) => {
-  // arr is requiredFields  [ 'id' ]
-  loadUserTest(userId)
-}
+// const loadDataTest = ({ userId, loadUserTest }) => {
+//   // arr is requiredFields  [ 'id' ]
+//   loadUserTest(userId)
+// }
 
 class UsersLayout extends Component {
   componentWillMount() {
-    const { loadUsers } = this.props
-    loadUsers()
-    loadDataTest(this.props)
+    const { usersGet } = this.props
+    usersGet()
   }
 
   renderUserRows(users) {
@@ -63,20 +62,20 @@ class UsersLayout extends Component {
 }
 
 const mapStateToProps = (state, ownProps) => {
+  const { userId } = state
+  const { users, usersSelected } = state.users
+
   return {
-    users: state.usersApiRes,
-    userId: state.userId,
-    usersSelected: state.usersSelected
+    users,
+    userId,
+    usersSelected
   }
 }
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
-    loadUsers: () => {
-      return dispatch(loadUsers())
-    },
-    loadUserTest: (id) => {
-      return dispatch(loadUserTest(id))
+    usersGet: () => {
+      return dispatch(usersGet())
     },
     // NOTE: this Table seems to change its behavior with the wind
     usersUpdateSelected: (selectedRows) => {
