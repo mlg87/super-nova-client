@@ -30,7 +30,7 @@ const mapDispatchToProps = (dispatch) => ({
 // in the reservation and redirect if needed
 class Reservation extends Component {
   componentWillMount() {
-    // this.props.checkState(this.props)
+    this.props.checkState(this.props)
   }
 
   render() {

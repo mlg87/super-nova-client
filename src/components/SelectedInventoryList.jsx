@@ -17,17 +17,23 @@ const renderItems = ({ items, removeInventoryFromReservation }) => {
         key={item.uuid}
         primaryText={item.model}
         leftAvatar={<Avatar src={item.image_url} />}
-
-        rightIcon={<RemoveItem onClick={() => removeInventoryFromReservation(item.uuid)}/>}
+        style={{color: 'white', marginLeft: '20px'}}
       />
     )
   })
 }
+// secondaryText={item.brand}
+// rightIcon={<RemoveItem onClick={() => removeInventoryFromReservation(item.uuid)}/>}
 
 const SelectedInventoryList = (props) => {
   return (
-    <List>
-      { props.items.length ? <Subheader>Selected Gear</Subheader> : ''}
+    <List style={{
+      display: 'flex',
+      flexDirection: 'row',
+      padding: '0',
+      alignItems: 'center',
+      height: '100%'
+    }}>
       { renderItems(props) }
     </List>
   )
