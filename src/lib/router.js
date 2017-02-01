@@ -27,12 +27,13 @@ import UsersLayout from 'layouts/UsersLayout'
 import Register from 'components/Register'
 import { CurrentUser } from 'components/CurrentUser'
 import RemoveUsers from 'components/RemoveUsers'
+import { users as api } from 'middleware/users'
 
 const middleware = routerMiddleware(browserHistory)
 // export store for the Provider in index.js
 export const store = createStore(
   reducers,
-  compose(applyMiddleware(thunk, middleware),
+  compose(applyMiddleware(thunk, middleware, api),
   DevTools.instrument())
 )
 

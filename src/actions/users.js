@@ -49,10 +49,7 @@ export const usersGetApiCall = () => dispatch => {
   })
   .then((json) => {
     dispatch(usersGetFetch(false))
-    return json
-  })
-  .then((res) => {
-    dispatch(usersGetSuccess(res.data))
+    dispatch(usersGetSuccess(json.data))
   })
   .catch((err) => {
     dispatch(usersGetFetch(false))
