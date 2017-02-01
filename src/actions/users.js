@@ -5,6 +5,48 @@ import { push } from 'react-router-redux'
 // middleware file
 import { setUserId, unsetUserId } from 'actions'
 
+// keys each constructor will need:
+// 1) endpoint
+// 2) cb (possibly two: one for success and one for failure)
+// 3) method (GET, POST, DELETE, etc)
+// 4) headers? or can this be done in the api file?
+
+///////////////////////////////////////////////////////////////////////
+// MIDDLEWARE TESTING SITE
+import { CALL_API } from 'middleware/api'
+
+export const USER_TEST_REQUEST = 'USER_TEST_REQUEST'
+export const USER_TEST_SUCCESS = 'USER_TEST_SUCCESS'
+export const USER_TEST_FAILURE = 'USER_TEST_FAILURE'
+
+// Fetches a single user from Github API.
+// Relies on the custom API middleware defined in ../middleware/api.js.
+const fetchUserTest = id => ({
+  [CALL_API]: {
+    types: [ USER_TEST_REQUEST, USER_TEST_SUCCESS, USER_TEST_FAILURE ],
+    endpoint: `users/test/${id}`,
+    method: 'get',
+    cb: (data) => {
+      console.log('data in the action creator cb', data);
+    }
+  }
+})
+
+// Fetches a single user from Github API unless it is cached.
+// Relies on Redux Thunk middleware.
+export const loadUserTest = (id) => (dispatch, getState) => {
+  // console.log('checking in on state', getState());
+  // const user = getState().entities.users[login]
+  // if (user && requiredFields.every(key => user.hasOwnProperty(key))) {
+  //   return null
+  // }
+
+  return dispatch(fetchUserTest(id))
+}
+
+
+///////////////////////////////////////////////////////////////////////
+
 // constants - users get
 export const USERS_GET_FETCH = 'USERS_GET_FETCH'
 export const USERS_GET_SUCCESS = 'USERS_GET_SUCCESS'
