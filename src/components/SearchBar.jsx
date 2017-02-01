@@ -4,10 +4,17 @@ import TextField from 'material-ui/TextField'
 import { connect } from 'react-redux'
 import { updateSearchTerms } from 'actions/reservations'
 
-const mapDispatchToProps = (dispatch) => ({
-  handleSearchChange: (e) => {
-    if (e.which === 13){
-      dispatch(updateSearchTerms('add', e.target.value))
+const mapStateToProps = (state) => ({
+  searchTerms: state.inventorySearchTerms
+})
+
+const mapDispatchToProps = (dispatch, state) => ({
+  handleSearchChange: (e, searchTerms) => {
+    const val = e.target.value
+    // obviously, user needs more feedback
+    // don't allow duplicates, don't allow more than 8?
+    if (e.which === 13 && searchTerms.length < 8 && !searchTerms.filter((term) => term === val).length) {
+      dispatch(updateSearchTerms('add', val))
       // this does not bring back the placeholder text, tough...
       e.target.value = ''
     }
@@ -45,7 +52,7 @@ const SearchBar = (props) => {
         name='inventory-search'
         hintText='Search'
         fullWidth={true}
-        onKeyUp={props.handleSearchChange}
+        onKeyUp={(e) => props.handleSearchChange(e, props.searchTerms)}
         style={styles.searchBar}
         inputStyle={styles.inputStyle}
         underlineStyle={styles.underline}
@@ -54,4 +61,4 @@ const SearchBar = (props) => {
   )
 }
 
-export default connect(null, mapDispatchToProps)(SearchBar)
+export default connect(mapStateToProps, mapDispatchToProps)(SearchBar)
