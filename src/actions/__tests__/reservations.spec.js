@@ -101,10 +101,10 @@ describe('set categories', () => {
 })
 
 describe('filter by category', () => {
-  it('should create SET_SELECTED_CATEGORY action', () => {
+  it('should create SET_SELECTED_CATEGORY_ID action', () => {
     const category = 1
-    expect(actions.setSelectedCategory(category)).toEqual({
-      type: 'SET_SELECTED_CATEGORY',
+    expect(actions.setSelectedCategoryId(category)).toEqual({
+      type: 'SET_SELECTED_CATEGORY_ID',
       payload: category
     })
   })

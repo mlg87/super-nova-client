@@ -11,7 +11,7 @@ import { reservationSelectedInventory } from 'reducers/reservationSelectedInvent
 import { reservationSelectedCustomer } from 'reducers/reservationSelectedCustomer'
 import { reservationCustomers } from 'reducers/reservationCustomers'
 import { inventoryCategories } from 'reducers/inventoryCategories'
-import { selectedCategory } from 'reducers/selectedCategory'
+import { selectedCategoryId } from 'reducers/selectedCategoryId'
 
 export const reducers = combineReducers({
   form: formReducer,
@@ -31,5 +31,5 @@ export const reducers = combineReducers({
   reservationCustomers,
   reservationSelectedCustomer,
   inventoryCategories,
-  selectedCategory
+  selectedCategoryId
 })

@@ -4,10 +4,15 @@ import { fetchCategories, filterByCategory } from 'actions/reservations'
 import FlatButton from 'material-ui/FlatButton'
 
 const mapStateToProps = (state) => ({
-  categories: state.inventoryCategories
+  categories: state.inventoryCategories,
+  selectedCategoryId: state.selectedCategoryId
 })
 
-const renderCategories = (categories, filterByCategory) => {
+const renderCategories = ({
+  categories,
+  filterByCategory,
+  selectedCategoryId
+}) => {
   return categories.map((category) => {
     return (
       <li
@@ -22,7 +27,7 @@ const renderCategories = (categories, filterByCategory) => {
             fontWeight: 'bold'
           }}
           onClick={() => filterByCategory(category.id)}
-          hoverColor='white'
+          backgroundColor={selectedCategoryId === category.id ? '#eee' : 'white'}
         />
       </li>
     )
@@ -38,13 +43,12 @@ class CategoryFilters extends Component {
   }
 
   render() {
-    const { categories, filterByCategory } = this.props
     return (
       <ul style={{
           margin: '0 0 -6px 0',
           padding: '2px 0 0 20px'
         }}>
-        {renderCategories(categories, filterByCategory)}
+        {renderCategories(this.props)}
       </ul>
     )
   }

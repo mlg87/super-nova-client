@@ -1,24 +1,24 @@
-import { selectedCategory } from '../selectedCategory'
+import { selectedCategoryId } from '../selectedCategoryId'
 
 describe('selected category reducer', () => {
   it('should handle initial state', () => {
     expect(
-      selectedCategory(undefined, {})
-    ).toEqual('')
+      selectedCategoryId(undefined, {})
+    ).toEqual(0)
   })
 
   it('should set inventory Categories', () => {
     const action = {
-      type: 'SET_SELECTED_CATEGORY',
+      type: 'SET_SELECTED_CATEGORY_ID',
       payload: 'hello'
     }
 
     expect(
-      selectedCategory(undefined, {...action})
+      selectedCategoryId(undefined, {...action})
     ).toEqual('hello')
 
     expect(
-      selectedCategory('hi',  {...action})
+      selectedCategoryId('hi',  {...action})
     ).toEqual('hello')
   })
 
@@ -28,7 +28,7 @@ describe('selected category reducer', () => {
       payload: 'dude'
     }
     expect(
-      selectedCategory('chick', action)
+      selectedCategoryId('chick', action)
     ).toEqual('chick')
   })
 })
