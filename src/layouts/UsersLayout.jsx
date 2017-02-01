@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { usersGetApiCall } from 'actions/users'
+import { loadUsers } from 'actions/users'
 import { Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn } from 'material-ui/Table'
 import moment from 'moment'
 import { usersUpdateSelected, loadUserTest } from 'actions/users'
@@ -13,8 +13,8 @@ const loadDataTest = ({ userId, loadUserTest }) => {
 
 class UsersLayout extends Component {
   componentWillMount() {
-    const { usersGetApiCall } = this.props
-    usersGetApiCall()
+    const { loadUsers } = this.props
+    loadUsers()
     loadDataTest(this.props)
   }
 
@@ -72,8 +72,8 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
-    usersGetApiCall: (query) => {
-      return dispatch(usersGetApiCall(query))
+    loadUsers: () => {
+      return dispatch(loadUsers())
     },
     loadUserTest: (id) => {
       return dispatch(loadUserTest(id))

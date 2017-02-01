@@ -20,7 +20,7 @@ const getNextPageUrl = response => {
 // This makes every API response have the same shape, regardless of how nested it was
 // this function assumes that all responses from the server come back
 // as JSON that is { data: whateverYouNeed }
-const callApi = (endpoint, method, cb) => {
+const callApi = (endpoint, method, body) => {
   const fullUrl = `/api/${endpoint}`
 
   return fetch(fullUrl, {
@@ -29,7 +29,8 @@ const callApi = (endpoint, method, cb) => {
     credentials: 'include',
     headers: {
       'Content-Type': 'application/json'
-    }
+    },
+    body: body
   })
     .then(response =>
       response.json().then(json => {
@@ -39,8 +40,6 @@ const callApi = (endpoint, method, cb) => {
         }
 
         const nextPageUrl = getNextPageUrl(response)
-
-        cb({...json})
 
         return {
           ...json,
@@ -63,10 +62,9 @@ export default store => next => action => {
   if (typeof callAPI === 'undefined') {
     return next(action)
   }
-  console.log('action in middleware', action);
   // get the endpoint, method, and action types from callAPI
-  let { endpoint } = callAPI
-  const { types, method, cb } = callAPI
+  let { endpoint, body } = callAPI
+  const { types, method } = callAPI
   // dannys code, not sure how we'll use this
   if (typeof endpoint === 'function') {
     endpoint = endpoint(store.getState())
@@ -74,6 +72,16 @@ export default store => next => action => {
   // endpoints MUST be strings
   if (typeof endpoint !== 'string') {
     throw new Error('Specify a string endpoint URL.')
+  }
+  // not all requests will have a body, so just turn it into an {}
+  // if it doesnt
+  if (typeof body === 'undefined') {
+    body = ''
+  }
+  // make sure the body is a string (it should be stringified at this
+  // point)
+  if (typeof body !== 'string') {
+    throw new Error('Expected the request body to be a string. What gives?')
   }
   // methods MUST be strings
   if (typeof method !== 'string') {
@@ -101,7 +109,7 @@ export default store => next => action => {
 
 
   console.error('ABOUT TO CALL THE FUCKING API');
-  return callApi(endpoint, method, cb).then(
+  return callApi(endpoint, method, body).then(
     response => next(actionWith({
       response,
       type: successType

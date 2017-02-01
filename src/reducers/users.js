@@ -1,20 +1,53 @@
 import * as ActionTypes from 'actions/users'
 
-export const userApiFetch = (state = false, action) => {
-  const { type, isFetching } = action
+export const users = ( state = { users: [], isFetching: false }, action) => {
+  const { type } = action
+  console.log('action in users reducer', action);
 
   switch (type) {
-    case ActionTypes.USER_REGISTER_FETCH:
-    case ActionTypes.USER_LOGIN_FETCH:
-    case ActionTypes.USERS_GET_FETCH:
-      if (typeof isFetching !== 'boolean') {
-        throw new Error('isFetching must be a boolean')
+    case ActionTypes.USERS_GET_REQUEST:
+    case ActionTypes.USER_REGISTER_REQUEST:
+    case ActionTypes.USER_LOGIN_REQUEST:
+      return {
+        ...state,
+        isFetching: true
       }
-      return isFetching
+    case ActionTypes.USERS_GET_SUCCESS:
+      return {
+        users: action.response.data,
+        isFetching: false
+      }
+    case ActionTypes.USER_REGISTER_SUCCESS:
+      console.log('USER_REGISTER_SUCCESS ACTION', action);
+      return {
+        ...state,
+        isFetching: false
+      }
+    // probably want to handle the failure differently
+    case ActionTypes.USERS_GET_FAILURE:
+    case ActionTypes.USER_REGISTER_FAILURE:
+      console.log('FAILURE ACTION', action);
+      return state
     default:
       return state
   }
 }
+
+// export const userApiFetch = (state = false, action) => {
+//   const { type, isFetching } = action
+//
+//   switch (type) {
+//     case ActionTypes.USER_REGISTER_FETCH:
+//     case ActionTypes.USER_LOGIN_FETCH:
+//     // case ActionTypes.USERS_GET_REQUEST:
+//       if (typeof isFetching !== 'boolean') {
+//         throw new Error('isFetching must be a boolean')
+//       }
+//       return isFetching
+//     default:
+//       return state
+//   }
+// }
 
 export const userApiRes = (state = {}, action) => {
   const { type, payload } = action
@@ -42,16 +75,16 @@ export const usersApiRes = (state = [], action) => {
   const { type, payload } = action
 
   switch (type) {
-    case ActionTypes.USERS_GET_SUCCESS:
-      if (!(payload instanceof Array)) {
-        throw new Error('invalid payload')
-      }
-      return payload
-    case ActionTypes.USERS_GET_ERROR:
-      if (typeof payload !== 'object') {
-        throw new Error('invalid payload')
-      }
-      return payload
+    // case ActionTypes.USERS_GET_SUCCESS:
+    //   if (!(payload instanceof Array)) {
+    //     throw new Error('invalid payload')
+    //   }
+    //   return payload
+    // case ActionTypes.USERS_GET_ERROR:
+    //   if (typeof payload !== 'object') {
+    //     throw new Error('invalid payload')
+    //   }
+    //   return payload
     case ActionTypes.USERS_PULL_DELETED:
       if (typeof payload !== 'number') {
         throw new Error(`invalid payload ${payload}`)
