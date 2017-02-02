@@ -155,3 +155,17 @@ export const usersResetErr = () => ({
   type: USERS_RESET_ERR
 })
 ///////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////
+// this obj is exported so the import looks cleaner in the config reducer
+export const usersConfigTypes = {
+  errorTypes: [
+    USERS_GET_FAILURE,
+    USER_REGISTER_FAILURE,
+    USER_LOGIN_FAILURE,
+    USERS_DELETE_FAILURE
+  ],
+  miscTypes: [
+    USER_LOGOUT
+  ]
+}
+///////////////////////////////////////////////////////////////////////
