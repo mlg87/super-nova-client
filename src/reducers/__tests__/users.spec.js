@@ -1,5 +1,5 @@
 import deepFreeze from 'deep-freeze'
-import usersReducer, { initialState } from '../users'
+import { usersReducer, initialState } from '../users'
 import * as ActionTypes from 'actions/users'
 
 describe('users reducer', () => {

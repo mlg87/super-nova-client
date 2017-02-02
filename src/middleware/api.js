@@ -118,7 +118,7 @@ export default store => next => action => {
     })),
     error => next(actionWith({
       type: failureType,
-      error: `${error.error.status}: ${error.message}` || '007: Was a legend'
+      error: `ERROR: ${error.message}` || 'Oops... this is awkward'
     }))
   )
 }
