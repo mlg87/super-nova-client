@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux'
 import { routerReducer } from 'react-router-redux'
 import { reservationStartDate, reservationEndDate } from 'reducers/reservations'
-import { users } from 'reducers/users'
+import users from 'reducers/users'
 import { reducer as formReducer } from 'redux-form'
 import { userId } from 'reducers/userId'
 import { isLoading } from 'reducers/isLoading'

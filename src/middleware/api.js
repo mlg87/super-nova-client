@@ -16,8 +16,6 @@ const getNextPageUrl = response => {
   return nextLink.split(';')[0].slice(1, -1)
 }
 
-// Fetches an API response and normalizes the result JSON
-// This makes every API response have the same shape, regardless of how nested it was
 // this function assumes that all responses from the server come back
 // as JSON that is { data: whateverYouNeed }
 const callApi = (endpoint, method, body) => {
@@ -120,7 +118,7 @@ export default store => next => action => {
     })),
     error => next(actionWith({
       type: failureType,
-      error: `${error.error.status}: ${error.message}` || 'Something weally bad happened'
+      error: `${error.error.status}: ${error.message}` || '007: Was a legend'
     }))
   )
 }

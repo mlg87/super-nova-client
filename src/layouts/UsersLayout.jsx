@@ -5,12 +5,6 @@ import { Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowCol
 import moment from 'moment'
 import { usersUpdateSelected } from 'actions/users'
 
-
-// const loadDataTest = ({ userId, loadUserTest }) => {
-//   // arr is requiredFields  [ 'id' ]
-//   loadUserTest(userId)
-// }
-
 class UsersLayout extends Component {
   componentWillMount() {
     const { usersGet } = this.props

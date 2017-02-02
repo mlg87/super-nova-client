@@ -3,6 +3,15 @@ import { CALL_API } from 'middleware/api'
 import { setUserId, unsetUserId } from 'actions'
 
 ///////////////////////////////////////////////////////////////////////
+// works with the user table and stores those that are selected
+export const USERS_UPDATE_SELECTED = 'USERS_UPDATE_SELECTED'
+
+export const usersUpdateSelected = (indexes) => ({
+  type: USERS_UPDATE_SELECTED,
+  indexes
+})
+///////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////
 // GET - all users
 export const USERS_GET_REQUEST = 'USERS_GET_REQUEST'
 export const USERS_GET_SUCCESS = 'USERS_GET_SUCCESS'
@@ -144,14 +153,5 @@ export const USERS_RESET_ERR = 'USERS_RESET_ERR'
 
 export const usersResetErr = () => ({
   type: USERS_RESET_ERR
-})
-///////////////////////////////////////////////////////////////////////
-///////////////////////////////////////////////////////////////////////
-// works with the user table and stores those that are selected
-export const USERS_UPDATE_SELECTED = 'USERS_UPDATE_SELECTED'
-
-export const usersUpdateSelected = (indexes) => ({
-  type: USERS_UPDATE_SELECTED,
-  indexes
 })
 ///////////////////////////////////////////////////////////////////////

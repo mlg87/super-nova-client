@@ -8,7 +8,7 @@ export const initialState = {
   error: null
 }
 
-export const users = ( state = initialState, action) => {
+const users = ( state = initialState, action) => {
   const { type } = action
 
   switch (type) {
@@ -89,3 +89,5 @@ export const users = ( state = initialState, action) => {
       return state
   }
 }
+
+export default users
