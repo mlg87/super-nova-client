@@ -3,16 +3,16 @@ import { connect } from 'react-redux'
 import { Link } from 'react-router'
 import Dialog from 'material-ui/Dialog'
 import RaisedButton from 'material-ui/RaisedButton'
-import { usersDeleteApiCall } from 'actions/users'
+import { usersDelete } from 'actions/users'
 
 const RemoveUsers = (props) => {
-  const { users, usersSelected, usersDeleteApiCall } = props
+  const { users, usersSelected, usersDelete } = props
 
   const removeUsers = () => {
     const usersToRemove = usersSelected.map((index) => {
       return users[index].id
     })
-    return usersDeleteApiCall(usersToRemove)
+    return usersDelete(usersToRemove)
   }
 
   const actions = [
@@ -43,14 +43,18 @@ const RemoveUsers = (props) => {
   )
 }
 
-const mapStateToProps = (state, ownProps) => ({
-  usersSelected: state.usersSelected,
-  users: state.usersApiRes
-})
+const mapStateToProps = (state, ownProps) => {
+  const { users, usersSelected } = state.users
+
+  return {
+    users,
+    usersSelected
+  }
+}
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
-  usersDeleteApiCall: (userIds) => {
-    dispatch(usersDeleteApiCall(userIds))
+  usersDelete: (userIds) => {
+    dispatch(usersDelete(userIds))
   }
 })
 
