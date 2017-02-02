@@ -17,7 +17,7 @@ const renderItems = ({ items, removeInventoryFromReservation }) => {
         key={item.uuid}
         primaryText={item.model}
         leftAvatar={<Avatar src={item.image_url} />}
-        style={{color: 'white', marginLeft: '20px'}}
+        style={{color: 'white', marginLeft: '2`0px'}}
       />
     )
   })
