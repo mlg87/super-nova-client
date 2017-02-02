@@ -120,7 +120,7 @@ export default store => next => action => {
     })),
     error => next(actionWith({
       type: failureType,
-      error: error.message || 'Something weally bad happened'
+      error: `${error.error.status}: ${error.message}` || 'Something weally bad happened'
     }))
   )
 }
