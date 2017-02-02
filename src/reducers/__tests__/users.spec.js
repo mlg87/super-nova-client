@@ -1,295 +1,144 @@
 import deepFreeze from 'deep-freeze'
-import * as userReducers from '../users'
-import * as userActions from 'actions/users'
+import usersReducer, { initialState } from '../users'
+import * as ActionTypes from 'actions/users'
 
-describe('userApiFetch reducer', () => {
+describe('users reducer', () => {
   it('should handle initial state', () => {
     expect(
-      userReducers.userApiFetch(undefined, {})
-    ).toEqual(false)
+      usersReducer(undefined, {})
+    ).toEqual(initialState)
   })
 
-  it('should set api fetch state', () => {
-    const action = {
-      type: userActions.USER_REGISTER_FETCH
+  it('should set API fetch state', () => {
+    const usersGetRequest = {
+      type: ActionTypes.USERS_GET_REQUEST
+    }
+    const userRegisterRequest = {
+      type: ActionTypes.USER_REGISTER_REQUEST
+    }
+    const userLoginRequest = {
+      type: ActionTypes.USER_LOGIN_REQUEST
+    }
+    const expectedState = {
+      ...initialState,
+      isFetching: true
     }
 
-    deepFreeze(action)
+    deepFreeze(usersGetRequest)
+    deepFreeze(userRegisterRequest)
+    deepFreeze(userLoginRequest)
 
     expect(
-      userReducers.userApiFetch(undefined, {...action, isFetching: false})
-    ).toEqual(false)
+      usersReducer(undefined, usersGetRequest)
+    ).toEqual(expectedState)
 
     expect(
-      userReducers.userApiFetch(true, {...action, isFetching: false})
-    ).toEqual(false)
+      usersReducer(undefined, userRegisterRequest)
+    ).toEqual(expectedState)
+
+    expect(
+      usersReducer(undefined, userLoginRequest)
+    ).toEqual(expectedState)
   })
 
-  it('should throw error if isFetching is not a boolean', () => {
-    const action = {
-      type: userActions.USER_REGISTER_FETCH
+  it('should set the users key to an arr of users on success for users GET', () => {
+    const usersGetSuccess = {
+      type: ActionTypes.USERS_GET_SUCCESS,
+      response: {
+        data: [1, 2, 3, 4]
+      }
+    }
+    // isFetching === false in initialState
+    const expectedState = {
+      ...initialState,
+      users: [1, 2, 3, 4]
     }
 
-    deepFreeze(action)
+    deepFreeze(usersGetSuccess)
+
+    expect(
+      usersReducer(undefined, usersGetSuccess)
+    ).toEqual(expectedState)
+  })
+
+  it('should throw error if users is not an array on success for users GET', () => {
+    const usersGetSuccess = {
+      type: ActionTypes.USERS_GET_SUCCESS,
+      response: {
+        data: 'not an array'
+      }
+    }
+
+    deepFreeze(usersGetSuccess)
 
     expect(() => {
-      userReducers.userApiFetch(undefined, action)
-    }).toThrowError('isFetching must be a boolean')
+      usersReducer(undefined, usersGetSuccess)
+    }).toThrowError('Users must be an array')
+  })
+
+  it('should update the selected users from the table accordingly', () => {
+    const usersUpdateSelected = {
+      type: ActionTypes.USERS_UPDATE_SELECTED,
+      indexes: [1, 2, 3, 4]
+    }
+    const expectedState = {
+      ...initialState,
+      usersSelected: [1, 2, 3, 4]
+    }
+
+    deepFreeze(usersUpdateSelected)
+
+    expect(
+      usersReducer(undefined, usersUpdateSelected)
+    ).toEqual(expectedState)
+  })
+
+  it('should throw error if indexes is not an array when updating selected users', () => {
+    const usersUpdateSelected = {
+      type: ActionTypes.USERS_UPDATE_SELECTED,
+      indexes: 'not an array'
+    }
+
+    deepFreeze(usersUpdateSelected)
 
     expect(() => {
-      userReducers.userApiFetch(true, {...action, isFetching: 1})
-    }).toThrowError('isFetching must be a boolean')
+      usersReducer(undefined, usersUpdateSelected)
+    }).toThrowError('Indexes must be an array')
+  })
+
+  it('should remove the appropriate user from the users arr', () => {
+    const usersPullDeleted = {
+      type: ActionTypes.USERS_PULL_DELETED,
+      id: 4
+    }
+    const beforeState = {
+      ...initialState,
+      users: [{id: 1}, {id: 2}, {id: 3}, {id: 4}]
+    }
+    const expectedState = {
+      ...initialState,
+      users: [{id: 1}, {id: 2}, {id: 3}]
+    }
+
+    deepFreeze(usersPullDeleted)
+    deepFreeze(beforeState)
+
+    expect(
+      usersReducer(beforeState, usersPullDeleted)
+    ).toEqual(expectedState)
+  })
+
+  it('should throw error if id is not a number when pulling deleted users', () => {
+    const usersPullDeleted = {
+      type: ActionTypes.USERS_PULL_DELETED,
+      id: 'not a number'
+    }
+
+    deepFreeze(usersPullDeleted)
 
     expect(() => {
-      userReducers.userApiFetch(true, {...action, isFetching: 'dali'})
-    }).toThrowError('isFetching must be a boolean')
-  })
+      usersReducer(undefined, usersPullDeleted)
+    }).toThrowError(`ID must be a number: ${usersPullDeleted.id}`)
 
-  it('should return current state on default', () => {
-    const action = {
-      type: 'NOT_A_REAL_ACTION',
-      isFetching: false
-    }
-
-    deepFreeze(action)
-
-    expect(
-      userReducers.userApiFetch(true, action)
-    ).toEqual(true)
-  })
-})
-
-describe('userApiRes reducer', () => {
-  it('should handle initial state', () => {
-    expect(
-      userReducers.userApiRes(undefined, {})
-    ).toEqual({})
-  })
-
-  it('should set payload for successful res to nothing', () => {
-    const action = {
-      type: userActions.USER_REGISTER_SUCCESS
-    }
-
-    deepFreeze(action)
-
-    expect(
-      userReducers.userApiRes(undefined, {...action, payload: 'success'})
-    ).toEqual({})
-
-    expect(
-      userReducers.userApiRes({err: true}, {...action, payload: 'success'})
-    ).toEqual({err: true})
-  })
-
-  it('should set payload for err res to an Error', () => {
-    const action = {
-      type: userActions.USER_REGISTER_ERROR
-    }
-    const err = new Error('dali')
-
-    deepFreeze(action)
-    deepFreeze(err)
-
-    expect(
-      userReducers.userApiRes(undefined, {...action, payload: err})
-    ).toEqual(err)
-
-    expect(
-      userReducers.userApiRes('dali', {...action, payload: err})
-    ).toEqual(err)
-  })
-
-  it('should throw err if payload is not valid', () => {
-    const errAction = {
-      type: userActions.USER_REGISTER_ERROR
-    }
-
-    deepFreeze(errAction)
-
-    expect(() => {
-      userReducers.userApiRes(undefined, errAction)
-    }).toThrowError('invalid payload')
-  })
-
-  it('should return current state on default', () => {
-    const action = {
-      type: 'NOT_A_REAL_ACTION'
-    }
-
-    deepFreeze(action)
-
-    expect(
-      userReducers.userApiRes('dali', action)
-    ).toEqual('dali')
-  })
-
-  it('should reset the err when told to do so', () => {
-    const action = {
-      type: userActions.USERS_RESET_ERR
-    }
-
-    deepFreeze(action)
-
-    expect(
-      userReducers.userApiRes(undefined, action)
-    ).toEqual(null)
-  })
-
-})
-
-describe('usersApiRes reducer', () => {
-  it('should handle initial state', () => {
-    expect(
-      userReducers.usersApiRes(undefined, {})
-    ).toEqual([])
-  })
-
-  it('should set payload for a successful res to an arr', () => {
-    const successAction = {
-      type: userActions.USERS_GET_SUCCESS
-    }
-    const arr = [1,2,3,4,5]
-
-    deepFreeze(successAction)
-    deepFreeze(arr)
-
-    expect(
-      userReducers.usersApiRes(undefined, {...successAction, payload: arr})
-    ).toEqual(arr)
-
-    expect(
-      userReducers.usersApiRes(arr, {...successAction, payload: [...arr, 6]})
-    ).toEqual([...arr, 6])
-  })
-
-  it('should set payload for err res to an obj', () => {
-    const errAction = {
-      type: userActions.USERS_GET_ERROR
-    }
-    const err = {
-      err: {}
-    }
-
-    deepFreeze(errAction)
-    deepFreeze(err)
-
-    expect(
-      userReducers.usersApiRes(undefined, {...errAction, payload: err})
-    ).toEqual(err)
-
-    expect(
-      userReducers.usersApiRes([], {...errAction, payload: {...err, moreErr: {}}})
-    ).toEqual({...err, moreErr: {}})
-  })
-
-  it('should throw err if payload is not valid', () => {
-    const successAction = {
-      type: userActions.USERS_GET_SUCCESS
-    }
-    const errAction = {
-      type: userActions.USERS_GET_ERROR
-    }
-
-    deepFreeze(successAction)
-    deepFreeze(errAction)
-
-    expect(() => {
-      userReducers.usersApiRes(undefined, successAction)
-    }).toThrowError('invalid payload')
-
-    expect(() => {
-      userReducers.usersApiRes(undefined, errAction)
-    }).toThrowError('invalid payload')
-  })
-
-  it('should return the current state on default', () => {
-    const action = {
-      type: 'NOT_A_REAL_ACTION'
-    }
-
-    deepFreeze(action)
-
-    expect(
-      userReducers.usersApiRes(undefined, action)
-    ).toEqual([])
-  })
-
-  it('should pull the appropriate items from state', () => {
-    const action = {
-      type: userActions.USERS_PULL_DELETED,
-      payload: 1
-    }
-    const stateBefore = [
-      {id: 0},
-      {id: 1},
-      {id: 2},
-      {id: 3},
-      {id: 4}
-    ]
-    const stateAfter = [
-      {id: 0},
-      {id: 2},
-      {id: 3},
-      {id: 4}
-    ]
-
-    deepFreeze(action)
-    deepFreeze(stateBefore)
-
-    expect(
-      userReducers.usersApiRes(stateBefore, action)
-    ).toEqual(stateAfter)
-
-  })
-})
-
-describe('usersSelected reducer', () => {
-  it('should handle initial state', () => {
-    expect(
-      userReducers.usersSelected(undefined, {})
-    ).toEqual([])
-  })
-
-  it('should set state as arr of indexes', () => {
-    const action = {
-      type: userActions.USERS_UPDATE_SELECTED
-    }
-    const arr = [1,2,3,4,5]
-
-    deepFreeze(action)
-    deepFreeze(arr)
-
-    expect(
-      userReducers.usersSelected(undefined, {...action, indexes: arr})
-    ).toEqual(arr)
-
-    expect(
-      userReducers.usersSelected('dali', {...action, indexes: [...arr, 6]})
-    ).toEqual([...arr, 6])
-  })
-
-  it('should throw err if indexes is not an arr', () => {
-    const action ={
-      type: userActions.USERS_UPDATE_SELECTED
-    }
-
-    deepFreeze(action)
-
-    expect(() => {
-      userReducers.usersSelected(undefined, action)
-    }).toThrowError('indexes must be an array')
-  })
-
-  it('should return current state on default', () => {
-    const action = {
-      type: 'NOT_A_REAL_ACTION'
-    }
-
-    deepFreeze(action)
-
-    expect(
-      userReducers.usersSelected(undefined, action)
-    ).toEqual([])
   })
 })

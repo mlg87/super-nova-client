@@ -8,7 +8,7 @@ export const initialState = {
   error: null
 }
 
-const users = ( state = initialState, action) => {
+const usersReducer = ( state = initialState, action) => {
   const { type } = action
 
   switch (type) {
@@ -21,6 +21,9 @@ const users = ( state = initialState, action) => {
       }
 
     case ActionTypes.USERS_GET_SUCCESS:
+      if (!(action.response.data instanceof Array)) {
+        throw new Error('Users must be an array')
+      }
       return {
         ...state,
         users: action.response.data,
@@ -90,4 +93,4 @@ const users = ( state = initialState, action) => {
   }
 }
 
-export default users
+export default usersReducer
