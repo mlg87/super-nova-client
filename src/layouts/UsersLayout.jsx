@@ -1,16 +1,14 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { usersGetApiCall } from 'actions/users'
+import { usersGet } from 'actions/users'
 import { Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn } from 'material-ui/Table'
 import moment from 'moment'
 import { usersUpdateSelected } from 'actions/users'
 
-
-// import UserRow from 'components/UserRow'
-
 class UsersLayout extends Component {
   componentWillMount() {
-    this.props.usersGetApiCall()
+    const { usersGet } = this.props
+    usersGet()
   }
 
   renderUserRows(users) {
@@ -58,17 +56,20 @@ class UsersLayout extends Component {
 }
 
 const mapStateToProps = (state, ownProps) => {
+  const { userId } = state
+  const { users, usersSelected } = state.users
+
   return {
-    users: state.usersApiRes,
-    userId: state.userId,
-    usersSelected: state.usersSelected
+    users,
+    userId,
+    usersSelected
   }
 }
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
-    usersGetApiCall: (query) => {
-      return dispatch(usersGetApiCall(query))
+    usersGet: () => {
+      return dispatch(usersGet())
     },
     // NOTE: this Table seems to change its behavior with the wind
     usersUpdateSelected: (selectedRows) => {

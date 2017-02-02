@@ -64,7 +64,7 @@ const SubSideNav = (props) => {
 }
 
 const mapStateToProps = (state, ownProps) => ({
-  usersSelected: state.usersSelected
+  usersSelected: state.users.usersSelected
 })
 
 const mapDispatchToProps = (dispatch, ownProps) => ({

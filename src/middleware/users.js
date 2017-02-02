@@ -52,6 +52,14 @@
 // export default store => next => action => {
 //   next(action)
 //
+//   actions.types
+//   fetch(whater).then(
+//     next(actions.cb.success)
+//   )
+//   .catch(err
+//     actions.cb.err()
+//   )
+//
 //   switch (action.type) {
 //     case 'USER_REGISTER':
 //       const user = {

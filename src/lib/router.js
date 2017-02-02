@@ -10,6 +10,8 @@ import DevTools from 'containers/DevTools'
 // the subSideNav links are in another file so this isnt
 // super cluttered
 import { subSideNavLinks } from 'config/subSideNavLinks'
+// MIDDLEWARE
+import api from 'middleware/api'
 
 // main layout (includes nav and where other layouts go)
 import AppLayout from 'layouts/AppLayout'
@@ -32,7 +34,7 @@ const middleware = routerMiddleware(browserHistory)
 // export store for the Provider in index.js
 export const store = createStore(
   reducers,
-  compose(applyMiddleware(thunk, middleware),
+  compose(applyMiddleware(thunk, api, middleware),
   DevTools.instrument())
 )
 

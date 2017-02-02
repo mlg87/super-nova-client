@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import UserRegisterForm from 'components/UserRegisterForm'
 import Dialog from 'material-ui/Dialog'
 import Snackbar from 'material-ui/Snackbar'
-import { userRegisterApiCall, usersResetErr } from 'actions/users'
+import { userRegister, usersResetErr } from 'actions/users'
 
 const Register = (props) => {
   const { handleSubmit, onRequestClose, err } = props
@@ -62,7 +62,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     handleSubmit: (values) => {
       let user = {...values}
       delete user.password_confirm
-      return dispatch(userRegisterApiCall(user.username, user.password))
+      return dispatch(userRegister(user.username, user.password))
     },
     onRequestClose: () => dispatch(usersResetErr(null))
   }
