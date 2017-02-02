@@ -1,6 +1,6 @@
 import { push } from 'react-router-redux'
 import { CALL_API } from 'middleware/api'
-import { setUserId, unsetUserId } from 'actions'
+import { setUserId, unsetUserId, resetConfigState } from 'actions'
 
 ///////////////////////////////////////////////////////////////////////
 // works with the user table and stores those that are selected
@@ -88,9 +88,12 @@ export const userLogin = (username, password) => dispatch => {
   }
   return dispatch(fetchUserLogin(user))
   .then((res) => {
-    const { id, token } = res.response
-    localStorage.setItem('token', token)
-    dispatch(setUserId(id))
+    if (!res.error) {
+      const { id, token } = res.response
+      localStorage.setItem('token', token)
+      dispatch(setUserId(id))
+      dispatch(resetConfigState())
+    }
   })
 }
 ///////////////////////////////////////////////////////////////////////
@@ -164,8 +167,8 @@ export const usersConfigTypes = {
     USER_LOGIN_FAILURE,
     USERS_DELETE_FAILURE
   ],
-  miscTypes: [
+  miscTypes: {
     USER_LOGOUT
-  ]
+  }
 }
 ///////////////////////////////////////////////////////////////////////

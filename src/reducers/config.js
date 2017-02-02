@@ -1,4 +1,6 @@
+import { includes } from 'lodash'
 import { usersConfigTypes as UserTypes } from 'actions/users'
+import { RESET_CONFIG_STATE, RESET_CONFIG_ERROR } from 'actions'
 
 export const initialState = {
   error: null,
@@ -8,18 +10,38 @@ export const initialState = {
 export const configReducer = ( state = initialState, action ) => {
   const { type } = action
 
-  console.log('UserTypes', UserTypes);
+  // for your fetch err types, just add an ||
+  if (includes(UserTypes.errorTypes, type)) {
+    let { error } = action
+    return {
+      ...state,
+      error
+    }
+  }
 
-  return state
+  switch (type) {
+    case UserTypes.miscTypes.USER_LOGOUT:
+      let { id } = action
+      if (typeof id !== 'number') {
+        throw new Error('ID must be a number')
+      }
+      return {
+        ...state,
+        userLogout: id
+      }
 
-  // switch (type) {
-  //   case UserTypes.USERS_GET_FAILURE:
-  //   case UserTypes.USER_REGISTER_FAILURE:
-  //   case UserTypes.USERS_GET_FAILURE:
-  //
-  //
-  //     break;
-  //   default:
-  //
-  // }
+    case RESET_CONFIG_STATE:
+      return {
+        ...initialState
+      }
+
+    case RESET_CONFIG_ERROR:
+      return {
+        ...state,
+        error: null
+      }
+
+    default:
+      return state
+  }
 }
