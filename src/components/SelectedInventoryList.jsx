@@ -1,10 +1,10 @@
 import React from 'react'
 import {List, ListItem} from 'material-ui/List';
-import Subheader from 'material-ui/Subheader'
 import { connect } from 'react-redux'
 import Avatar from 'material-ui/Avatar'
-import RemoveItem from 'material-ui/svg-icons/content/clear'
+import RemoveItemIcon from 'material-ui/svg-icons/content/clear'
 import { removeInventoryFromReservation } from 'actions/reservations'
+import Radium from 'radium'
 
 const mapStateToProps = (state) => ({
   items: state.reservationSelectedInventory
@@ -16,13 +16,16 @@ const renderItems = ({ items, removeInventoryFromReservation }) => {
       <ListItem
         key={item.uuid}
         primaryText={item.model}
+        secondaryText={item.brand}
         leftAvatar={<Avatar src={item.image_url} />}
-        style={{color: 'white', marginLeft: '2`0px'}}
+        style={{
+          color: 'white',
+          marginLeft: '20px'
+        }}
       />
     )
   })
 }
-// secondaryText={item.brand}
 // rightIcon={<RemoveItem onClick={() => removeInventoryFromReservation(item.uuid)}/>}
 
 const SelectedInventoryList = (props) => {
@@ -39,6 +42,6 @@ const SelectedInventoryList = (props) => {
   )
 }
 
-export default connect(
+export default Radium(connect(
   mapStateToProps, { removeInventoryFromReservation }
-)(SelectedInventoryList)
+)(SelectedInventoryList))
