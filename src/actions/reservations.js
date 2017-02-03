@@ -31,29 +31,62 @@ export const addInventoryToReservation = (item) => ({
   payload: item
 })
 
-export const removeInventoryFromReservation = (uuid) => ({
+export const removeInventoryFromReservation = (item_id) => ({
   type: 'REMOVE_INVENTORY_FROM_RESERVATION',
-  payload: uuid
+  payload: item_id
+})
+
+export const setActiveSelectedInventory = (item_id) => ({
+  type: 'SET_ACTIVE_SELECTED_INVENTORY',
+  payload: item_id
 })
 
 export const addInventorySearchTerm = (searchTerm) => ({
   type: 'ADD_INVENTORY_SEARCH_TERM',
   payload: searchTerm
 })
+
 export const removeInventorySearchTerm = (searchTerm) => ({
   type: 'REMOVE_INVENTORY_SEARCH_TERM',
   payload: searchTerm
 })
 
-export const fetchInventory = (search_terms) => dispatch => {
+export const setCategories = (categories) => ({
+  type: 'SET_CATEGORIES',
+  payload: categories
+})
+
+export const setSelectedCategoryId = (categoryId) => ({
+  type: 'SET_SELECTED_CATEGORY_ID',
+  payload: categoryId
+})
+
+export const fetchInventory = (search_terms, category_id = 0) => dispatch => {
   fetch('/api/inventory/search', {
     method: 'get',
-    headers: { search_terms }
+    headers: { search_terms, category_id }
   })
   .then(handleFetchErrors)
   .then((res) => {
     res.json().then(json => {
       dispatch(setInventory(json))
+    })
+  })
+  .catch((err) => {console.log('fetch err:', err);})
+}
+
+export const fetchCategories = () => dispatch => {
+  const token = localStorage.getItem('token')
+  fetch('/api/categories', {
+    method: 'get',
+    headers: {
+      'Authorization': 'Bearer ' + token
+    }
+  })
+  .then(handleFetchErrors)
+  .then((res) => {
+    res.json().then(json => {
+      dispatch(setCategories(json.data))
     })
   })
   .catch((err) => {console.log('fetch err:', err);})
@@ -73,12 +106,18 @@ export const fetchCustomers = (search_term) => dispatch => {
   .catch((err) => {console.log('fetch err:', err);})
 }
 
+export const filterByCategory = (categoryId) => (dispatch, getState) => {
+  const { inventorySearchTerms } = getState()
+  dispatch(setSelectedCategoryId(categoryId))
+  fetchInventory(inventorySearchTerms, categoryId)(dispatch)
+}
+
 export const updateSearchTerms = (action, searchTerm) => (dispatch, getState) => {
   if (action === 'add') {
     dispatch(addInventorySearchTerm(searchTerm))
   } else {
     dispatch(removeInventorySearchTerm(searchTerm))
   }
-
-  fetchInventory(getState().inventorySearchTerms)(dispatch)
+  const { inventorySearchTerms, selectedCategoryId } = getState()
+  fetchInventory(inventorySearchTerms, selectedCategoryId)(dispatch)
 }

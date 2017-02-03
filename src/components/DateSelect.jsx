@@ -21,23 +21,8 @@ export const mapDispatchToProps = (dispatch) => ({
   }
 })
 
-const getInputValue = (date) => {
-  const format = 'dddd, D MMMM YYYY';
-  if (!date) return ''
-  if (!moment.isMoment(date)) {
-    throw new Error('date selected must be a moment')
-  }
-  return date.format(format).toString()
-}
-
 // named export for testing
 export const DateSelect = (props) => {
-  const inputStyle = {
-    height: '25px',
-    width: '45%',
-    fontSize: '1rem',
-    textAlign: 'center'
-  }
   const {
     endDate,
     startDate,
@@ -46,28 +31,9 @@ export const DateSelect = (props) => {
 
   return (
     <div>
-      <h1 style={{textAlign: 'center'}}>
+      <h2 style={{textAlign: 'center', fontWeight: '300'}}>
         Choose dates to start a reservation
-      </h1>
-      <div className='input-container'
-        style={{
-          display: 'flex',
-          justifyContent: 'space-around'
-        }}
-      >
-        <input className='start-date-display'
-          type='text'
-          readOnly
-          value={ getInputValue(startDate) }
-          style={inputStyle}
-        />
-        <input className='end-date-display'
-          type='text'
-          readOnly
-          value={ getInputValue(endDate) }
-          style={inputStyle}
-        />
-      </div>
+      </h2>
       <DateRange
         startDate={startDate}
         endDate={endDate}
@@ -75,6 +41,8 @@ export const DateSelect = (props) => {
         onChange={ dateChange }
         minDate={ moment() }
         linkedCalendars={true}
+        calendars={1}
+        style={{textAlign: 'center'}}
       />
     </div>
   )

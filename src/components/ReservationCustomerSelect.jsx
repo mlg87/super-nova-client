@@ -3,7 +3,6 @@ import { connect } from 'react-redux'
 import Center from 'components/Center';
 import CustomerList from 'components/CustomerList'
 import { fetchCustomers } from 'actions/reservations'
-import ReservationNav from 'components/ReservationNav'
 import SelectedCustomer from 'components/SelectedCustomer'
 import CustomerSearch from 'components/CustomerSearch'
 
@@ -37,11 +36,6 @@ export class ReservationCustomerSelect extends Component {
 
             <CustomerList />
 
-            <ReservationNav
-              back='/reservations/select-inventory'
-              next='/reservations/review'
-              nextCondition={!!this.props.selectedCustomer.id}
-            />
           </div>
         </Center>
 
