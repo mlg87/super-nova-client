@@ -27,7 +27,6 @@ const styles = {
     margin: '0'
   },
   img: {
-    backgroundSize: 'cover',
     width: '170px',
     height: '170px',
     backgroundSize: 'contain',
@@ -65,8 +64,10 @@ export const InventoryList = (props) => {
         <ListItem
           key={item.item_id}
           style={styles.listItem}
-          hoverColor='white'
+          hoverColor='transparent'
           onClick={() => props.addInventoryToReservation(item)}
+          focusRippleColor='transparent'
+          touchRippleColor='transparent'
         >
           <div style={styles.card}>
             <p style={styles.availability}>4/12 AVAILABLE</p>
