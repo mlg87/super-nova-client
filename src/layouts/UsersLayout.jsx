@@ -7,6 +7,7 @@ import { usersUpdateSelected } from 'actions/users'
 
 class UsersLayout extends Component {
   componentWillMount() {
+    console.log('PROPS', this.props);
     const { usersGet } = this.props
     usersGet()
   }
@@ -38,6 +39,7 @@ class UsersLayout extends Component {
 
     return (
       <div>
+
         <Table multiSelectable={ true } onRowSelection={ usersUpdateSelected }>
           <TableHeader displaySelectAll={ false } adjustForCheckbox={ false }>
             <TableRow>

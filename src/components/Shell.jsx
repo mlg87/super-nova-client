@@ -1,5 +1,4 @@
 import React from 'react'
-import Nav from 'components/Nav'
 import HorizontalNav from 'components/HorizontalNav'
 
 const Shell = (props) => {
@@ -23,5 +22,3 @@ const Shell = (props) => {
 }
 
 export default Shell
-
-// <Nav routeProps={ route } />

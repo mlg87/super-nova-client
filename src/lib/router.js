@@ -6,10 +6,6 @@ import { createStore, applyMiddleware, compose } from 'redux'
 import { reducers } from 'reducers'
 import thunk from 'redux-thunk'
 import DevTools from 'containers/DevTools'
-
-// the subSideNav links are in another file so this isnt
-// super cluttered
-import { subSideNavLinks } from 'config/subSideNavLinks'
 // MIDDLEWARE
 import api from 'middleware/api'
 
@@ -42,94 +38,27 @@ const history = syncHistoryWithStore(browserHistory, store)
 
 export const AppRouter = (
   <Router history={ history }>
-    <Route
-      path='/'
-      component={ AppLayout }
-    >
-      <IndexRoute
-        component={ LandingLayout }
-        isSubSideNavOpen={ false }
-      />
-      <Route
-        path='/inventory'
-        component={ InventoryLayout }
-        isSubSideNavOpen={ true }
-        subSideNavHeader='Inventory'
-        subSideNavLinks={ subSideNavLinks.inventory }
-      >
-        <Route
-          path='/inventory/add'
-          component={ NotFound }
-        />
-        <Route
-          path='/inventory/edit'
-          component={ NotFound }
-        />
-        <Route
-          path='/inventory/all'
-          component={ NotFound }
-        />
-        <Route
-          path='/inventory/settings'
-          component={ NotFound }
-        />
+    <Route path='/' component={ AppLayout }>
+      <IndexRoute component={ LandingLayout } />
+      <Route path='/inventory' component={ InventoryLayout }>
+        <Route path='/inventory/add' component={ NotFound } />
+        <Route path='/inventory/edit' component={ NotFound } />
+        <Route path='/inventory/all' component={ NotFound } />
+        <Route path='/inventory/settings' component={ NotFound } />
       </Route>
-      <Route
-        path='/customers'
-        component={ UnderConstruction }
-        isSubSideNavOpen={ false }
-      />
-      <Route
-        path='/reservations'
-        component={Reservation}
-        isSubSideNavOpen={ false }
-      >
-        <Route
-          path='/reservations/select-date'
-          component={ ReservationDateSelect }
-          isSubSideNavOpen={ false }
-        />
-        <Route
-          path='/reservations/select-inventory'
-          component={ ReservationInventorySelect }
-        />
-        <Route
-          path='/reservations/select-customer'
-          component={ ReservationCustomerSelect }
-        />
-        <Route
-          path='/reservations/review'
-          component={ ReservationReview }
-        />
+      <Route path='/customers' component={ UnderConstruction } />
+      <Route path='/reservations' component={ Reservation }>
+        <Route path='/reservations/select-date' component={ ReservationDateSelect } />
+        <Route path='/reservations/select-inventory' component={ ReservationInventorySelect } />
+        <Route path='/reservations/select-customer' component={ ReservationCustomerSelect } />
+        <Route path='/reservations/review' component={ ReservationReview } />
       </Route>
-      <Route
-        path='/users'
-        component={ UsersLayout }
-        isSubSideNavOpen={ true }
-        subSideNavHeader='Users'
-        subSideNavLinks={ subSideNavLinks.users }
-      >
-        <Route
-          path='/users/add'
-          component={ Register }
-          returnPath='/users'
-        />
-        <Route
-          path='/users/remove'
-          component={ RemoveUsers }
-          returnPath='/users'
-        />
+      <Route path='/users' component={ UsersLayout }>
+        <Route path='/users/add' component={ Register } returnPath='/users' />
+        <Route path='/users/remove' component={ RemoveUsers } returnPath='/users' />
       </Route>
-      <Route
-        path='/current_user'
-        component={ CurrentUser }
-        isSubSideNavOpen={ false }
-      />
-      <Route
-        path='*'
-        component={ NotFound }
-        isSubSideNavOpen={ false }
-      />
+      <Route path='/current_user' component={ CurrentUser } />
+      <Route path='*' component={ NotFound } />
     </Route>
   </Router>
 )
