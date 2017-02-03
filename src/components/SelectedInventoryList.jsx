@@ -12,7 +12,8 @@ const styles = {
   listItem: {
     color: 'white',
     marginLeft: '65px',
-    maxWidth: '72px',
+    height: '71px',
+    maxWidth: '71px',
     overflow: 'hidden',
     transition: 'max-width .3s'
   },
