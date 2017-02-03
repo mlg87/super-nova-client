@@ -3,25 +3,68 @@ import {List, ListItem} from 'material-ui/List';
 import { connect } from 'react-redux'
 import Avatar from 'material-ui/Avatar'
 import RemoveItemIcon from 'material-ui/svg-icons/content/clear'
-import { removeInventoryFromReservation } from 'actions/reservations'
-import Radium from 'radium'
+import { removeInventoryFromReservation, setActiveSelectedInventory } from 'actions/reservations'
+
+const styles = {
+  listItem: {
+    color: 'white',
+    marginLeft: '65px',
+    maxWidth: '72px',
+    overflow: 'hidden',
+    transition: 'max-width .3s'
+  },
+  activeItem: {
+    maxWidth: '300px',
+  },
+  removeItemContainer: {
+    position: 'absolute',
+    borderRadius: '100%',
+    top: '0',
+    height: '40px',
+    width: '40px',
+    background: 'black',
+    opacity: '.6'
+  },
+  removeItemIcon: {
+    color: '#aaa',
+    width: '40px',
+    height: '40px'
+  }
+}
 
 const mapStateToProps = (state) => ({
   items: state.reservationSelectedInventory
 })
 
-const renderItems = ({ items, removeInventoryFromReservation }) => {
+const renderItems = ({
+  items,
+  removeInventoryFromReservation,
+  setActiveSelectedInventory
+}) => {
   return items.map((item) => {
     return (
       <ListItem
         key={item.uuid}
         primaryText={item.model}
         secondaryText={item.brand}
-        leftAvatar={<Avatar src={item.image_url} />}
+        leftAvatar={
+          item.active ?
+            <div>
+              <Avatar src={item.image_url} />
+              <div
+                style={styles.removeItemContainer}
+                onClick={() => removeInventoryFromReservation(item.item_id)}
+              >
+                <RemoveItemIcon style={styles.removeItemIcon}/>
+              </div>
+            </div> :
+            <Avatar src={item.image_url} />
+        }
         style={{
-          color: 'white',
-          marginLeft: '20px'
+          ...styles.listItem,
+          ...item.active && styles.activeItem
         }}
+        onClick={() => setActiveSelectedInventory(item.item_id)}
       />
     )
   })
@@ -42,6 +85,7 @@ const SelectedInventoryList = (props) => {
   )
 }
 
-export default Radium(connect(
-  mapStateToProps, { removeInventoryFromReservation }
-)(SelectedInventoryList))
+export default connect(
+  mapStateToProps,
+  { removeInventoryFromReservation, setActiveSelectedInventory }
+)(SelectedInventoryList)
