@@ -54,15 +54,43 @@ describe('reservation selected inventory reducer', () => {
   it('should remove an item from the selected inventory', () => {
     const action = {
       type: 'REMOVE_INVENTORY_FROM_RESERVATION',
-      payload: 'hello'
+      payload: 1
     }
 
-    const state = [{uuid: 'hi'}, {uuid: 'hello'}]
+    const state = [{id: 1}, {id: 2}]
     deepFreeze(state)
 
     expect(
       reservationSelectedInventory(state,  {...action})
-    ).toEqual([{uuid: 'hi'}])
+    ).toEqual([{id: 2}])
+  })
+
+  it('should set active selected inventory', () => {
+    const action = {
+      type: 'SET_ACTIVE_SELECTED_INVENTORY',
+      payload: 1
+    }
+
+    const state = [{id: 1}, {id: 2}]
+    deepFreeze(state)
+
+    expect(
+      reservationSelectedInventory(state,  {...action})
+    ).toEqual([{id: 1, active: true}, {id: 2, active: false}])
+  })
+
+  it('should unset other active selected inventory', () => {
+    const action = {
+      type: 'SET_ACTIVE_SELECTED_INVENTORY',
+      payload: 1
+    }
+
+    const state = [{id: 1, active: false}, {id: 2, active: true}]
+    deepFreeze(state)
+
+    expect(
+      reservationSelectedInventory(state,  {...action})
+    ).toEqual([{id: 1, active: false}, {id: 2, active: true}])
   })
 
   it('should return current state on default', () => {
