@@ -17,9 +17,37 @@ const styles = {
     display: 'flex',
     alignItems: 'center'
   },
+  card: {
+    border: '2px solid #eee'
+  },
+  availability: {
+    backgroundColor: '#eee',
+    fontSize: '9px',
+    padding: '4px 15px',
+    margin: '0'
+  },
   img: {
-    width: '100%',
-    height: '100%'
+    backgroundSize: 'cover',
+    width: '170px',
+    height: '170px',
+    backgroundSize: 'contain',
+    backgroundRepeat: 'no-repeat',
+    backgroundPosition: 'center center',
+    margin: '10px 5px'
+  },
+  itemTitle: {
+    height: '60px',
+    backgroundColor: '#eee',
+  },
+  title: {
+    fontSize: '12px',
+    fontWeight: 'bold',
+    padding: '15px 15px 0',
+  },
+  subTitle: {
+    fontSize: '12px',
+    marginTop: '-13px',
+    paddingLeft: '15px'
   }
 };
 
@@ -37,13 +65,23 @@ export const InventoryList = (props) => {
         <ListItem
           key={item.item_id}
           style={styles.listItem}
+          hoverColor='white'
           onClick={() => props.addInventoryToReservation(item)}
         >
-          <img
-            src={item.image_url}
-            alt='Category icon'
-            style={styles.img}
-          />
+          <div style={styles.card}>
+            <p style={styles.availability}>4/12 AVAILABLE</p>
+            <div
+              style={{
+                ...styles.img,
+                backgroundImage: `url(${item.image_url})`
+              }}
+            >
+            </div>
+            <div style={styles.itemTitle}>
+              <p style={styles.title}>{`${item.brand} ${item.model}`}</p>
+              <p style={styles.subTitle}>{item.type}</p>
+            </div>
+          </div>
         </ListItem>
       ))}
     </List>
