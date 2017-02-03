@@ -18,7 +18,7 @@ const mapDispatchToProps = (dispatch) => ({
       dispatch(push('/reservations/select-date'))
     } else if (!inventory.length) {
       if (currentPath === '/reservations/select-inventory') return
-      dispatch(push('/select-inventory'))
+      dispatch(push('/reservations/select-inventory'))
     } else if (!customer.id) {
       if (currentPath === '/reservations/select-customer') return
       dispatch(push('/reservations/select-customer'))
@@ -30,12 +30,12 @@ const mapDispatchToProps = (dispatch) => ({
 // in the reservation and redirect if needed
 class Reservation extends Component {
   componentWillMount() {
-    // this.props.checkState(this.props)
+    this.props.checkState(this.props)
   }
 
   render() {
     return (
-      <div style={{height: 'calc(100% - 45px)'}}>
+      <div style={{height: '100%'}}>
         {this.props.children}
         <ReservationFooter/>
       </div>
