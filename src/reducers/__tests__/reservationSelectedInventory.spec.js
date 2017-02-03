@@ -8,7 +8,7 @@ describe('reservation selected inventory reducer', () => {
     ).toEqual([])
   })
 
-  it('should throw if item has no uuid', () => {
+  it('should throw if item has no item_id', () => {
     const action = {
       type: 'ADD_INVENTORY_TO_RESERVATION',
       payload: {name: 'hello'}
@@ -16,34 +16,34 @@ describe('reservation selected inventory reducer', () => {
 
     expect(() => {
       reservationSelectedInventory(undefined, {...action})
-    }).toThrowError('item must have uuid')
+    }).toThrowError('item must have item_id')
   })
 
   it('should add inventory item', () => {
     const action = {
       type: 'ADD_INVENTORY_TO_RESERVATION',
-      payload: {uuid: 'hello'}
+      payload: {item_id: 'hello'}
     }
 
     expect(
       reservationSelectedInventory(undefined, {...action})
-    ).toEqual([{uuid: 'hello'}])
+    ).toEqual([{item_id: 'hello'}])
 
-    const state = [{uuid: 'hi'}]
+    const state = [{item_id: 'hi'}]
     deepFreeze(state)
 
     expect(
       reservationSelectedInventory(state,  {...action})
-    ).toEqual([{uuid: 'hi'}, {uuid: 'hello'}])
+    ).toEqual([{item_id: 'hi'}, {item_id: 'hello'}])
   })
 
-  it('should not add a duplicate (by uuid)', () => {
+  it('should not add a duplicate (by item_id)', () => {
     const action = {
       type: 'ADD_INVENTORY_TO_RESERVATION',
-      payload: {uuid: 'hello'}
+      payload: {item_id: 'hello'}
     }
 
-    const state = [{uuid: 'hi'}, {uuid: 'hello'}]
+    const state = [{item_id: 'hi'}, {item_id: 'hello'}]
     deepFreeze(state)
 
     expect(
@@ -54,24 +54,66 @@ describe('reservation selected inventory reducer', () => {
   it('should remove an item from the selected inventory', () => {
     const action = {
       type: 'REMOVE_INVENTORY_FROM_RESERVATION',
-      payload: 'hello'
+      payload: 1
     }
 
-    const state = [{uuid: 'hi'}, {uuid: 'hello'}]
+    const state = [{item_id: 1}, {item_id: 2}]
     deepFreeze(state)
 
     expect(
       reservationSelectedInventory(state,  {...action})
-    ).toEqual([{uuid: 'hi'}])
+    ).toEqual([{item_id: 2}])
+  })
+
+  it('should set active selected inventory', () => {
+    const action = {
+      type: 'SET_ACTIVE_SELECTED_INVENTORY',
+      payload: 1
+    }
+
+    const state = [{item_id: 1}, {item_id: 2}]
+    deepFreeze(state)
+
+    expect(
+      reservationSelectedInventory(state,  {...action})
+    ).toEqual([{item_id: 1, active: true}, {item_id: 2, active: false}])
+  })
+
+  it('should unset other active selected inventory', () => {
+    const action = {
+      type: 'SET_ACTIVE_SELECTED_INVENTORY',
+      payload: 1
+    }
+
+    const state = [{item_id: 1, active: false}, {item_id: 2, active: true}]
+    deepFreeze(state)
+
+    expect(
+      reservationSelectedInventory(state,  {...action})
+    ).toEqual([{item_id: 1, active: true}, {item_id: 2, active: false}])
+  })
+
+  it('should unset all active selected inventory', () => {
+    const action = {
+      type: 'SET_ACTIVE_SELECTED_INVENTORY',
+      payload: 0
+    }
+
+    const state = [{item_id: 1, active: false}, {item_id: 2, active: true}]
+    deepFreeze(state)
+
+    expect(
+      reservationSelectedInventory(state,  {...action})
+    ).toEqual([{item_id: 1, active: false}, {item_id: 2, active: false}])
   })
 
   it('should return current state on default', () => {
     const action = {
       type: 'OTHER_ACTION',
-      payload: [{uuid: 'hi'}]
+      payload: [{item_id: 'hi'}]
     }
     expect(
-      reservationSelectedInventory([{uuid: 'hello'}], action)
-    ).toEqual([{uuid: 'hello'}])
+      reservationSelectedInventory([{item_id: 'hello'}], action)
+    ).toEqual([{item_id: 'hello'}])
   })
 })

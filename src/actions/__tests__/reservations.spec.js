@@ -63,10 +63,20 @@ describe('add item to selected inventory', () => {
 
 describe('remove item from selected inventory', () => {
   it('should create REMOVE_INVENTORY_FROM_RESERVATION action', () => {
-    const uuid = 'wow'
-    expect(actions.removeInventoryFromReservation(uuid)).toEqual({
+    const id = 1
+    expect(actions.removeInventoryFromReservation(id)).toEqual({
       type: 'REMOVE_INVENTORY_FROM_RESERVATION',
-      payload: uuid
+      payload: id
+    })
+  })
+})
+
+describe('set active selected inventory', () => {
+  it('should create SET_ACTIVE_SELECTED_INVENTORY action', () => {
+    const id = 1
+    expect(actions.setActiveSelectedInventory(id)).toEqual({
+      type: 'SET_ACTIVE_SELECTED_INVENTORY',
+      payload: id
     })
   })
 })
@@ -82,11 +92,30 @@ describe('set reservation customers', () => {
 })
 
 describe('select reservation customer', () => {
-  it('should create SELECT_RESERVATION_CUSTOMERS acton', () => {
+  it('should create SELECT_RESERVATION_CUSTOMERS action', () => {
     const customer = {name: 'msmeeves'}
     expect(actions.selectReservationCustomer(customer)).toEqual({
       type: 'SELECT_RESERVATION_CUSTOMER',
       payload: customer
+    })
+  })
+})
+
+describe('set categories', () => {
+  it('should create SET_CATEGORIES action', () => {
+    const customer = {name: 'msmeeves'}
+    expect(actions.setCategories()).toEqual({
+      type: 'SET_CATEGORIES'
+    })
+  })
+})
+
+describe('filter by category', () => {
+  it('should create SET_SELECTED_CATEGORY_ID action', () => {
+    const category = 1
+    expect(actions.setSelectedCategoryId(category)).toEqual({
+      type: 'SET_SELECTED_CATEGORY_ID',
+      payload: category
     })
   })
 })

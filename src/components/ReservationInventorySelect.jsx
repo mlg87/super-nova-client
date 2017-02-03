@@ -1,10 +1,8 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import Center from 'components/Center';
 import InventoryList from 'components/InventoryList'
 import InventorySearch from 'components/InventorySearch'
 import { fetchInventory } from 'actions/reservations'
-import ReservationNav from 'components/ReservationNav'
 import SelectedInventoryList from 'components/SelectedInventoryList'
 
 const mapStateToProps = (state) => ({
@@ -25,22 +23,26 @@ export class ReservationInventorySelect extends Component {
 
   render() {
     return (
-      <div>
-        <Center>
-          <div>
-            <InventorySearch />
+      // give space to selected list
+      <div style={{
+          height: 'calc(100% - 102px)',
+          display: 'flex',
+          flexDirection: 'column'
+        }}
+      >
+        <InventorySearch />
 
-            <InventoryList />
+        <InventoryList />
 
-            <ReservationNav
-              back='/reservations/select-date'
-              next='/reservations/select-customer'
-              nextCondition={!!this.props.selectedInventory.length}
-            />
-          </div>
-        </Center>
+        <div style={{
+          position: 'absolute',
+          bottom: '47px',
+          left: '0',
+          right: '0',
+          height: '100px',
+          background: '#4e4e4e',
 
-        <div style={{position: 'absolute', top: 0}}>
+        }}>
           <SelectedInventoryList />
         </div>
       </div>
