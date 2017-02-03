@@ -19,7 +19,7 @@ const styles = {
     width: '100%',
     height: '45px',
     backgroundColor: '#4e4e4e',
-    position: 'absolute',
+    position: 'fixed',
     bottom: 0,
     color: '#858585',
     display: 'flex',

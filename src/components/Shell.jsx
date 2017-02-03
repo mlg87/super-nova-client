@@ -3,18 +3,16 @@ import Nav from 'components/Nav'
 
 const Shell = (props) => {
   const { children } = props
-  const { route } = props.children.props
 
   const containerStyle = {
-    // sum of sideNav and subSideNav widths
-    marginLeft: (route.isSubSideNavOpen ? '360px' : '80px'),
-    height: '100vh',
+    // nav is 60px high
+    height: 'calc(100vh - 60px)',
     position: 'relative'
   }
 
   return (
     <div>
-      <Nav routeProps={ route } />
+      <Nav />
       <div className="container" style={ containerStyle }>
         { children }
       </div>

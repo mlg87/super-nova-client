@@ -106,8 +106,9 @@ export const userLogout = (id) => ({
   id
 })
 
-export const userLogoutCall = id => dispatch => {
-  dispatch(userLogout(id))
+export const userLogoutCall = () => (dispatch, getState) => {
+  const { userId } = getState()
+  dispatch(userLogout(userId))
   localStorage.removeItem('token')
   dispatch(unsetUserId())
 }
