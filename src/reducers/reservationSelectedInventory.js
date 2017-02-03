@@ -15,7 +15,6 @@ export const reservationSelectedInventory = (state = [], {type, payload}) => {
 
     case 'SET_ACTIVE_SELECTED_INVENTORY':
       return state.map((item) => {
-        console.log(payload);
         return {...item, active: payload === item.item_id}
       })
 

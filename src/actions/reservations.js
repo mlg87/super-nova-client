@@ -31,14 +31,14 @@ export const addInventoryToReservation = (item) => ({
   payload: item
 })
 
-export const removeInventoryFromReservation = (id) => ({
+export const removeInventoryFromReservation = (item_id) => ({
   type: 'REMOVE_INVENTORY_FROM_RESERVATION',
-  payload: id
+  payload: item_id
 })
 
-export const setActiveSelectedInventory = (id) => ({
+export const setActiveSelectedInventory = (item_id) => ({
   type: 'SET_ACTIVE_SELECTED_INVENTORY',
-  payload: id
+  payload: item_id
 })
 
 export const addInventorySearchTerm = (searchTerm) => ({

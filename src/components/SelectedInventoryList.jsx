@@ -3,7 +3,10 @@ import {List, ListItem} from 'material-ui/List';
 import { connect } from 'react-redux'
 import Avatar from 'material-ui/Avatar'
 import RemoveItemIcon from 'material-ui/svg-icons/content/clear'
-import { removeInventoryFromReservation, setActiveSelectedInventory } from 'actions/reservations'
+import {
+  removeInventoryFromReservation,
+  setActiveSelectedInventory
+} from 'actions/reservations'
 
 const styles = {
   listItem: {
@@ -64,7 +67,9 @@ const renderItems = ({
           ...styles.listItem,
           ...item.active && styles.activeItem
         }}
-        onClick={() => setActiveSelectedInventory(item.item_id)}
+        onClick={() =>
+          item.active ? setActiveSelectedInventory(0) : setActiveSelectedInventory(item.item_id)
+        }
       />
     )
   })
@@ -87,5 +92,8 @@ const SelectedInventoryList = (props) => {
 
 export default connect(
   mapStateToProps,
-  { removeInventoryFromReservation, setActiveSelectedInventory }
+  {
+    removeInventoryFromReservation,
+    setActiveSelectedInventory
+  }
 )(SelectedInventoryList)
