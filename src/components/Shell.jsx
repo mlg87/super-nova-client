@@ -1,9 +1,8 @@
 import React from 'react'
-import HorizontalNav from 'components/HorizontalNav'
+import Nav from 'components/Nav'
 
 const Shell = (props) => {
   const { children } = props
-  const { route } = props.children.props
 
   const containerStyle = {
     // nav is 60px high
@@ -13,7 +12,7 @@ const Shell = (props) => {
 
   return (
     <div>
-      <HorizontalNav routeProps={ route } />
+      <Nav />
       <div className="container" style={ containerStyle }>
         { children }
       </div>

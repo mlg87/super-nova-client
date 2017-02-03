@@ -1,16 +1,12 @@
 export const colors = {
-  sideNav: {
-    background: '#919191',
-    activeLink: '#454545'
-  },
-  subSideNav: {
-    background: '#454545'
-  },
   nav: {
     brand: '#5d5d5d',
     linkActiveAndBorder: '#f6f6f6',
     activeText: '#4e4e4e',
     inactiveText: '#626262'
+  },
+  table: {
+    header: '#ededed'
   },
   main: {
     background: '#d8d8d8'
