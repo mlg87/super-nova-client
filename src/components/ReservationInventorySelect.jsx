@@ -23,7 +23,13 @@ export class ReservationInventorySelect extends Component {
 
   render() {
     return (
-      <div>
+      // give space to selected list
+      <div style={{
+          height: 'calc(100% - 102px)',
+          display: 'flex',
+          flexDirection: 'column'
+        }}
+      >
         <InventorySearch />
 
         <InventoryList />

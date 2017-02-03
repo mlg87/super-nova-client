@@ -1,22 +1,26 @@
 import React from 'react'
-import { GridList, GridTile } from 'material-ui/GridList'
+import {List, ListItem} from 'material-ui/List';
 import { connect } from 'react-redux'
 import { addInventoryToReservation } from 'actions/reservations'
 
 const styles = {
-  root: {
+  list: {
     display: 'flex',
-    flexWrap: 'wrap',
     justifyContent: 'space-around',
-    // this is just for development, until we style this
-    position: 'relative',
-    top: '40px'
+    flexGrow: '2',
+    alignItems: 'center'
   },
-  gridList: {
-    width: 500,
-    height: 450,
-    overflowY: 'auto',
+  listItem: {
+    cursor: 'pointer',
+    width: '200px',
+    height: '250px',
+    display: 'flex',
+    alignItems: 'center'
   },
+  img: {
+    width: '100%',
+    height: '100%'
+  }
 };
 
 const mapStateToProps = (state) => ({
@@ -25,24 +29,24 @@ const mapStateToProps = (state) => ({
 
 export const InventoryList = (props) => {
   return (
-    <div style={styles.root}>
-      <GridList
-        cellHeight={180}
-        style={styles.gridList}
+    <List
+      style={styles.list}
+      cols={4}
+      >
+      {props.inventory.map((item) => (
+        <ListItem
+          key={item.item_id}
+          style={styles.listItem}
+          onClick={() => props.addInventoryToReservation(item)}
         >
-        {props.inventory.map((item) => (
-          <GridTile
-            key={item.item_id}
-            title={`${item.brand} ${item.model}`}
-            subtitle={<span><b>{item.type}</b></span>}
-            style={{cursor: 'pointer'}}
-            onClick={() => props.addInventoryToReservation(item)}
-          >
-            <img src={item.image_url} alt='Category icon'/>
-          </GridTile>
-        ))}
-      </GridList>
-    </div>
+          <img
+            src={item.image_url}
+            alt='Category icon'
+            style={styles.img}
+          />
+        </ListItem>
+      ))}
+    </List>
   )
 }
 
