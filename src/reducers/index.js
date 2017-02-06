@@ -14,6 +14,7 @@ import { reservationCustomers } from 'reducers/reservationCustomers'
 import { inventoryCategories } from 'reducers/inventoryCategories'
 import { inventoryModels } from 'reducers/inventoryModels'
 import { inventorySizes } from 'reducers/inventorySizes'
+import { inventoryItemTypes } from 'reducers/inventoryItemTypes'
 import { selectedCategoryId } from 'reducers/selectedCategoryId'
 
 export const reducers = combineReducers({
@@ -31,6 +32,7 @@ export const reducers = combineReducers({
   reservationCustomers,
   reservationSelectedCustomer,
   inventoryCategories,
+  inventoryItemTypes,
   inventoryModels,
   inventorySizes,
   selectedCategoryId

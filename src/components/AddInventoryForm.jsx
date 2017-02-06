@@ -1,59 +1,52 @@
 import React, { Component } from 'react'
-import { Field, reduxForm } from 'redux-form'
+import { Field, reduxForm, formValueSelector } from 'redux-form'
 import { connect } from 'react-redux'
 import { Link } from 'react-router'
 // button does not need to be from redux to work with form
 import RaisedButton from 'material-ui/RaisedButton'
 // make sure to use the TextField from the redux material-ui
-import { TextField } from 'redux-form-material-ui'
+import {
+  TextField,
+  SelectField,
+} from 'redux-form-material-ui'
+import MenuItem from 'material-ui/MenuItem'
 import { colors } from 'config/colors'
 
 import { fetchCategories } from 'actions/reservations'
-import { fetchModels, fetchSizes } from 'actions/inventory'
+import { fetchModels, fetchSizes, fetchItemTypes } from 'actions/inventory'
 
-const mapStateToProps = (state) => {
-  return {
-    categories: state.inventoryCategories,
-    models: state.inventoryModels,
-    sizes: state.inventorySizes,
-  }
+const style_floatingLabelShrink = {
+  color: colors.blue
 }
 
-const renderCategories = ({
-  categories
-}) => {
-  return categories.map((category) => {
-    return (
-      <li key={category.id}>
-        {category.name}
-      </li>
-    )
-}) }
-
-const renderModels = ({
-  models
-}) => {
-  return models.map((model) => {
-    return (
-      <li key={model.id}>
-        {model.name}
-      </li>
-    )
-  })
+const style_underlineFocus = {
+  borderColor: colors.blue
 }
 
-const renderSizes = ({
-  sizes
-}) => {
-  return sizes.map((sizes) => {
-    return (
-      <li key={sizes.id}>
-        {sizes.size}
-      </li>
-    )
-  })
+const style_buttonContainer = {
+  float: 'right',
+  marginTop: '20px'
 }
 
+const SelectInput = (props) => {
+  return <Field
+    name={ props.name }
+    component={ SelectField }
+    floatingLabelText={ props.name }
+    floatingLabelShrinkStyle={ style_floatingLabelShrink }
+    underlineFocusStyle={ style_underlineFocus }
+    fullWidth={ true }
+    onChange={ props.onChange }
+    >
+    {props.items.map((item) => {
+      return <MenuItem
+        key={item.id}
+        value={item.id}
+        primaryText={item[props.textKey]}
+      />
+    })}
+  </Field>
+}
 
 class AddInventoryForm extends Component {
   constructor(props) {
@@ -61,26 +54,87 @@ class AddInventoryForm extends Component {
     if (!props.categories.length) {
       props.fetchCategories()
     }
-    if (!props.models.length) {
-      props.fetchModels()
+  }
+
+  componentWillUpdate({
+    selectedCategory,
+    selectedItemType,
+    fetchItemTypes,
+    fetchModels,
+    fetchSizes,
+  }) {
+    if (selectedCategory) {
+      fetchItemTypes(selectedCategory)
     }
-    if (!props.sizes.length) {
-      props.fetchSizes(3)
+    if (selectedItemType) {
+      fetchSizes(selectedItemType)
+      fetchModels(selectedItemType)
     }
   }
 
+  handleItemTypeChange(props) {
+    console.log('handle it', props);
+  }
 
   render() {
+
+    const handleSubmit = (e) => {
+      e.preventDefault()
+      console.log('submit');
+    }
     return (
       <div>
-        <h1>Add Those Invs</h1>
-        {renderCategories(this.props)}
-        {renderModels(this.props)}
-        {renderSizes(this.props)}
+        <h1>Add That Inventory</h1>
+        <form onSubmit={ handleSubmit } style={{minWidth: '100%'}}>
+          <SelectInput name={'category'} items={this.props.categories} textKey={'name'}/>
+          {this.props.selectedCategory &&
+            this.props.itemTypes &&
+            <SelectInput name={'itemType'} items={this.props.itemTypes} textKey={'name'}/>
+          }
+          {this.props.selectedItemType &&
+            this.props.models &&
+            <SelectInput name={'models'} items={this.props.models} textKey={'name'}/>
+          }
+          {this.props.selectedItemType &&
+            this.props.sizes &&
+            <SelectInput name={'sizes'} items={this.props.sizes} textKey={'size'}/>
+
+          }
+          <div style={ style_buttonContainer }>
+            <RaisedButton
+              label='Cancel'
+              style={{ marginRight: '10px' }}
+              onClick={() => {console.log('CLEAR THE FORM')}}
+              />
+            <RaisedButton
+              label='Submit'
+              type='submit'
+              />
+          </div>
+        </form>
       </div>
     )
   }
 
+}
+
+AddInventoryForm = reduxForm({
+  form: 'addInventoryForm'
+})(AddInventoryForm)
+
+const selector = formValueSelector('addInventoryForm')
+
+const mapStateToProps = (state) => {
+  return {
+    categories: state.inventoryCategories,
+    models: state.inventoryModels,
+    sizes: state.inventorySizes,
+    itemTypes: state.inventoryItemTypes,
+    form: state.formReducer,
+    selectedCategory: selector(state, 'category'),
+    selectedItemType: selector(state, 'itemType'),
+    selectedModel: selector(state, 'model')
+  }
 }
 
 export default connect(
@@ -88,6 +142,14 @@ export default connect(
   {
     fetchCategories,
     fetchModels,
-    fetchSizes
+    fetchSizes,
+    fetchItemTypes,
   }
 )(AddInventoryForm)
+
+
+// when you select a category,
+// show model tiles,
+// when you select a model,
+// show size selector,
+// when size is selected show confirm button
