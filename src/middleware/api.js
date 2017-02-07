@@ -111,12 +111,13 @@ export default store => next => action => {
   const [ requestType, successType, failureType ] = types
   next(actionWith({ type: requestType }))
 
-  return callApi(endpoint, method, body).then(
-    response => next(actionWith({
+  return callApi(endpoint, method, body)
+  .then(response => next(actionWith({
       response,
       type: successType
-    })),
-    error => next(actionWith({
+    }))
+  )
+  .catch(error => next(actionWith({
       type: failureType,
       error: `ERROR: ${error.message}` || 'Oops... this is awkward'
     }))
