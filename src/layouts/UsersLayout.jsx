@@ -2,13 +2,12 @@ import React, { Component } from 'react'
 import { Link } from 'react-router'
 import { connect } from 'react-redux'
 import { colors } from 'config/colors'
-import { usersGet } from 'actions/users'
 import { Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn } from 'material-ui/Table'
 import FlatButton from 'material-ui/FlatButton'
 import Add from 'material-ui/svg-icons/content/add'
 import Clear from 'material-ui/svg-icons/content/clear'
 import moment from 'moment'
-import { usersUpdateSelected } from 'actions/users'
+import { usersGet, usersUpdateSelected } from 'actions/users'
 
 class UsersLayout extends Component {
   // get the users to populate the table
@@ -17,8 +16,8 @@ class UsersLayout extends Component {
     usersGet()
   }
 
-  renderUserRows(users) {
-    const { userId, usersSelected } = this.props
+  renderUserRows() {
+    const { users, userId, usersSelected } = this.props
 
     const style_tableRow = (id) => ({
       cursor: id !== userId ? 'pointer' : 'not-allowed',
@@ -41,7 +40,7 @@ class UsersLayout extends Component {
   }
 
   render() {
-    const { children, users, usersUpdateSelected, usersSelected } = this.props
+    const { children, usersUpdateSelected, usersSelected } = this.props
 
     const renderSubNavLinks = () => {
       let links = [
@@ -100,7 +99,7 @@ class UsersLayout extends Component {
             </TableRow>
           </TableHeader>
           <TableBody deselectOnClickaway={ false } displayRowCheckbox={ false }>
-            { this.renderUserRows(users) }
+            { this.renderUserRows() }
           </TableBody>
         </Table>
         { children }

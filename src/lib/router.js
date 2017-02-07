@@ -13,6 +13,7 @@ import api from 'middleware/api'
 import AppLayout from 'layouts/AppLayout'
 // if you need a modal for under construction, import this: UnderConstructionDialog
 import { UnderConstruction } from 'layouts/UnderConstruction'
+import { UnderConstructionDialog } from 'layouts/UnderConstruction'
 import { NotFound } from 'layouts/NotFound'
 import { InventoryLayout } from 'layouts/InventoryLayout'
 import { LandingLayout } from 'layouts/LandingLayout'
@@ -47,7 +48,9 @@ export const AppRouter = (
         <Route path='/inventory/all' component={ NotFound } />
         <Route path='/inventory/settings' component={ NotFound } />
       </Route>
-      <Route path='/customers' component={ CustomersLayout } />
+      <Route path='/customers' component={ CustomersLayout }>
+        <Route path='/customers/add' component={ UnderConstructionDialog } />
+      </Route>
       <Route path='/reservations' component={ Reservation }>
         <Route path='/reservations/select-date' component={ ReservationDateSelect } />
         <Route path='/reservations/select-inventory' component={ ReservationInventorySelect } />

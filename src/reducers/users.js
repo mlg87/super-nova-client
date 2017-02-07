@@ -57,7 +57,7 @@ export const usersReducer = ( state = initialState, action) => {
         usersSelected: indexes
       }
 
-    // pull deleted removes users from the users GET arr so we dont
+    // pull deleted removes users from the users arr so we dont
     // have to make another trip to the server to get an updated list
     case ActionTypes.USERS_PULL_DELETED:
       const { id } = action

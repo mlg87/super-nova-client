@@ -20,7 +20,7 @@ export const UnderConstruction = () => {
 
 export const UnderConstructionDialog = (props) => {
   const actions = [
-    <Link to='/users'>
+    <Link to='/'>
       <RaisedButton
         label='Close'
       />

@@ -19,12 +19,14 @@ const getNextPageUrl = response => {
 // this function assumes that all responses from the server come back
 // as JSON that is { data: whateverYouNeed }
 const callApi = (endpoint, method, body) => {
+  const token = localStorage.getItem('token')
   const fullUrl = `/api/${endpoint}`
   const request = {
     method,
     credentials: 'include',
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + token
     },
     body
   }
