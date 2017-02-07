@@ -3,7 +3,9 @@ import * as ActionTypes from 'actions/customers'
 // exported for testing
 export const initialState = {
   customers: [],
+  customersFiltered: [],
   customersSelected: [],
+  searchTerm: '',
   isFetching: false,
   error: null
 }
@@ -34,6 +36,32 @@ export const customersReducer = ( state = initialState, action ) => {
         ...state,
         isFetching: false,
         error
+      }
+
+    case ActionTypes.CUSTOMERS_FILTER_TABLE:
+      const { searchTerm } = action
+      if (typeof searchTerm !== 'string') {
+        throw new Error('Search term must be a string')
+      }
+      // get the customers from state, dont mutate them
+      const { customers } = state
+      const keysToFilterBy = ['first_name', 'last_name', 'email', 'phone_number', 'address', 'birth_date']
+      const lowerCaseSearchTerm = searchTerm.toLowerCase()
+      const customersFiltered = customers.filter(customer => {
+        for (let i = 0; i < keysToFilterBy.length; i++) {
+          // make all of the values lower case to match easier
+          if (customer[keysToFilterBy[i]].toLowerCase().includes(lowerCaseSearchTerm)) {
+            return true
+          }
+        }
+        return false
+      })
+      return {
+        ...state,
+        // 'reset' the customers selected array so we dont get weird behavior
+        customersSelected: [],
+        customersFiltered,
+        searchTerm
       }
 
     case ActionTypes.CUSTOMERS_UPDATE_SELECTED:

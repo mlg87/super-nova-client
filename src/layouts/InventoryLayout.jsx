@@ -9,23 +9,23 @@ import { colors } from 'config/colors'
 
 export class InventoryLayout extends Component {
   render() {
-    const searchBarStyle = {
+    const style_searchBar = {
       backgroundColor: 'white',
       width: '100%',
       borderBottom: '1px solid ' + colors.utils.border.gray
     }
 
-    const searchInputStyle = {
+    const style_searchInput = {
       marginLeft: '10px',
       width: '100%'
     }
 
     return (
       <div>
-        <Toolbar style={ searchBarStyle }>
+        <Toolbar style={ style_searchBar }>
           <ToolbarGroup style={ {width: '100%'} }>
             <Search />
-            <TextField hintText='Search' style={ searchInputStyle } underlineShow={ false } />
+            <TextField hintText='Search' style={ style_searchInput } underlineShow={ false } />
           </ToolbarGroup>
         </Toolbar>
         <div>

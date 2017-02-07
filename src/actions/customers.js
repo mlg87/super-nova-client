@@ -2,12 +2,21 @@ import { push } from 'react-router-redux'
 import { CALL_API } from 'middleware/api'
 
 ///////////////////////////////////////////////////////////////////////
-// works with the user table and stores those that are selected
+// works with the customers table and stores those that are selected
 export const CUSTOMERS_UPDATE_SELECTED = 'CUSTOMERS_UPDATE_SELECTED'
 
 export const customersUpdateSelected = (indexes) => ({
   type: CUSTOMERS_UPDATE_SELECTED,
   indexes
+})
+///////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////
+// works with the customers table and filters what is displayed
+export const CUSTOMERS_FILTER_TABLE = 'CUSTOMERS_FILTER_TABLE'
+
+export const customersFilterTable = (searchTerm) => ({
+  type: CUSTOMERS_FILTER_TABLE,
+  searchTerm
 })
 ///////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////
