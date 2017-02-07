@@ -1,30 +1,17 @@
 import React from 'react'
 import { Link } from 'react-router'
+import { connect } from 'react-redux'
 import Dialog from 'material-ui/Dialog'
 import RaisedButton from 'material-ui/RaisedButton'
 
-export const UnderConstruction = () => {
-  const containerStyle = {
-    width: '60%',
-    marginTop: '20px',
-    marginLeft: 'auto',
-    marginRight: 'auto'
-  }
+const UnderConstructionDialog = (props) => {
+  const { goBack } = props
 
-  return (
-    <div style={ containerStyle }>
-      <h3>This page is currently under construction. Check back soon...</h3>
-    </div>
-  )
-}
-
-export const UnderConstructionDialog = (props) => {
   const actions = [
-    <Link to='/'>
-      <RaisedButton
-        label='Close'
-      />
-    </Link>
+    <RaisedButton
+      label='Close'
+      onClick={ goBack }
+    />
   ]
 
   return (
@@ -37,3 +24,12 @@ export const UnderConstructionDialog = (props) => {
     </Dialog>
   )
 }
+
+const mapStateToProps = (state, ownProps) => {
+  const { goBack } = ownProps.router
+  return {
+    goBack
+  }
+}
+
+export default connect(mapStateToProps, null)(UnderConstructionDialog)
