@@ -22,6 +22,7 @@ import ReservationInventorySelect from 'components/ReservationInventorySelect'
 import ReservationCustomerSelect from 'components/ReservationCustomerSelect'
 import ReservationReview from 'components/ReservationReview'
 import UsersLayout from 'layouts/UsersLayout'
+import CustomersLayout from 'layouts/CustomersLayout'
 import Register from 'components/Register'
 import { CurrentUser } from 'components/CurrentUser'
 import RemoveUsers from 'components/RemoveUsers'
@@ -46,7 +47,7 @@ export const AppRouter = (
         <Route path='/inventory/all' component={ NotFound } />
         <Route path='/inventory/settings' component={ NotFound } />
       </Route>
-      <Route path='/customers' component={ UnderConstruction } />
+      <Route path='/customers' component={ CustomersLayout } />
       <Route path='/reservations' component={ Reservation }>
         <Route path='/reservations/select-date' component={ ReservationDateSelect } />
         <Route path='/reservations/select-inventory' component={ ReservationInventorySelect } />

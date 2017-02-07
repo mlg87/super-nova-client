@@ -11,6 +11,7 @@ import moment from 'moment'
 import { usersUpdateSelected } from 'actions/users'
 
 class UsersLayout extends Component {
+  // get the users to populate the table
   componentWillMount() {
     const { usersGet } = this.props
     usersGet()
