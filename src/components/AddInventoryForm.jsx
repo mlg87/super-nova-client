@@ -124,6 +124,7 @@ AddInventoryForm = reduxForm({
 
 const selector = formValueSelector('addInventoryForm')
 
+// do we need form in state??
 const mapStateToProps = (state) => {
   return {
     categories: state.inventoryCategories,
