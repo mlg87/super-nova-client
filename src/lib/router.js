@@ -50,6 +50,7 @@ export const AppRouter = (
       </Route>
       <Route path='/customers' component={ CustomersLayout }>
         <Route path='/customers/add' component={ UnderConstructionDialog } />
+        <Route path='/customers/remove' component={ UnderConstructionDialog } />
       </Route>
       <Route path='/reservations' component={ Reservation }>
         <Route path='/reservations/select-date' component={ ReservationDateSelect } />
