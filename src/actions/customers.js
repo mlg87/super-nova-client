@@ -39,6 +39,26 @@ export const customersGet = () => dispatch => {
 }
 ///////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////
+// POST - create a single customer
+export const CUSTOMER_POST_REQUEST = 'CUSTOMER_POST_REQUEST'
+export const CUSTOMER_POST_SUCCESS = 'CUSTOMER_POST_SUCCESS'
+export const CUSTOMER_POST_FAILURE = 'CUSTOMER_POST_FAILURE'
+
+const fetchCustomerPost = customer => ({
+  [CALL_API]: {
+    types: [ CUSTOMER_POST_REQUEST, CUSTOMER_POST_SUCCESS, CUSTOMER_POST_FAILURE ],
+    endpoint: 'customers',
+    method: 'post',
+    body: JSON.stringify({customer})
+  }
+})
+
+export const customerAdd = customer => dispatch => {
+  console.log('customer', customer);
+  return
+}
+///////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////
 // this obj is exported so the import looks cleaner in the config reducer
 export const customersConfigTypes = {
   errorTypes: [

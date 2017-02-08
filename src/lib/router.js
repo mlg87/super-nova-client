@@ -25,6 +25,7 @@ import CustomersLayout from 'layouts/CustomersLayout'
 import Register from 'components/Register'
 import { CurrentUser } from 'components/CurrentUser'
 import RemoveUsers from 'components/RemoveUsers'
+import AddCustomers from 'components/AddCustomers'
 
 const middleware = routerMiddleware(browserHistory)
 // export store for the Provider in index.js
@@ -47,7 +48,7 @@ export const AppRouter = (
         <Route path='/inventory/settings' component={ NotFound } />
       </Route>
       <Route path='/customers' component={ CustomersLayout }>
-        <Route path='/customers/add' component={ UnderConstructionDialog } />
+        <Route path='/customers/add' component={ AddCustomers } />
         <Route path='/customers/remove' component={ UnderConstructionDialog } />
       </Route>
       <Route path='/reservations' component={ Reservation }>
