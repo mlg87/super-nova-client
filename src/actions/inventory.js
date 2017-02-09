@@ -5,6 +5,27 @@ import { handleFetchErrors } from 'lib/helpers'
 
 ///////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////
+// GET - categories
+
+export const CATEGORIES_GET_REQUEST = 'CATEGORIES_GET_REQUEST'
+export const CATEGORIES_GET_SUCCESS = 'CATEGORIES_GET_SUCCESS'
+export const CATEGORIES_GET_FAILURE = 'CATEGORIES_GET_FAILURE'
+
+
+const fetchCategoriesGet = () => ({
+  [CALL_API]: {
+    types: [CATEGORIES_GET_REQUEST, CATEGORIES_GET_SUCCESS, CATEGORIES_GET_FAILURE],
+    endpoint: `categories`,
+    method: 'get'
+  }
+})
+
+export const categoriesGet = () => (dispatch, getState) => {
+  dispatch(fetchCategoriesGet())
+}
+
+///////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////
 // GET - models with item_type_id
 
 
@@ -22,12 +43,9 @@ const fetchModelsGet = (itemTypeId) => ({
 
 export const modelsGet = (itemTypeId) => (dispatch, getState) => {
   return dispatch(fetchModelsGet(itemTypeId))
-  // .then((res) => {
-  //   if (!res.error) {
-  //     dispatch(setModels(res.response.data))
-  //   }
-  // })
 }
+
+
 
 export const setSizes = (sizes) => {
   return {

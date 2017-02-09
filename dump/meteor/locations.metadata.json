@@ -1,0 +1,1 @@
+{"options":{},"indexes":[{"v":1,"key":{"_id":1},"name":"_id_","ns":"meteor.locations"},{"v":1,"key":{"clientId":1},"name":"clientId","ns":"meteor.locations","background":true},{"v":1,"key":{"clientId":1,"name":1},"name":"clientId_1_name_1","ns":"meteor.locations"}]}

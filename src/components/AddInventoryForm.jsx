@@ -13,7 +13,7 @@ import MenuItem from 'material-ui/MenuItem'
 import { colors } from 'config/colors'
 
 import { fetchCategories } from 'actions/reservations'
-import { modelsGet, fetchSizes, fetchItemTypes } from 'actions/inventory'
+import { categoriesGet, modelsGet, fetchSizes, fetchItemTypes } from 'actions/inventory'
 
 const style_floatingLabelShrink = {
   color: colors.blue
@@ -52,19 +52,19 @@ class AddInventoryForm extends Component {
   constructor(props) {
     super(props)
     if (!props.categories.length) {
-      props.fetchCategories()
+      props.categoriesGet()
     }
   }
 
   componentWillUpdate({
-    selectedCategory,
+    categoryId,
     itemTypeId,
     fetchItemTypes,
     modelsGet,
     fetchSizes,
   }) {
-    if (selectedCategory) {
-      fetchItemTypes(selectedCategory)
+    if (categoryId) {
+      fetchItemTypes(categoryId)
     }
     if (itemTypeId) {
       fetchSizes(itemTypeId)
@@ -87,16 +87,16 @@ class AddInventoryForm extends Component {
         <h1>Add That Inventory</h1>
         <form onSubmit={ handleSubmit } style={{minWidth: '100%'}}>
           <SelectInput name={'category'} items={this.props.categories} textKey={'name'}/>
-          {this.props.selectedCategory &&
-            this.props.itemTypes &&
+          {this.props.categoryId &&
+            this.props.itemTypes.length > 0 &&
             <SelectInput name={'itemType'} items={this.props.itemTypes} textKey={'name'}/>
           }
           {this.props.itemTypeId &&
-            this.props.models &&
+            this.props.models.length > 0 &&
             <SelectInput name={'models'} items={this.props.models} textKey={'name'}/>
           }
           {this.props.itemTypeId &&
-            this.props.sizes &&
+            this.props.sizes.length > 0 &&
             <SelectInput name={'sizes'} items={this.props.sizes} textKey={'size'}/>
 
           }
@@ -124,15 +124,14 @@ AddInventoryForm = reduxForm({
 
 const selector = formValueSelector('addInventoryForm')
 
-// do we need form in state??
 const mapStateToProps = (state) => {
   return {
-    categories: state.inventoryCategories,
+    categories: state.inventory.categories,
     models: state.inventory.models,
     sizes: state.inventorySizes,
     itemTypes: state.inventoryItemTypes,
     form: state.formReducer,
-    selectedCategory: selector(state, 'category'),
+    categoryId: selector(state, 'category'),
     itemTypeId: selector(state, 'itemType'),
     selectedModel: selector(state, 'model')
   }
@@ -141,7 +140,7 @@ const mapStateToProps = (state) => {
 export default connect(
   mapStateToProps,
   {
-    fetchCategories,
+    categoriesGet,
     modelsGet,
     fetchSizes,
     fetchItemTypes,

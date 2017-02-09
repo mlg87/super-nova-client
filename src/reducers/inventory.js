@@ -8,7 +8,6 @@ export const initialState = {
   sizes: [],
   categories: [],
   itemTypes: [],
-  itemTypeId: ''
 }
 
 export const inventoryReducers = ( state = initialState, action ) => {
@@ -33,6 +32,26 @@ export const inventoryReducers = ( state = initialState, action ) => {
       return {
         ...state,
         error: action.error
+      }
+    case ActionTypes.CATEGORIES_GET_REQUEST:
+      return {
+        ...state,
+        isFetching: true
+      }
+    case ActionTypes.CATEGORIES_GET_SUCCESS:
+      if (!(action.response.data instanceof Array)) {
+        throw new Error('Models must be an array')
+      }
+      return {
+        ...state,
+        categories: action.response.data,
+        isFetching: false
+      }
+    case ActionTypes.CATEGORIES_GET_FAILURE:
+      return {
+        ...state,
+        error: action.error,
+        isFetching: false
       }
     default:
      return state
