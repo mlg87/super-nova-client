@@ -1,1 +1,0 @@
-{"options":{},"indexes":[{"v":1,"key":{"_id":1},"name":"_id_","ns":"meteor.strains"},{"v":1,"key":{"clientId":1},"name":"clientId","ns":"meteor.strains","background":true},{"v":1,"key":{"clientId":1,"storeLicense":1},"name":"clientId_1_storeLicense_1","ns":"meteor.strains"},{"v":1,"key":{"clientId":1,"locationName":1},"name":"clientId_1_locationName_1","ns":"meteor.strains"}]}

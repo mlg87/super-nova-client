@@ -1,1 +1,0 @@
-{"options":{},"indexes":[{"v":1,"key":{"_id":1},"name":"_id_","ns":"meteor.customerGroupActivities"},{"v":1,"key":{"clientId":1},"name":"clientId","ns":"meteor.customerGroupActivities","background":true},{"v":1,"key":{"clientId":1,"createdAt":1},"name":"clientId_1_createdAt_1","ns":"meteor.customerGroupActivities"}]}
