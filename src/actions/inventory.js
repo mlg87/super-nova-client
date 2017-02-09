@@ -1,28 +1,32 @@
 import fetch from 'isomorphic-fetch'
+import { push } from 'react-router-redux'
+import { CALL_API } from 'middleware/api'
 import { handleFetchErrors } from 'lib/helpers'
 
-export const setModels = (models) => {
-  return {
-    type: 'SET_MODELS',
-    payload: models
-  }
-}
+///////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////
+// GET - models with item_type_id
 
-export const fetchModels = (item_type_id) => dispatch => {
-  const token = localStorage.getItem('token')
-  fetch(`/api/models/some?item_type_id=${item_type_id}`, {
-    method: 'get',
-    headers: {
-      'Authorization': 'Bearer ' + token
-    }
-  })
-  .then(handleFetchErrors)
-  .then((res) => {
-    res.json().then(json => {
-      dispatch(setModels(json.data))
-    })
-  })
-  .catch((err) => {console.log('fetch err:', err);})
+
+export const MODELS_GET_REQUEST = 'MODELS_GET_REQUEST'
+export const MODELS_GET_SUCCESS = 'MODELS_GET_SUCCESS'
+export const MODELS_GET_FAILURE = 'MODELS_GET_FAILURE'
+
+const fetchModelsGet = (itemTypeId) => ({
+  [CALL_API]: {
+    types: [ MODELS_GET_REQUEST, MODELS_GET_SUCCESS, MODELS_GET_FAILURE],
+    endpoint: `models/some?item_type_id=${itemTypeId}`,
+    method: 'get'
+  }
+})
+
+export const modelsGet = (itemTypeId) => (dispatch, getState) => {
+  return dispatch(fetchModelsGet(itemTypeId))
+  // .then((res) => {
+  //   if (!res.error) {
+  //     dispatch(setModels(res.response.data))
+  //   }
+  // })
 }
 
 export const setSizes = (sizes) => {
@@ -49,6 +53,9 @@ export const fetchSizes = (item_type_id) => dispatch => {
   })
   .catch((err) => {console.log('fetch err:', err);})
 }
+
+///////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////
 
 export const setItemTypes = (itemTypes) => {
   return {

@@ -20,10 +20,12 @@ const getNextPageUrl = response => {
 // as JSON that is { data: whateverYouNeed }
 const callApi = (endpoint, method, body) => {
   const fullUrl = `/api/${endpoint}`
+  const token = localStorage.getItem('token') || ''
   const request = {
     method,
     credentials: 'include',
     headers: {
+      'Authorization': 'Bearer ' + token,
       'Content-Type': 'application/json'
     },
     body

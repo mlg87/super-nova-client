@@ -13,7 +13,7 @@ import MenuItem from 'material-ui/MenuItem'
 import { colors } from 'config/colors'
 
 import { fetchCategories } from 'actions/reservations'
-import { fetchModels, fetchSizes, fetchItemTypes } from 'actions/inventory'
+import { modelsGet, fetchSizes, fetchItemTypes } from 'actions/inventory'
 
 const style_floatingLabelShrink = {
   color: colors.blue
@@ -58,17 +58,17 @@ class AddInventoryForm extends Component {
 
   componentWillUpdate({
     selectedCategory,
-    selectedItemType,
+    itemTypeId,
     fetchItemTypes,
-    fetchModels,
+    modelsGet,
     fetchSizes,
   }) {
     if (selectedCategory) {
       fetchItemTypes(selectedCategory)
     }
-    if (selectedItemType) {
-      fetchSizes(selectedItemType)
-      fetchModels(selectedItemType)
+    if (itemTypeId) {
+      fetchSizes(itemTypeId)
+      modelsGet(itemTypeId)
     }
   }
 
@@ -91,11 +91,11 @@ class AddInventoryForm extends Component {
             this.props.itemTypes &&
             <SelectInput name={'itemType'} items={this.props.itemTypes} textKey={'name'}/>
           }
-          {this.props.selectedItemType &&
+          {this.props.itemTypeId &&
             this.props.models &&
             <SelectInput name={'models'} items={this.props.models} textKey={'name'}/>
           }
-          {this.props.selectedItemType &&
+          {this.props.itemTypeId &&
             this.props.sizes &&
             <SelectInput name={'sizes'} items={this.props.sizes} textKey={'size'}/>
 
@@ -128,12 +128,12 @@ const selector = formValueSelector('addInventoryForm')
 const mapStateToProps = (state) => {
   return {
     categories: state.inventoryCategories,
-    models: state.inventoryModels,
+    models: state.inventory.models,
     sizes: state.inventorySizes,
     itemTypes: state.inventoryItemTypes,
     form: state.formReducer,
     selectedCategory: selector(state, 'category'),
-    selectedItemType: selector(state, 'itemType'),
+    itemTypeId: selector(state, 'itemType'),
     selectedModel: selector(state, 'model')
   }
 }
@@ -142,7 +142,7 @@ export default connect(
   mapStateToProps,
   {
     fetchCategories,
-    fetchModels,
+    modelsGet,
     fetchSizes,
     fetchItemTypes,
   }
