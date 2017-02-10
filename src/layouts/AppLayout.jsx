@@ -1,82 +1,116 @@
-import React, { Component } from 'react'
+import React, { Component, PropTypes } from 'react'
 import fetch from 'isomorphic-fetch'
 // material-ui requires the importing of a theme
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
-// needed for touch devices
-import injectTapEventPlugin from 'react-tap-event-plugin'
 // components
-import { Login } from 'components/login/Login'
-import { Shell } from 'components/shell/Shell'
+import Login from 'components/Login'
+import Shell from 'components/Shell'
+import Snackbar from 'material-ui/Snackbar'
 import { FullPageLoading } from 'layouts/FullPageLoading'
-
-// init the touch event handler (needed for material-ui, also prevents
-// console errs)
-injectTapEventPlugin()
+import { connect } from 'react-redux'
+import { setUserId, unsetUserId, dataLoaded, resetConfigError } from 'actions'
+import { handleFetchErrors } from 'lib/helpers'
 
 // the Shell component allows us to access the Route props
 // in the Nav component (allowing us to display the subSideNav
 // or not). this was the best solution i could come up with
 // short of changing the app over to redux :/ -mg
-export default class AppLayout extends Component {
+class AppLayout extends Component {
   constructor(props) {
     super(props)
-
-    this.state = {
-      isLoading: true,
-      isUserLoggedIn: false
-    }
-  }
-
-  componentWillMount() {
     // check to see if a user is logged in before they can
     // access the app
+    props.checkUserToken()
+  }
+
+  render() {
+    const { props } = this
+    const { error, onRequestClose } = props
+
+    const desiredRoute = props.children.props.route.path
+
+    const errorSnackBarStyle = {
+      backgroundColor: 'red'
+    }
+
+    const errorSnackBarContentStyle = {
+      color: 'white'
+    }
+
+    return (
+      <MuiThemeProvider >
+        <div>
+          { props.isLoading ?
+            <FullPageLoading /> :
+            props.userId ?
+            <Shell children={ props.children } /> :
+            <Login desiredRoute={ desiredRoute } routeGo={ props.router.go } />
+          }
+          <Snackbar
+            open={ !!error }
+            message={ !!error ? error : ''}
+            autoHideDuration={ 4000 }
+            bodyStyle={ errorSnackBarStyle }
+            contentStyle={ errorSnackBarContentStyle }
+            onRequestClose={ onRequestClose }
+           />
+       </div>
+      </MuiThemeProvider>
+    )
+  }
+}
+
+AppLayout.propTypes = {
+  checkUserToken: PropTypes.func.isRequired,
+  isLoading: PropTypes.bool.isRequired,
+  userId: PropTypes.number,
+  router: PropTypes.object,
+  children: PropTypes.element.isRequired
+}
+
+const mapStateToProps = state => {
+  const { isLoading, userId } = state
+  const { error } = state.config
+
+  return {
+    isLoading,
+    userId,
+    error
+  }
+}
+
+const mapDispatchToProps = dispatch => ({
+  // this is for the snackbar
+  onRequestClose: () => {
+    dispatch(resetConfigError())
+  },
+  checkUserToken: () => {
     let token = localStorage.getItem('token')
-    if (token) {
+    if (!!token) {
       fetch('/api/auth/current_user', {
         method: 'get',
         headers: {
           'Authorization': 'Bearer ' + token
         }
       })
+      .then(handleFetchErrors)
       .then((res) => {
-        // user has a legit token, they may proceed
-        this.setState({
-          isLoading: false,
-          isUserLoggedIn: true
+        res.json().then(({ data }) => {
+          dispatch(setUserId(data.id))
+          dispatch(dataLoaded())
         })
       })
-      .catch((err) => {
-        // they have a token, but its expired
-        this.setState({
-          isLoading: false,
-          isUserLoggedIn: false
-        })
+      .catch(err => {
+        dispatch(unsetUserId())
+        dispatch(dataLoaded())
       })
     } else {
-      // no token, so they must log in
-      this.setState({
-        isLoading: false,
-        isUserLoggedIn: false
-      })
+      dispatch(dataLoaded())
     }
   }
+})
 
-  render() {
-    const desiredRoute = this.props.children.props.route.path
-    const routeGo = this.props.router.go
-
-    return (
-      <MuiThemeProvider >
-        { this.state.isLoading ?
-          <FullPageLoading /> :
-          <div>
-            { this.state.isUserLoggedIn ?
-              <Shell children={ this.props.children }/> :
-              <Login desiredRoute={ desiredRoute} routeGo={ routeGo} />
-            }
-          </div>
-        }
-      </MuiThemeProvider>
-    )
-  }
-}
+export default AppLayout = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(AppLayout)
