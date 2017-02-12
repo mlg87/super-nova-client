@@ -45,31 +45,25 @@ export const modelsGet = (itemTypeId) => (dispatch, getState) => {
   return dispatch(fetchModelsGet(itemTypeId))
 }
 
+///////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////
+// GET - sizes with item_type_id
 
 
-export const setSizes = (sizes) => {
-  return {
-    type: 'SET_SIZES',
-    payload: sizes
+export const SIZES_GET_REQUEST = 'SIZES_GET_REQUEST'
+export const SIZES_GET_SUCCESS = 'SIZES_GET_SUCCESS'
+export const SIZES_GET_FAILURE = 'SIZES_GET_FAILURE'
+
+const fetchSizesGet = (itemTypeId) => ({
+  [CALL_API]: {
+    types: [ SIZES_GET_REQUEST, SIZES_GET_SUCCESS, SIZES_GET_FAILURE],
+    endpoint: `sizes/item_type/${itemTypeId}`,
+    method: 'get'
   }
-}
+})
 
-export const fetchSizes = (item_type_id) => dispatch => {
-  const token = localStorage.getItem('token')
-  fetch(`/api/sizes/item_type/${item_type_id}`, {
-    method: 'get',
-    headers: {
-      'Authorization': 'Bearer ' + token
-    }
-  })
-  .then(handleFetchErrors)
-  .then((res) => {
-    res.json().then(json => {
-      console.log('in fetchSizes', json.data);
-      dispatch(setSizes(json.data))
-    })
-  })
-  .catch((err) => {console.log('fetch err:', err);})
+export const sizesGet = (itemTypeId) => (dispatch, getState) => {
+  return dispatch(fetchSizesGet(itemTypeId))
 }
 
 ///////////////////////////////////////////////////////////////////////

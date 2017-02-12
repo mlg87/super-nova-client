@@ -33,6 +33,25 @@ export const inventoryReducers = ( state = initialState, action ) => {
         ...state,
         error: action.error
       }
+    case ActionTypes.SIZES_GET_REQUEST:
+      return {
+        ...state,
+        isFetching: true
+      }
+    case ActionTypes.SIZES_GET_SUCCESS:
+      if (!(action.response.data instanceof Array)) {
+        throw new Error('Sizes must be an array')
+      }
+      return {
+        ...state,
+        sizes: action.response.data,
+        isFetching: false
+      }
+    case ActionTypes.SIZES_GET_FAILURE:
+      return {
+        ...state,
+        error: action.error
+      }
     case ActionTypes.CATEGORIES_GET_REQUEST:
       return {
         ...state,

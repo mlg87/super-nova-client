@@ -13,7 +13,7 @@ import MenuItem from 'material-ui/MenuItem'
 import { colors } from 'config/colors'
 
 import { fetchCategories } from 'actions/reservations'
-import { categoriesGet, modelsGet, fetchSizes, fetchItemTypes } from 'actions/inventory'
+import { categoriesGet, modelsGet, sizesGet, fetchItemTypes } from 'actions/inventory'
 
 const style_floatingLabelShrink = {
   color: colors.blue
@@ -61,13 +61,13 @@ class AddInventoryForm extends Component {
     itemTypeId,
     fetchItemTypes,
     modelsGet,
-    fetchSizes,
+    sizesGet,
   }) {
     if (categoryId) {
       fetchItemTypes(categoryId)
     }
     if (itemTypeId) {
-      fetchSizes(itemTypeId)
+      sizesGet(itemTypeId)
       modelsGet(itemTypeId)
     }
   }
@@ -128,12 +128,11 @@ const mapStateToProps = (state) => {
   return {
     categories: state.inventory.categories,
     models: state.inventory.models,
-    sizes: state.inventorySizes,
+    sizes: state.inventory.sizes,
     itemTypes: state.inventoryItemTypes,
     form: state.formReducer,
     categoryId: selector(state, 'category'),
     itemTypeId: selector(state, 'itemType'),
-    selectedModel: selector(state, 'model')
   }
 }
 
@@ -142,7 +141,7 @@ export default connect(
   {
     categoriesGet,
     modelsGet,
-    fetchSizes,
+    sizesGet,
     fetchItemTypes,
   }
 )(AddInventoryForm)
