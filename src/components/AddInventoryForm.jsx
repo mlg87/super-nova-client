@@ -13,7 +13,7 @@ import MenuItem from 'material-ui/MenuItem'
 import { colors } from 'config/colors'
 
 import { fetchCategories } from 'actions/reservations'
-import { categoriesGet, modelsGet, sizesGet, fetchItemTypes } from 'actions/inventory'
+import { categoriesGet, modelsGet, sizesGet, itemTypesGet } from 'actions/inventory'
 
 const style_floatingLabelShrink = {
   color: colors.blue
@@ -59,12 +59,12 @@ class AddInventoryForm extends Component {
   componentWillUpdate({
     categoryId,
     itemTypeId,
-    fetchItemTypes,
+    itemTypesGet,
     modelsGet,
     sizesGet,
   }) {
     if (categoryId) {
-      fetchItemTypes(categoryId)
+      itemTypesGet(categoryId)
     }
     if (itemTypeId) {
       sizesGet(itemTypeId)
@@ -93,11 +93,11 @@ class AddInventoryForm extends Component {
           }
           {this.props.itemTypeId &&
             this.props.models.length > 0 &&
-            <SelectInput name={'models'} items={this.props.models} textKey={'name'}/>
+            <SelectInput name={'model'} items={this.props.models} textKey={'name'}/>
           }
           {this.props.itemTypeId &&
             this.props.sizes.length > 0 &&
-            <SelectInput name={'sizes'} items={this.props.sizes} textKey={'size'}/>
+            <SelectInput name={'size'} items={this.props.sizes} textKey={'size'}/>
 
           }
           <div style={ style_buttonContainer }>
@@ -129,7 +129,7 @@ const mapStateToProps = (state) => {
     categories: state.inventory.categories,
     models: state.inventory.models,
     sizes: state.inventory.sizes,
-    itemTypes: state.inventoryItemTypes,
+    itemTypes: state.inventory.itemTypes,
     form: state.formReducer,
     categoryId: selector(state, 'category'),
     itemTypeId: selector(state, 'itemType'),
@@ -142,7 +142,7 @@ export default connect(
     categoriesGet,
     modelsGet,
     sizesGet,
-    fetchItemTypes,
+    itemTypesGet,
   }
 )(AddInventoryForm)
 

@@ -49,7 +49,6 @@ export const modelsGet = (itemTypeId) => (dispatch, getState) => {
 ///////////////////////////////////////////////////////////////////////
 // GET - sizes with item_type_id
 
-
 export const SIZES_GET_REQUEST = 'SIZES_GET_REQUEST'
 export const SIZES_GET_SUCCESS = 'SIZES_GET_SUCCESS'
 export const SIZES_GET_FAILURE = 'SIZES_GET_FAILURE'
@@ -68,27 +67,20 @@ export const sizesGet = (itemTypeId) => (dispatch, getState) => {
 
 ///////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////
+// GET - sizes with item_type_id
 
-export const setItemTypes = (itemTypes) => {
-  return {
-    type: 'SET_ITEM_TYPES',
-    payload: itemTypes
+export const ITEM_TYPES_GET_REQUEST = 'ITEM_TYPES_GET_REQUEST'
+export const ITEM_TYPES_GET_SUCCESS = 'ITEM_TYPES_GET_SUCCESS'
+export const ITEM_TYPES_GET_FAILURE = 'ITEM_TYPES_GET_FAILURE'
+
+const fetchItemTypesGet = (categoryId) => ({
+  [CALL_API]: {
+    types: [ ITEM_TYPES_GET_REQUEST, ITEM_TYPES_GET_SUCCESS, ITEM_TYPES_GET_FAILURE],
+    endpoint: `item_types/some?category_id=${categoryId}`,
+    method: 'get'
   }
-}
+})
 
-export const fetchItemTypes = (category_id) => dispatch => {
-  const token = localStorage.getItem('token')
-  fetch(`/api/item_types/some?category_id=${category_id}`, {
-    method: 'get',
-    headers: {
-      'Authorization': 'Bearer ' + token
-    }
-  })
-  .then(handleFetchErrors)
-  .then((res) => {
-    res.json().then(json => {
-      dispatch(setItemTypes(json.data))
-    })
-  })
-  .catch((err) => {console.log('fetch err:', err);})
+export const itemTypesGet = (categoryId) => (dispatch, getState) => {
+  return dispatch(fetchItemTypesGet(categoryId))
 }

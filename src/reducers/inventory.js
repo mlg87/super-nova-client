@@ -72,17 +72,28 @@ export const inventoryReducers = ( state = initialState, action ) => {
         error: action.error,
         isFetching: false
       }
+    case ActionTypes.ITEM_TYPES_GET_REQUEST:
+      return {
+        ...state,
+        isFetching: true
+      }
+    case ActionTypes.ITEM_TYPES_GET_SUCCESS:
+      if (!(action.response.data instanceof Array)) {
+        throw new Error('Item Types must be an array')
+      }
+      return {
+        ...state,
+        itemTypes: action.response.data,
+        isFetching: false
+      }
+    case ActionTypes.ITEM_TYPES_GET_FAILURE:
+      return {
+        ...state,
+        error: action.error,
+        isFetching: false
+      }
     default:
      return state
   }
 
 }
-
-
-//
-// export const inventory = (state = [], action) => {
-//   if (action.type === 'SET_INVENTORY') {
-//     return action.payload
-//   }
-//   return state
-// }
