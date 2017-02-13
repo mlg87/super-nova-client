@@ -52,7 +52,7 @@ const styles = {
 };
 
 const mapStateToProps = (state) => ({
-  inventory: state.inventory || []
+  inventory: state.inventory.inventory || []
 })
 
 export const InventoryList = (props) => {

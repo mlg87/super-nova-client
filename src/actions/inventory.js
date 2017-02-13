@@ -26,6 +26,26 @@ export const categoriesGet = () => (dispatch, getState) => {
 
 ///////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////
+// GET - item_types with category id
+
+export const ITEM_TYPES_GET_REQUEST = 'ITEM_TYPES_GET_REQUEST'
+export const ITEM_TYPES_GET_SUCCESS = 'ITEM_TYPES_GET_SUCCESS'
+export const ITEM_TYPES_GET_FAILURE = 'ITEM_TYPES_GET_FAILURE'
+
+const fetchItemTypesGet = (categoryId) => ({
+  [CALL_API]: {
+    types: [ ITEM_TYPES_GET_REQUEST, ITEM_TYPES_GET_SUCCESS, ITEM_TYPES_GET_FAILURE],
+    endpoint: `item_types/some?category_id=${categoryId}`,
+    method: 'get'
+  }
+})
+
+export const itemTypesGet = (categoryId) => (dispatch, getState) => {
+  return dispatch(fetchItemTypesGet(categoryId))
+}
+
+///////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////
 // GET - models with item_type_id
 
 
@@ -67,20 +87,43 @@ export const sizesGet = (itemTypeId) => (dispatch, getState) => {
 
 ///////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////
-// GET - sizes with item_type_id
+// GET - inventory
 
-export const ITEM_TYPES_GET_REQUEST = 'ITEM_TYPES_GET_REQUEST'
-export const ITEM_TYPES_GET_SUCCESS = 'ITEM_TYPES_GET_SUCCESS'
-export const ITEM_TYPES_GET_FAILURE = 'ITEM_TYPES_GET_FAILURE'
+export const INVENTORY_GET_REQUEST = 'INVENTORY_GET_REQUEST'
+export const INVENTORY_GET_SUCCESS = 'INVENTORY_GET_SUCCESS'
+export const INVENTORY_GET_FAILURE = 'INVENTORY_GET_FAILURE'
 
-const fetchItemTypesGet = (categoryId) => ({
+const fetchInventoryGet = (search_terms, category_id) => ({
   [CALL_API]: {
-    types: [ ITEM_TYPES_GET_REQUEST, ITEM_TYPES_GET_SUCCESS, ITEM_TYPES_GET_FAILURE],
-    endpoint: `item_types/some?category_id=${categoryId}`,
-    method: 'get'
+    types: [ INVENTORY_GET_REQUEST, INVENTORY_GET_SUCCESS, INVENTORY_GET_FAILURE],
+    endpoint: `inventory/search`,
+    method: 'get',
+    headers: { search_terms, category_id }
   }
 })
 
-export const itemTypesGet = (categoryId) => (dispatch, getState) => {
-  return dispatch(fetchItemTypesGet(categoryId))
+export const inventoryGet = (search_terms = ' ', category_id = 0) => (dispatch, getState) => {
+  return dispatch(fetchInventoryGet(search_terms, category_id))
+}
+
+///////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////
+// POST - inventory
+
+export const INVENTORY_POST_REQUEST = 'INVENTORY_POST_REQUEST'
+export const INVENTORY_POST_SUCCESS = 'INVENTORY_POST_SUCCESS'
+export const INVENTORY_POST_FAILURE = 'INVENTORY_POST_FAILURE'
+
+const fetchInventoryPost = (inventory) => ({
+  [CALL_API]: {
+    types: [ INVENTORY_POST_REQUEST, INVENTORY_POST_SUCCESS, INVENTORY_POST_FAILURE],
+    endpoint: `inventory`,
+    method: 'post',
+    body: JSON.stringify({inventory})
+  }
+})
+
+export const inventoryPost = (inventory) => (dispatch, getState) => {
+  console.log(inventory);
+  return dispatch(fetchInventoryPost(inventory))
 }

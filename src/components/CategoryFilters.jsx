@@ -1,10 +1,11 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { fetchCategories, filterByCategory } from 'actions/reservations'
+import { filterByCategory } from 'actions/reservations'
+import { categoriesGet } from 'actions/inventory'
 import FlatButton from 'material-ui/FlatButton'
 
 const mapStateToProps = (state) => ({
-  categories: state.inventoryCategories,
+  categories: state.inventory.categories,
   selectedCategoryId: state.selectedCategoryId
 })
 
@@ -38,7 +39,7 @@ class CategoryFilters extends Component {
   constructor(props) {
     super(props)
     if (!props.categories.length) {
-      props.fetchCategories()
+      props.categoriesGet()
     }
   }
 
@@ -56,5 +57,5 @@ class CategoryFilters extends Component {
 
 export default connect(
   mapStateToProps,
-  { fetchCategories, filterByCategory }
+  { categoriesGet, filterByCategory }
 )(CategoryFilters)

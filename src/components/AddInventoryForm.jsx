@@ -11,9 +11,13 @@ import {
 } from 'redux-form-material-ui'
 import MenuItem from 'material-ui/MenuItem'
 import { colors } from 'config/colors'
-
-import { fetchCategories } from 'actions/reservations'
-import { categoriesGet, modelsGet, sizesGet, itemTypesGet } from 'actions/inventory'
+import {
+  categoriesGet,
+  modelsGet,
+  sizesGet,
+  itemTypesGet,
+  inventoryPost
+} from 'actions/inventory'
 
 const style_floatingLabelShrink = {
   color: colors.blue
@@ -49,10 +53,19 @@ const SelectInput = (props) => {
 }
 
 class AddInventoryForm extends Component {
+
   constructor(props) {
     super(props)
-    if (!props.categories.length) {
-      props.categoriesGet()
+  }
+
+  componentWillMount() {
+    const {
+      categories,
+      categoriesGet
+    } = this.props
+
+    if (!categories.length) {
+      categoriesGet()
     }
   }
 
@@ -72,32 +85,47 @@ class AddInventoryForm extends Component {
     }
   }
 
-  handleItemTypeChange(props) {
-    console.log('handle it', props);
-  }
-
   render() {
+    const {
+      categories,
+      categoryId,
+      itemTypes,
+      itemTypeId,
+      models,
+      modelId,
+      sizes,
+      sizeId,
+      inventoryPost
+    } = this.props
 
     const handleSubmit = (e) => {
       e.preventDefault()
-      console.log('submit');
+      let newInventory = {
+        model_id: modelId,
+        size_id: sizeId,
+        description: 'brand new inventory item'
+      }
+      console.log('submit', newInventory);
+      inventoryPost(newInventory)
     }
+
+
     return (
       <div>
         <h1>Add That Inventory</h1>
         <form onSubmit={ handleSubmit } style={{minWidth: '100%'}}>
-          <SelectInput name={'category'} items={this.props.categories} textKey={'name'}/>
-          {this.props.categoryId &&
-            this.props.itemTypes.length > 0 &&
-            <SelectInput name={'itemType'} items={this.props.itemTypes} textKey={'name'}/>
+          <SelectInput name={'category'} items={categories} textKey={'name'}/>
+          {categoryId &&
+            itemTypes.length > 0 &&
+            <SelectInput name={'itemType'} items={itemTypes} textKey={'name'}/>
           }
-          {this.props.itemTypeId &&
-            this.props.models.length > 0 &&
-            <SelectInput name={'model'} items={this.props.models} textKey={'name'}/>
+          {itemTypeId &&
+            models.length > 0 &&
+            <SelectInput name={'model'} items={models} textKey={'name'}/>
           }
-          {this.props.itemTypeId &&
-            this.props.sizes.length > 0 &&
-            <SelectInput name={'size'} items={this.props.sizes} textKey={'size'}/>
+          {itemTypeId &&
+            sizes.length > 0 &&
+            <SelectInput name={'size'} items={sizes} textKey={'size'}/>
 
           }
           <div style={ style_buttonContainer }>
@@ -133,6 +161,8 @@ const mapStateToProps = (state) => {
     form: state.formReducer,
     categoryId: selector(state, 'category'),
     itemTypeId: selector(state, 'itemType'),
+    sizeId: selector(state, 'size'),
+    modelId: selector(state, 'model')
   }
 }
 
@@ -143,6 +173,7 @@ export default connect(
     modelsGet,
     sizesGet,
     itemTypesGet,
+    inventoryPost,
   }
 )(AddInventoryForm)
 
