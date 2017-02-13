@@ -124,6 +124,17 @@ const fetchInventoryPost = (inventory) => ({
 })
 
 export const inventoryPost = (inventory) => (dispatch, getState) => {
-  console.log(inventory);
   return dispatch(fetchInventoryPost(inventory))
 }
+
+///////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////
+// snackbar - reset state inventory.error
+
+export const RESET_INVENTORY_ERROR = 'RESET_INVENTORY_ERROR'
+
+export const onRequestClose = () => (dispatch, getState) => {
+  return dispatch(resetError())
+}
+
+const resetError = () => ({type: RESET_INVENTORY_ERROR})

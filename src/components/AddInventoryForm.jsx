@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import { Field, reduxForm, formValueSelector } from 'redux-form'
 import { connect } from 'react-redux'
 import { Link } from 'react-router'
+import Snackbar from 'material-ui/Snackbar'
+
 // button does not need to be from redux to work with form
 import RaisedButton from 'material-ui/RaisedButton'
 // make sure to use the TextField from the redux material-ui
@@ -16,7 +18,8 @@ import {
   modelsGet,
   sizesGet,
   itemTypesGet,
-  inventoryPost
+  inventoryPost,
+  onRequestClose
 } from 'actions/inventory'
 
 const style_floatingLabelShrink = {
@@ -30,6 +33,14 @@ const style_underlineFocus = {
 const style_buttonContainer = {
   float: 'right',
   marginTop: '20px'
+}
+
+const errSnackBarStyle = {
+  backgroundColor: 'red'
+}
+
+const errSnackBarContentStyle = {
+  color: 'white'
 }
 
 const SelectInput = (props) => {
@@ -95,20 +106,21 @@ class AddInventoryForm extends Component {
       modelId,
       sizes,
       sizeId,
-      inventoryPost
+      inventoryPost,
+      err,
+      onRequestClose
     } = this.props
 
     const handleSubmit = (e) => {
+      console.log(e);
       e.preventDefault()
       let newInventory = {
         model_id: modelId,
         size_id: sizeId,
         description: 'brand new inventory item'
       }
-      console.log('submit', newInventory);
       inventoryPost(newInventory)
     }
-
 
     return (
       <div>
@@ -140,6 +152,14 @@ class AddInventoryForm extends Component {
               />
           </div>
         </form>
+        <Snackbar
+          open={ !!err }
+          message={ !!err ? err : ''}
+          autoHideDuration={ 4000 }
+          bodyStyle={ errSnackBarStyle }
+          contentStyle={ errSnackBarContentStyle }
+          onRequestClose={ onRequestClose }
+        />
       </div>
     )
   }
@@ -153,7 +173,9 @@ AddInventoryForm = reduxForm({
 const selector = formValueSelector('addInventoryForm')
 
 const mapStateToProps = (state) => {
+  let err = state.inventory.error
   return {
+    err: state.inventory.error,
     categories: state.inventory.categories,
     models: state.inventory.models,
     sizes: state.inventory.sizes,
@@ -174,12 +196,6 @@ export default connect(
     sizesGet,
     itemTypesGet,
     inventoryPost,
+    onRequestClose
   }
 )(AddInventoryForm)
-
-
-// when you select a category,
-// show model tiles,
-// when you select a model,
-// show size selector,
-// when size is selected show confirm button

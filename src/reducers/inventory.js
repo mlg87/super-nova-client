@@ -128,6 +128,11 @@ export const inventoryReducers = ( state = initialState, action ) => {
         error: action.error,
         isFetching: false
       }
+    case ActionTypes.RESET_INVENTORY_ERROR:
+      return {
+        ...state,
+        error: null
+      }
     default:
      return state
   }
