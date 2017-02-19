@@ -93,9 +93,6 @@ class InventoryLayout extends Component {
           <TableRowColumn>
             {item.size}
           </TableRowColumn>
-          <TableRowColumn>
-            { `${moment(item.created_at).format('MM/DD/YYYY')}` }
-          </TableRowColumn>
         </TableRow>
       )
     })
@@ -143,7 +140,6 @@ class InventoryLayout extends Component {
               <TableHeaderColumn>BRAND</TableHeaderColumn>
               <TableHeaderColumn>GENDER</TableHeaderColumn>
               <TableHeaderColumn>SIZE</TableHeaderColumn>
-              <TableHeaderColumn>CREATED</TableHeaderColumn>
             </TableRow>
           </TableHeader>
           <TableBody deselectOnClickaway={ false } displayRowCheckbox={ false }>
