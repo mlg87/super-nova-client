@@ -31,7 +31,6 @@ const callApi = (endpoint, method, body, passedInHeaders) => {
       ...passedInHeaders
     }
   }
-  console.log(headers);
   const request = {
     method,
     credentials: 'include',
@@ -113,7 +112,6 @@ export default store => next => action => {
   const actionWith = data => {
     // easiest to think of finalAction as the last time we massage
     // the action to create a proper redux action
-    console.log(data);
     const finalAction = {...action, ...data}
     delete finalAction[CALL_API]
     return finalAction
@@ -130,7 +128,7 @@ export default store => next => action => {
   )
   .catch(error => next(actionWith({
       type: failureType,
-      error: `ERROR: ${error.error || "Oops... this is awkward"}`
+      error: `ERROR: ${error.message || "Oops... this is awkward"}`
     }))
   )
 }

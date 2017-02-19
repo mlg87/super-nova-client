@@ -3,6 +3,7 @@ import { Field, reduxForm, formValueSelector } from 'redux-form'
 import { connect } from 'react-redux'
 import { Link } from 'react-router'
 import Snackbar from 'material-ui/Snackbar'
+import { colors } from 'config/colors'
 
 // button does not need to be from redux to work with form
 import RaisedButton from 'material-ui/RaisedButton'
@@ -12,38 +13,26 @@ import {
   SelectField,
 } from 'redux-form-material-ui'
 import MenuItem from 'material-ui/MenuItem'
-import { colors } from 'config/colors'
 import {
   categoriesGet,
   modelsGet,
   sizesGet,
   itemTypesGet,
-  inventoryPost,
-  onRequestClose
+  inventoryPost
 } from 'actions/inventory'
 
-const style_floatingLabelShrink = {
-  color: colors.blue
-}
 
-const style_underlineFocus = {
-  borderColor: colors.blue
-}
-
-const style_buttonContainer = {
-  float: 'right',
-  marginTop: '20px'
-}
-
-const errSnackBarStyle = {
-  backgroundColor: 'red'
-}
-
-const errSnackBarContentStyle = {
-  color: 'white'
-}
 
 const SelectInput = (props) => {
+
+  const style_floatingLabelShrink = {
+    color: colors.blue
+  }
+
+  const style_underlineFocus = {
+    borderColor: colors.blue
+  }
+
   return <Field
     name={ props.name }
     component={ SelectField }
@@ -107,12 +96,15 @@ class AddInventoryForm extends Component {
       sizes,
       sizeId,
       inventoryPost,
-      err,
-      onRequestClose
+      returnPath
     } = this.props
 
+    const style_buttonContainer = {
+      float: 'right',
+      marginTop: '20px'
+    }
+
     const handleSubmit = (e) => {
-      console.log(e);
       e.preventDefault()
       let newInventory = {
         model_id: modelId,
@@ -141,25 +133,18 @@ class AddInventoryForm extends Component {
 
           }
           <div style={ style_buttonContainer }>
-            <RaisedButton
-              label='Cancel'
-              style={{ marginRight: '10px' }}
-              onClick={() => {console.log('CLEAR THE FORM')}}
+            <Link to={ returnPath }>
+              <RaisedButton
+                label='Cancel'
+                style={{ marginRight: '10px' }}
               />
+            </Link>
             <RaisedButton
               label='Submit'
               type='submit'
               />
           </div>
         </form>
-        <Snackbar
-          open={ !!err }
-          message={ !!err ? err : ''}
-          autoHideDuration={ 4000 }
-          bodyStyle={ errSnackBarStyle }
-          contentStyle={ errSnackBarContentStyle }
-          onRequestClose={ onRequestClose }
-        />
       </div>
     )
   }
@@ -173,7 +158,6 @@ AddInventoryForm = reduxForm({
 const selector = formValueSelector('addInventoryForm')
 
 const mapStateToProps = (state) => {
-  let err = state.inventory.error
   return {
     err: state.inventory.error,
     categories: state.inventory.categories,
@@ -195,7 +179,6 @@ export default connect(
     modelsGet,
     sizesGet,
     itemTypesGet,
-    inventoryPost,
-    onRequestClose
+    inventoryPost
   }
 )(AddInventoryForm)

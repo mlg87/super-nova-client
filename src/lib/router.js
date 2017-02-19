@@ -26,7 +26,7 @@ import Register from 'components/Register'
 import { CurrentUser } from 'components/CurrentUser'
 import RemoveUsers from 'components/RemoveUsers'
 
-import AddInventoryForm from 'components/AddInventoryForm'
+import AddInventoryDialog from 'components/AddInventoryDialog'
 
 const middleware = routerMiddleware(browserHistory)
 // export store for the Provider in index.js
@@ -43,7 +43,7 @@ export const AppRouter = (
     <Route path='/' component={ AppLayout }>
       <IndexRoute component={ LandingLayout } />
       <Route path='/inventory' component={ InventoryLayout }>
-        <Route path='/inventory/add' component={ AddInventoryForm } />
+        <Route path='/inventory/add' component={ AddInventoryDialog } returnPath='/inventory'/>
         <Route path='/inventory/edit' component={ NotFound } />
         <Route path='/inventory/all' component={ NotFound } />
         <Route path='/inventory/settings' component={ NotFound } />
