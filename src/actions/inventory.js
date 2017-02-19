@@ -131,6 +131,20 @@ export const inventoryPost = (inventory) => (dispatch, getState) => {
     })
 }
 
+
+///////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////
+// inventory table - mark selected
+
+export const UPDATE_SELECTED_INVENTORY = 'UPDATE_SELECTED_INVENTORY'
+
+export const updateSelectedInventory = (id) => (dispatch, getState) => {
+  return dispatch({
+    type: UPDATE_SELECTED_INVENTORY,
+    id: id[0]
+  })
+}
+
 ///////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////
 // snackbar - reset state inventory.error

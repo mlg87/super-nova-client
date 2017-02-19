@@ -18,7 +18,9 @@ import {
 import Avatar from 'material-ui/Avatar'
 import moment from 'moment'
 
-import { inventoryGet } from 'actions/inventory'
+import { inventoryGet, updateSelectedInventory } from 'actions/inventory'
+import InventorySearch from 'components/InventorySearch'
+
 // appearance
 import Radium from 'radium'
 import { colors } from 'config/colors'
@@ -59,19 +61,19 @@ class InventoryLayout extends Component {
   }
 
   renderInventoryRows(inventory) {
-    const { inventoryId, selectedInventory } = this.props
-
+    const { selectedInventoryId } = this.props
     const style_tableRow = (id) => ({
-      cursor: id !== inventoryId ? 'pointer' : 'not-allowed',
+      cursor: id !== selectedInventoryId ? 'pointer' : 'not-allowed',
       color: colors.nav.inactiveText
     })
+
     return inventory.map((item, i) => {
       return (
         <TableRow
-          key={ item.id }
-          style={ style_tableRow(item.id) }
-          selectable={ item.id !== inventoryId}
-          // selected={ selectedInventory.indexOf(i) !== -1}
+          key={ item.item_id }
+          style={ style_tableRow(item.item_id) }
+          selectable={ item.item_id !== selectedInventoryId}
+          selected={ item.item_id === selectedInventoryId }
         >
           <TableRowColumn>
             <Avatar src={item.image_url} />
@@ -91,7 +93,9 @@ class InventoryLayout extends Component {
           <TableRowColumn>
             {item.size}
           </TableRowColumn>
-          <TableRowColumn>{ `${moment(item.created_at).format('MM/DD/YYYY')}` }</TableRowColumn>
+          <TableRowColumn>
+            { `${moment(item.created_at).format('MM/DD/YYYY')}` }
+          </TableRowColumn>
         </TableRow>
       )
     })
@@ -100,7 +104,8 @@ class InventoryLayout extends Component {
   render() {
     const {
       inventory,
-      children
+      children,
+      updateSelectedInventory
     } = this.props
 
     const searchBarStyle = {
@@ -128,13 +133,8 @@ class InventoryLayout extends Component {
         <div style={ style_subNav }>
           { this.renderSubNavLinks() }
         </div>
-        <Toolbar style={ searchBarStyle }>
-          <ToolbarGroup style={ {width: '100%'} }>
-            <Search />
-            <TextField hintText='Search' style={ searchInputStyle } underlineShow={ false } />
-          </ToolbarGroup>
-        </Toolbar>
-        <Table multiSelectable={ false }>
+        <InventorySearch />
+        <Table multiSelectable={ false } onRowSelection={ updateSelectedInventory }>
           <TableHeader displaySelectAll={ false } adjustForCheckbox={ false } style={{ backgroundColor: colors.table.header }}>
             <TableRow>
               <TableHeaderColumn>IMAGE</TableHeaderColumn>
@@ -158,9 +158,13 @@ class InventoryLayout extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    inventory: state.inventory.inventory
+    inventory: state.inventory.inventory,
+    selectedInventoryId: state.inventory.selectedInventoryId
   }
 }
 
 // InventoryLayout = Radium(InventoryLayout)
-export default InventoryLayout = connect(mapStateToProps, {inventoryGet})(InventoryLayout)
+export default InventoryLayout = connect(mapStateToProps, {
+  inventoryGet,
+  updateSelectedInventory
+})(InventoryLayout)

@@ -8,11 +8,11 @@ export const initialState = {
   sizes: [],
   categories: [],
   itemTypes: [],
+  selectedInventoryId: null,
 }
 
 export const inventoryReducers = ( state = initialState, action ) => {
   const { type } = action
-
   switch (type) {
     case ActionTypes.MODELS_GET_REQUEST:
       return {
@@ -132,6 +132,11 @@ export const inventoryReducers = ( state = initialState, action ) => {
       return {
         ...state,
         error: null
+      }
+    case ActionTypes.UPDATE_SELECTED_INVENTORY:
+      return {
+        ...state,
+        selectedInventoryId: action.id
       }
     default:
      return state
