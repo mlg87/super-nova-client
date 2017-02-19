@@ -3,6 +3,7 @@ import { push } from 'react-router-redux'
 import { CALL_API } from 'middleware/api'
 import { handleFetchErrors } from 'lib/helpers'
 
+
 ///////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////
 // GET - categories
@@ -125,6 +126,9 @@ const fetchInventoryPost = (inventory) => ({
 
 export const inventoryPost = (inventory) => (dispatch, getState) => {
   return dispatch(fetchInventoryPost(inventory))
+    .then(() => {
+      dispatch(push('/inventory'))
+    })
 }
 
 ///////////////////////////////////////////////////////////////////////

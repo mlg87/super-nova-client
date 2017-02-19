@@ -97,7 +97,7 @@ class AddInventoryForm extends Component {
             <RaisedButton
               label='Submit'
               type='submit'
-              />
+            />
           </div>
         </form>
       </div>
@@ -114,7 +114,6 @@ const selector = formValueSelector('addInventoryForm')
 
 const mapStateToProps = (state) => {
   return {
-    err: state.inventory.error,
     categories: state.inventory.categories,
     models: state.inventory.models,
     sizes: state.inventory.sizes,
