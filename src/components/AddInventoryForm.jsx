@@ -1,18 +1,9 @@
 import React, { Component } from 'react'
-import { Field, reduxForm, formValueSelector } from 'redux-form'
+import { reduxForm, formValueSelector } from 'redux-form'
 import { connect } from 'react-redux'
 import { Link } from 'react-router'
-import Snackbar from 'material-ui/Snackbar'
-import { colors } from 'config/colors'
-
-// button does not need to be from redux to work with form
 import RaisedButton from 'material-ui/RaisedButton'
-// make sure to use the TextField from the redux material-ui
-import {
-  TextField,
-  SelectField,
-} from 'redux-form-material-ui'
-import MenuItem from 'material-ui/MenuItem'
+import SelectInput from './SelectInput'
 import {
   categoriesGet,
   modelsGet,
@@ -21,43 +12,7 @@ import {
   inventoryPost
 } from 'actions/inventory'
 
-
-
-const SelectInput = (props) => {
-
-  const style_floatingLabelShrink = {
-    color: colors.blue
-  }
-
-  const style_underlineFocus = {
-    borderColor: colors.blue
-  }
-
-  return <Field
-    name={ props.name }
-    component={ SelectField }
-    floatingLabelText={ props.name }
-    floatingLabelShrinkStyle={ style_floatingLabelShrink }
-    underlineFocusStyle={ style_underlineFocus }
-    fullWidth={ true }
-    onChange={ props.onChange }
-    >
-    {props.items.map((item) => {
-      return <MenuItem
-        key={item.id}
-        value={item.id}
-        primaryText={item[props.textKey]}
-      />
-    })}
-  </Field>
-}
-
 class AddInventoryForm extends Component {
-
-  constructor(props) {
-    super(props)
-  }
-
   componentWillMount() {
     const {
       categories,

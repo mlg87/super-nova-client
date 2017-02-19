@@ -5,8 +5,6 @@ import Snackbar from 'material-ui/Snackbar'
 import AddInventoryForm from './AddInventoryForm'
 import { onRequestClose } from 'actions/inventory'
 
-
-
 const AddInventoryDialog = (props) => {
   const { err, onRequestClose } = props
   const { returnPath } = props.route
@@ -49,7 +47,7 @@ const AddInventoryDialog = (props) => {
 
 const mapStateToProps = (state) => {
   return {
-    err: state.inventory.error,
+    err: state.inventory.error
   }
 }
 
