@@ -1,12 +1,9 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 // components
-import {Toolbar, ToolbarGroup} from 'material-ui/Toolbar'
 import { Link } from 'react-router'
 import Add from 'material-ui/svg-icons/content/add'
 import FlatButton from 'material-ui/FlatButton'
-import TextField from 'material-ui/TextField'
-import Search from 'material-ui/svg-icons/action/search'
 import {
   Table,
   TableBody,
@@ -16,19 +13,17 @@ import {
   TableRowColumn
 } from 'material-ui/Table'
 import Avatar from 'material-ui/Avatar'
-import moment from 'moment'
 
 import { inventoryGet, updateSelectedInventory } from 'actions/inventory'
 import InventorySearch from 'components/InventorySearch'
 
 // appearance
-import Radium from 'radium'
 import { colors } from 'config/colors'
 
 class InventoryLayout extends Component {
 
   componentWillMount() {
-    const { inventory, inventoryGet } = this.props
+    const { inventoryGet } = this.props
     inventoryGet()
   }
 
@@ -105,17 +100,6 @@ class InventoryLayout extends Component {
       updateSelectedInventory
     } = this.props
 
-    const searchBarStyle = {
-      backgroundColor: 'white',
-      width: '100%',
-      borderBottom: '1px solid ' + colors.utils.border.gray
-    }
-
-    const searchInputStyle = {
-      marginLeft: '10px',
-      width: '100%'
-    }
-
     const style_subNav = {
       height: '60px',
       borderBottom: `1px solid ${colors.nav.linkActiveAndBorder}`,
@@ -159,7 +143,6 @@ const mapStateToProps = (state) => {
   }
 }
 
-// InventoryLayout = Radium(InventoryLayout)
 export default InventoryLayout = connect(mapStateToProps, {
   inventoryGet,
   updateSelectedInventory

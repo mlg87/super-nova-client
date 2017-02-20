@@ -27,7 +27,6 @@ const styles = {
     margin: '0'
   },
   img: {
-    backgroundSize: 'cover',
     width: '170px',
     height: '170px',
     backgroundSize: 'contain',

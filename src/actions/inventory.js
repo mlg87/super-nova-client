@@ -1,7 +1,5 @@
-import fetch from 'isomorphic-fetch'
 import { push } from 'react-router-redux'
 import { CALL_API } from 'middleware/api'
-import { handleFetchErrors } from 'lib/helpers'
 
 
 ///////////////////////////////////////////////////////////////////////
@@ -151,8 +149,8 @@ export const updateSelectedInventory = (id) => (dispatch, getState) => {
 
 export const RESET_INVENTORY_ERROR = 'RESET_INVENTORY_ERROR'
 
+const resetError = () => ({type: RESET_INVENTORY_ERROR})
+
 export const onRequestClose = () => (dispatch, getState) => {
   return dispatch(resetError())
 }
-
-const resetError = () => ({type: RESET_INVENTORY_ERROR})

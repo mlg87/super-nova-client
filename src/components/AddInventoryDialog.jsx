@@ -1,10 +1,12 @@
-import React, { PropTypes } from 'react'
+import React from 'react'
 import { connect } from 'react-redux'
 import Dialog from 'material-ui/Dialog'
 import Snackbar from 'material-ui/Snackbar'
 import AddInventoryForm from './AddInventoryForm'
-import { onRequestClose } from 'actions/inventory'
-
+import {
+  onRequestClose,
+  inventoryPost
+} from 'actions/inventory'
 const AddInventoryDialog = (props) => {
   const { err, onRequestClose } = props
   const { returnPath } = props.route
@@ -13,7 +15,7 @@ const AddInventoryDialog = (props) => {
     width: '50%',
     marginTop: '20px',
     marginLeft: 'auto',
-    marginRight: 'auto'
+    marginRight: 'auto',
   }
 
   const errSnackBarStyle = {
@@ -24,14 +26,32 @@ const AddInventoryDialog = (props) => {
     color: 'white'
   }
 
+  const dialogStyle = {
+    marginTop: '-180px'
+  }
+
+  const handleSubmit = ({
+    model,
+    size,
+    description
+  }) => {
+    let newInventory = {
+      model_id: model,
+      size_id: size,
+      description: description
+    }
+    inventoryPost(newInventory)
+  }
+
 
   return (
     <div style={ containerStyle }>
       <Dialog
         open={ true }
         title='Add Inventory'
+        style={ dialogStyle }
       >
-        <AddInventoryForm returnPath={ returnPath } />
+        <AddInventoryForm onSubmit={ handleSubmit } returnPath={ returnPath } />
       </Dialog>
       <Snackbar
         open={ !!err }
@@ -50,12 +70,5 @@ const mapStateToProps = (state) => {
     err: state.inventory.error
   }
 }
-
-const mapDispatchToProps = (dispatch) => {
-  return {
-    onRequestClose
-  }
-}
-
 
 export default connect(mapStateToProps, {onRequestClose})(AddInventoryDialog)

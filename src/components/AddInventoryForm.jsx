@@ -1,15 +1,17 @@
 import React, { Component } from 'react'
-import { reduxForm, formValueSelector } from 'redux-form'
 import { connect } from 'react-redux'
+import { reduxForm, formValueSelector, Field } from 'redux-form'
+import { TextField } from 'redux-form-material-ui'
 import { Link } from 'react-router'
 import RaisedButton from 'material-ui/RaisedButton'
 import SelectInput from './SelectInput'
+import { colors } from 'config/colors'
+
 import {
   categoriesGet,
   modelsGet,
   sizesGet,
-  itemTypesGet,
-  inventoryPost
+  itemTypesGet
 } from 'actions/inventory'
 
 class AddInventoryForm extends Component {
@@ -40,6 +42,51 @@ class AddInventoryForm extends Component {
     }
   }
 
+  renderDescriptionInput() {
+    const {
+      itemTypeId,
+      models,
+      modelId,
+      sizes,
+      sizeId
+    } = this.props
+
+    const style_floatingLabelShrink = {
+      color: colors.blue
+    }
+
+    const style_underlineFocus = {
+      borderColor: colors.blue
+    }
+
+    const descriptionInput = (
+      <Field
+        name='description'
+        component={ TextField }
+        floatingLabelText='description'
+        floatingLabelShrinkStyle={ style_floatingLabelShrink }
+        underlineFocusStyle={ style_underlineFocus }
+        fullWidth={ true }
+        multiLine={ true }
+        rowsMax={ 4 }
+      />
+    )
+    if (itemTypeId) {
+      if (sizes.length && models.length) {
+        if (sizeId && modelId) {
+          return descriptionInput
+        }
+      } else if (models.length) {
+        if (modelId) {
+          return descriptionInput
+        }
+      } else {
+        return descriptionInput
+      }
+    }
+  }
+
+
   render() {
     const {
       categories,
@@ -47,11 +94,9 @@ class AddInventoryForm extends Component {
       itemTypes,
       itemTypeId,
       models,
-      modelId,
       sizes,
-      sizeId,
-      inventoryPost,
-      returnPath
+      returnPath,
+      handleSubmit
     } = this.props
 
     const style_buttonContainer = {
@@ -59,19 +104,8 @@ class AddInventoryForm extends Component {
       marginTop: '20px'
     }
 
-    const handleSubmit = (e) => {
-      e.preventDefault()
-      let newInventory = {
-        model_id: modelId,
-        size_id: sizeId,
-        description: 'brand new inventory item'
-      }
-      inventoryPost(newInventory)
-    }
-
     return (
       <div>
-        <h1>Add That Inventory</h1>
         <form onSubmit={ handleSubmit } style={{minWidth: '100%'}}>
           <SelectInput name={'category'} items={categories} textKey={'name'}/>
           {categoryId &&
@@ -86,6 +120,9 @@ class AddInventoryForm extends Component {
             sizes.length > 0 &&
             <SelectInput name={'size'} items={sizes} textKey={'size'}/>
 
+          }
+          {
+            this.renderDescriptionInput()
           }
           <div style={ style_buttonContainer }>
             <Link to={ returnPath }>
@@ -132,7 +169,6 @@ export default connect(
     categoriesGet,
     modelsGet,
     sizesGet,
-    itemTypesGet,
-    inventoryPost
+    itemTypesGet
   }
 )(AddInventoryForm)
