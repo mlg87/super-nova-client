@@ -41,7 +41,6 @@ class UsersLayout extends Component {
 
   render() {
     const { children, users, usersUpdateSelected, usersSelected } = this.props
-
     const renderSubNavLinks = () => {
       let links = [
         {

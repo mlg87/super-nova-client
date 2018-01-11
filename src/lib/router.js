@@ -14,17 +14,19 @@ import AppLayout from 'layouts/AppLayout'
 // if you need a modal for under construction, import this: UnderConstructionDialog
 import { UnderConstruction } from 'layouts/UnderConstruction'
 import { NotFound } from 'layouts/NotFound'
-import { InventoryLayout } from 'layouts/InventoryLayout'
 import { LandingLayout } from 'layouts/LandingLayout'
 import Reservation from 'layouts/Reservation'
 import ReservationDateSelect from 'components/ReservationDateSelect'
 import ReservationInventorySelect from 'components/ReservationInventorySelect'
 import ReservationCustomerSelect from 'components/ReservationCustomerSelect'
 import ReservationReview from 'components/ReservationReview'
+import InventoryLayout from 'layouts/InventoryLayout'
 import UsersLayout from 'layouts/UsersLayout'
 import Register from 'components/Register'
 import { CurrentUser } from 'components/CurrentUser'
 import RemoveUsers from 'components/RemoveUsers'
+
+import AddInventoryDialog from 'components/AddInventoryDialog'
 
 const middleware = routerMiddleware(browserHistory)
 // export store for the Provider in index.js
@@ -41,7 +43,7 @@ export const AppRouter = (
     <Route path='/' component={ AppLayout }>
       <IndexRoute component={ LandingLayout } />
       <Route path='/inventory' component={ InventoryLayout }>
-        <Route path='/inventory/add' component={ NotFound } />
+        <Route path='/inventory/add' component={ AddInventoryDialog } returnPath='/inventory'/>
         <Route path='/inventory/edit' component={ NotFound } />
         <Route path='/inventory/all' component={ NotFound } />
         <Route path='/inventory/settings' component={ NotFound } />

@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import InventoryList from 'components/InventoryList'
 import InventorySearch from 'components/InventorySearch'
-import { fetchInventory } from 'actions/reservations'
+import { inventoryGet } from 'actions/inventory'
 import SelectedInventoryList from 'components/SelectedInventoryList'
 
 const mapStateToProps = (state) => ({
@@ -11,7 +11,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   fetchInitialInventory: () => {
-    dispatch(fetchInventory(''))
+    dispatch(inventoryGet())
   }
 })
 

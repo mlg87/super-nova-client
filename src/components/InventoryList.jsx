@@ -27,7 +27,6 @@ const styles = {
     margin: '0'
   },
   img: {
-    backgroundSize: 'cover',
     width: '170px',
     height: '170px',
     backgroundSize: 'contain',
@@ -52,7 +51,7 @@ const styles = {
 };
 
 const mapStateToProps = (state) => ({
-  inventory: state.inventory || []
+  inventory: state.inventory.inventory || []
 })
 
 export const InventoryList = (props) => {

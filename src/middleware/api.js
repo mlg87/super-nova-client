@@ -18,14 +18,23 @@ const getNextPageUrl = response => {
 
 // this function assumes that all responses from the server come back
 // as JSON that is { data: whateverYouNeed }
-const callApi = (endpoint, method, body) => {
+const callApi = (endpoint, method, body, passedInHeaders) => {
   const fullUrl = `/api/${endpoint}`
+  const token = localStorage.getItem('token') || ''
+  let headers = {
+    'Authorization': 'Bearer ' + token,
+    'Content-Type': 'application/json',
+  }
+  if (passedInHeaders) {
+    headers = {
+      ...headers,
+      ...passedInHeaders
+    }
+  }
   const request = {
     method,
     credentials: 'include',
-    headers: {
-      'Content-Type': 'application/json'
-    },
+    headers,
     body
   }
   // by setting the body for a a request to an empty string that doesnt
@@ -67,7 +76,7 @@ export default store => next => action => {
     return next(action)
   }
   // get the endpoint, method, and action types from callAPI
-  let { endpoint, body } = callAPI
+  let { endpoint, body, headers } = callAPI
   const { types, method } = callAPI
   // dannys code, not sure how we'll use this
   if (typeof endpoint === 'function') {
@@ -111,7 +120,7 @@ export default store => next => action => {
   const [ requestType, successType, failureType ] = types
   next(actionWith({ type: requestType }))
 
-  return callApi(endpoint, method, body)
+  return callApi(endpoint, method, body, headers)
   .then(response => next(actionWith({
       response,
       type: successType
@@ -119,7 +128,7 @@ export default store => next => action => {
   )
   .catch(error => next(actionWith({
       type: failureType,
-      error: `ERROR: ${error.message}` || 'Oops... this is awkward'
+      error: `ERROR: ${error.message || "Oops... this is awkward"}`
     }))
   )
 }

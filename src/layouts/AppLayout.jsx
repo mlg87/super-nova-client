@@ -36,7 +36,6 @@ class AppLayout extends Component {
     const errorSnackBarContentStyle = {
       color: 'white'
     }
-
     return (
       <MuiThemeProvider >
         <div>

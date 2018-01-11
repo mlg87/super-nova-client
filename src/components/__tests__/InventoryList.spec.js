@@ -5,7 +5,7 @@ import { InventoryList } from '../InventoryList'
 describe('InventoryList', () => {
   const setup = () => {
     const props = {
-      fetchInventory: jest.fn(),
+      inventoryGet: jest.fn(),
       inventory: []
     }
     return shallow(<InventoryList {...props} />)
